@@ -11,10 +11,10 @@ public interface MusicApi {
     /**
      * 使用关键词查询歌曲
      *
-     * @param keyWord
+     * @param keyword
      * @return the music list
      */
-    List<Music> searchMusic(String keyWord) throws Exception;
+    List<Music> searchMusic(String keyword) throws Exception;
 
     /**
      * 获取某音乐id对应的音乐信息
