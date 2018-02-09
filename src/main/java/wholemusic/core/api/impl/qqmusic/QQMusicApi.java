@@ -17,7 +17,7 @@ import java.util.List;
  * Created by haohua on 2018/2/8.
  */
 public class QQMusicApi implements MusicApi {
-    public List searchMusic(String keyWord) throws IOException {
+    public List<Music> searchMusic(String keyWord) throws IOException {
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse("http://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp").newBuilder();
         urlBuilder.addQueryParameter("w", keyWord);
