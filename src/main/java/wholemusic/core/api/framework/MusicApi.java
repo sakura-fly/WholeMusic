@@ -23,4 +23,13 @@ public interface MusicApi {
      * @return
      */
     Music getMusicInfoById(String musicId) throws Exception;
+
+    /**
+     * 获取某音乐id对应的音乐链接
+     *
+     * @param musicId
+     * @return
+     * @throws Exception
+     */
+    String getMusicLinkById(String musicId) throws Exception;
 }

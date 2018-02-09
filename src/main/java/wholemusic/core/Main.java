@@ -1,5 +1,6 @@
 package wholemusic.core;
 
+import wholemusic.core.api.framework.model.Music;
 import wholemusic.core.api.impl.qqmusic.QQMusicApi;
 
 import java.io.IOException;
@@ -11,6 +12,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         QQMusicApi qq = new QQMusicApi();
-        List result = qq.searchMusic("孙燕姿");
+        List<Music> result = qq.searchMusic("孙燕姿");
+        String link1 = qq.getMusicLinkById(result.get(0).musicId);
+        String link2 = qq.getMusicLinkById(result.get(1).musicId);
+        System.out.println(link1);
+        System.out.println(link2);
     }
 }

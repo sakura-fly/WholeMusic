@@ -14,12 +14,19 @@ public class QQSong extends BaseBean {
     @JSONField(name = "songname")
     public String name;
 
+    @JSONField(name = "songid")
+    public String songId;
+
+    @JSONField(name = "songmid")
+    public String songMid;
+
     @JSONField(name = "singer")
     public ArrayList<QQSinger> singers;
 
     public Music convert() {
         Music music = new Music();
         music.name = this.name;
+        music.musicId = this.songMid;
         return music;
     }
 
