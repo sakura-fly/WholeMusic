@@ -1,16 +1,16 @@
 package wholemusic.core.api.impl.qq;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import wholemusic.core.api.framework.model.Artist;
 import wholemusic.core.api.framework.model.BaseBean;
 import wholemusic.core.api.framework.model.Music;
-import wholemusic.core.util.Function;
 
 import java.util.ArrayList;
 
 /**
  * Created by haohua on 2018/2/9.
  */
-public class QQSong extends BaseBean {
+public class QQSong extends BaseBean implements Music {
     @JSONField(name = "songname")
     public String name;
 
@@ -23,19 +23,18 @@ public class QQSong extends BaseBean {
     @JSONField(name = "singer")
     public ArrayList<QQSinger> singers;
 
-    public Music convert() {
-        Music music = new Music();
-        music.name = this.name;
-        music.musicId = this.songMid;
-        return music;
+    @Override
+    public String getName() {
+        return name;
     }
 
-    public static Function<QQSong, Music> getConverterFunction() {
-        return new Function<QQSong, Music>() {
-            @Override
-            public Music apply(QQSong qqSong) {
-                return qqSong.convert();
-            }
-        };
+    @Override
+    public String getMusicId() {
+        return songMid;
+    }
+
+    @Override
+    public ArrayList<? extends Artist> getArtists() {
+        return singers;
     }
 }

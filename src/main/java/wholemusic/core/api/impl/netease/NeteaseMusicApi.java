@@ -6,6 +6,7 @@ import okhttp3.*;
 import org.apache.commons.codec.binary.Hex;
 import wholemusic.core.api.framework.MusicApi;
 import wholemusic.core.api.framework.model.Music;
+import wholemusic.core.api.framework.model.MusicLink;
 import wholemusic.core.util.AES;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class NeteaseMusicApi implements MusicApi {
     private static final int PAGE_SIZE = 10;
 
     @Override
-    public List<Music> searchMusic(String keyword) throws Exception {
+    public List<? extends Music> searchMusic(String keyword) throws Exception {
         int page = 0;
         OkHttpClient client = new OkHttpClient();
         Request.Builder requestBuilder = new Request.Builder();
@@ -34,7 +35,7 @@ public class NeteaseMusicApi implements MusicApi {
         params.put("offset", page * PAGE_SIZE);
         params.put("limit", PAGE_SIZE);
         json.put("params", params);
-        String encrypted = encryptNetease(json);
+        String encrypted = encrypt(json);
         FormBody body = new FormBody.Builder().add("eparams", encrypted).build();
         requestBuilder.post(body);
         final Request request = requestBuilder.build();
@@ -43,8 +44,7 @@ public class NeteaseMusicApi implements MusicApi {
         JSONObject result = responseJson.getJSONObject("result");
         long songCount = result.getLongValue("songCount");
         List<NeteaseSong> songs = result.getJSONArray("songs").toJavaList(NeteaseSong.class);
-        // TODO convert
-        return null;
+        return songs;
     }
 
     @Override
@@ -53,7 +53,13 @@ public class NeteaseMusicApi implements MusicApi {
     }
 
     @Override
-    public String getMusicLinkById(String musicId) throws Exception {
+    public MusicLink getMusicLinkById(String musicId) throws Exception {
+        final List<? extends MusicLink> result = getMusicLinkByIds(musicId);
+        return result.get(0);
+    }
+
+    @Override
+    public List<? extends MusicLink> getMusicLinkByIds(String... musicIds) throws Exception {
         OkHttpClient client = new OkHttpClient();
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(HttpUrl.parse("http://music.163.com/api/linux/forward"));
@@ -62,22 +68,25 @@ public class NeteaseMusicApi implements MusicApi {
         json.put("method", "POST");
         json.put("url", "http://music.163.com/api/song/enhance/player/url");
         JSONObject params = new JSONObject();
-        JSONArray musicIds = new JSONArray();
-        musicIds.add(Long.parseLong(musicId));
+        JSONArray musicIdArray = new JSONArray();
+        for (String musicId : musicIds) {
+            musicIdArray.add(Long.parseLong(musicId));
+        }
         params.put("br", 320000);
         params.put("ids", musicIds);
         json.put("params", params);
-        String encrypted = encryptNetease(json);
+        String encrypted = encrypt(json);
         FormBody body = new FormBody.Builder().add("eparams", encrypted).build();
         requestBuilder.post(body);
         final Request request = requestBuilder.build();
         Response response = client.newCall(request).execute();
         JSONObject responseJson = JSONObject.parseObject(response.body().string());
-        NeteaseSongLink link = responseJson.getJSONArray("data").getJSONObject(0).toJavaObject(NeteaseSongLink.class);
-        return link.url;
+        JSONArray jsonData = responseJson.getJSONArray("data");
+        List<NeteaseSongLink> songLinks = jsonData.toJavaList(NeteaseSongLink.class);
+        return songLinks;
     }
 
-    private String encryptNetease(JSONObject json) throws Exception {
+    private static String encrypt(JSONObject json) throws Exception {
         byte[] encrypted = AES.encrypt(json.toString(), Hex.decodeHex(SECRET.toCharArray()));
         return Hex.encodeHexString(encrypted).toUpperCase();
     }

@@ -1,6 +1,7 @@
 package wholemusic.core.api.framework;
 
 import wholemusic.core.api.framework.model.Music;
+import wholemusic.core.api.framework.model.MusicLink;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface MusicApi {
      * @param keyword
      * @return the music list
      */
-    List<Music> searchMusic(String keyword) throws Exception;
+    List<? extends Music> searchMusic(String keyword) throws Exception;
 
     /**
      * 获取某音乐id对应的音乐信息
@@ -31,5 +32,13 @@ public interface MusicApi {
      * @return
      * @throws Exception
      */
-    String getMusicLinkById(String musicId) throws Exception;
+    MusicLink getMusicLinkById(String musicId) throws Exception;
+
+    /**
+     * 获取音乐id列表对应的音乐链接集合　
+     * @param musicIds
+     * @return
+     * @throws Exception
+     */
+    List<? extends MusicLink> getMusicLinkByIds(String... musicIds) throws Exception;
 }

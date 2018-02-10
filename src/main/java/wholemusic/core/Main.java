@@ -13,13 +13,13 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws Exception {
         MusicApi qq = new QQMusicApi();
-        List<Music> result = qq.searchMusic("孙燕姿");
-        String link1 = qq.getMusicLinkById(result.get(0).musicId);
-        String link2 = qq.getMusicLinkById(result.get(1).musicId);
+        List<? extends Music> result = qq.searchMusic("孙燕姿");
+        String link1 = qq.getMusicLinkById(result.get(0).getMusicId()).getUrl();
+        String link2 = qq.getMusicLinkById(result.get(1).getMusicId()).getUrl();
         System.out.println(link1);
         System.out.println(link2);
         MusicApi netease = new NeteaseMusicApi();
-        List<Music> result2 = netease.searchMusic("Suede");
+        List<? extends Music> result2 = netease.searchMusic("Suede");
         netease.getMusicLinkById("4279445");
         System.out.println(result2);
     }

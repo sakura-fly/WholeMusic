@@ -8,10 +8,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.framework.MusicApi;
 import wholemusic.core.api.framework.model.Music;
-import wholemusic.core.util.BeanUtils;
+import wholemusic.core.api.framework.model.MusicLink;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ public class QQMusicApi implements MusicApi {
         }
     }
 
-    public List searchMusic(String keyWord) throws IOException {
+    public List<? extends Music> searchMusic(String keyWord) throws IOException {
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse("http://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp").newBuilder();
         urlBuilder.addQueryParameter("w", keyWord);
@@ -57,8 +56,7 @@ public class QQMusicApi implements MusicApi {
         JSONObject json = JSONObject.parseObject(response.body().string());
         List<QQSong> list = json.getJSONObject("data").getJSONObject("song").getJSONArray("list")
                 .toJavaList(QQSong.class);
-        ArrayList<Music> result = BeanUtils.map(list, QQSong.getConverterFunction());
-        return result;
+        return list;
     }
 
     public Music getMusicInfoById(String musicId) throws IOException {
@@ -66,7 +64,7 @@ public class QQMusicApi implements MusicApi {
     }
 
     @Override
-    public String getMusicLinkById(String musicId) throws IOException {
+    public MusicLink getMusicLinkById(String musicId) throws IOException {
         if (mKeyCache == null) {
             OkHttpClient client = new OkHttpClient();
             HttpUrl.Builder urlBuilder = HttpUrl.parse("http://base.music.qq.com/fcgi-bin/fcg_musicexpress.fcg")
@@ -89,10 +87,17 @@ public class QQMusicApi implements MusicApi {
             mHostCache = host;
         }
         final String link = buildQQMusicLink(mHostCache, Quality.High, musicId, mKeyCache, GUID);
-        return link;
+        QQSongLink result = new QQSongLink();
+        result.url = link;
+        return result;
     }
 
-    public static String buildQQMusicLink(String host, Quality quality, String mid, String key, String guid) {
+    @Override
+    public List<? extends MusicLink> getMusicLinkByIds(String... musicIds) throws Exception {
+        throw new UnsupportedOperationException("Not implemented yet!");
+    }
+
+    private static String buildQQMusicLink(String host, Quality quality, String mid, String key, String guid) {
         return host + quality.getPrefix() + mid + ".mp3?vkey=" + key + "&guid=" + guid + "&fromtag=1";
     }
 }

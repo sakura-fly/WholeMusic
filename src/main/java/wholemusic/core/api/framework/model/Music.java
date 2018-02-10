@@ -1,14 +1,14 @@
 package wholemusic.core.api.framework.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by haohua on 2018/2/9.
  */
-public class Music extends BaseBean {
-    public String name;
-    public String musicId;
+public interface Music {
+    String getName();
 
-    public ArrayList<Artist> artists;
+    String getMusicId();
 
+    List<? extends Artist> getArtists();
 }
