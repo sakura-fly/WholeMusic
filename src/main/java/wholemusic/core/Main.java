@@ -3,9 +3,8 @@ package wholemusic.core;
 import wholemusic.core.api.framework.MusicApi;
 import wholemusic.core.api.framework.model.Music;
 import wholemusic.core.api.impl.netease.NeteaseMusicApi;
-import wholemusic.core.api.impl.qqmusic.QQMusicApi;
+import wholemusic.core.api.impl.qq.QQMusicApi;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -21,6 +20,7 @@ public class Main {
         System.out.println(link2);
         MusicApi netease = new NeteaseMusicApi();
         List<Music> result2 = netease.searchMusic("Suede");
+        netease.getMusicLinkById("4279445");
         System.out.println(result2);
     }
 }

@@ -16,7 +16,7 @@ public class AES {
      * @return
      * @throws Exception
      */
-    public static String encrypt(String sSrc, byte[] sKey) throws Exception {
+    public static byte[] encrypt(String sSrc, byte[] sKey) throws Exception {
         if (sKey == null) {
             System.out.print("Key为空null");
             return null;
@@ -30,7 +30,7 @@ public class AES {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");//"算法/模式/补码方式"
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
         byte[] encrypted = cipher.doFinal(sSrc.getBytes("utf-8"));
-        return Base64.encodeBase64String(encrypted);//此处使用BASE64做转码功能，同时能起到2次加密的作用。
+        return encrypted;
     }
 
     /**

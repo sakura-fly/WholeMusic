@@ -13,6 +13,9 @@ public class NeteaseSong extends BaseBean {
     @JSONField(name = "name")
     public String name;
 
+    @JSONField(name = "id")
+    public long songId;
+
     public Music convert() {
         // TODO
         Music music = new Music();

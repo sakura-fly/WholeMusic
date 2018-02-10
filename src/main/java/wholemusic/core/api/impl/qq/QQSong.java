@@ -1,4 +1,4 @@
-package wholemusic.core.api.impl.qqmusic;
+package wholemusic.core.api.impl.qq;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.api.framework.model.BaseBean;
