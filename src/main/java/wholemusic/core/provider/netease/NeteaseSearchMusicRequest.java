@@ -6,7 +6,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
-import wholemusic.core.model.Music;
+import wholemusic.core.model.Song;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by haohua on 2018/2/11.
  */
-public class NeteaseSearchMusicRequest extends BaseRequest<List<? extends Music>> {
+public class NeteaseSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     private final String mKeyword;
     private static final int PAGE_SIZE = 10;
     private final int mPage;

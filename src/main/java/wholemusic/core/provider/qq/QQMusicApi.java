@@ -2,7 +2,8 @@ package wholemusic.core.provider.qq;
 
 import wholemusic.core.api.MusicApi;
 import wholemusic.core.api.RequestCallback;
-import wholemusic.core.model.Music;
+import wholemusic.core.model.Album;
+import wholemusic.core.model.Song;
 import wholemusic.core.model.MusicLink;
 
 import java.io.IOException;
@@ -34,12 +35,12 @@ public class QQMusicApi implements MusicApi {
     }
 
     @Override
-    public void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Music>> callback) {
+    public void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Song>> callback) {
         new QQSearchMusicRequest(keyword).requestAsync(callback);
     }
 
     @Override
-    public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Music> callback) {
+    public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Song> callback) {
         throw new UnsupportedOperationException();
     }
 
@@ -78,6 +79,11 @@ public class QQMusicApi implements MusicApi {
 
     @Override
     public void getMusicLinkByIdsAsync(RequestCallback<List<? extends MusicLink>> callback, String... musicIds) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void getAlbumInfoById(RequestCallback<Album> callback, String albumId) {
         throw new UnsupportedOperationException();
     }
 

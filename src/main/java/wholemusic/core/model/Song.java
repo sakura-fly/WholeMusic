@@ -5,10 +5,10 @@ import java.util.List;
 /**
  * Created by haohua on 2018/2/9.
  */
-public interface Music {
+public interface Song {
     String getName();
 
-    String getMusicId();
+    String getSongId();
 
     List<? extends Artist> getArtists();
 }

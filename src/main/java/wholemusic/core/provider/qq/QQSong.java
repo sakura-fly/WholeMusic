@@ -3,14 +3,14 @@ package wholemusic.core.provider.qq;
 import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.model.Artist;
 import wholemusic.core.model.BaseBean;
-import wholemusic.core.model.Music;
+import wholemusic.core.model.Song;
 
 import java.util.ArrayList;
 
 /**
  * Created by haohua on 2018/2/9.
  */
-public class QQSong extends BaseBean implements Music {
+public class QQSong extends BaseBean implements Song {
     @JSONField(name = "songname")
     public String name;
 
@@ -29,7 +29,7 @@ public class QQSong extends BaseBean implements Music {
     }
 
     @Override
-    public String getMusicId() {
+    public String getSongId() {
         return songMid;
     }
 

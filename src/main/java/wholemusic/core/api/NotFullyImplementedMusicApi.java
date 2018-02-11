@@ -1,6 +1,7 @@
 package wholemusic.core.api;
 
-import wholemusic.core.model.Music;
+import wholemusic.core.model.Album;
+import wholemusic.core.model.Song;
 import wholemusic.core.model.MusicLink;
 
 import java.util.List;
@@ -10,12 +11,12 @@ import java.util.List;
  */
 public class NotFullyImplementedMusicApi implements MusicApi {
     @Override
-    public void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Music>> callback) {
+    public void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Song>> callback) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Music> callback) {
+    public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Song> callback) {
         throw new UnsupportedOperationException();
     }
 
@@ -26,6 +27,11 @@ public class NotFullyImplementedMusicApi implements MusicApi {
 
     @Override
     public void getMusicLinkByIdsAsync(RequestCallback<List<? extends MusicLink>> callback, String... musicIds) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void getAlbumInfoById(RequestCallback<Album> callback, String albumId) {
         throw new UnsupportedOperationException();
     }
 }

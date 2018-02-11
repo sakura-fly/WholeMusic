@@ -1,6 +1,7 @@
 package wholemusic.core.api;
 
-import wholemusic.core.model.Music;
+import wholemusic.core.model.Album;
+import wholemusic.core.model.Song;
 import wholemusic.core.model.MusicLink;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface MusicApi {
      * @param page
      * @param callback
      */
-    void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Music>> callback);
+    void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Song>> callback);
 
     /**
      * 获取某音乐id对应的音乐信息
@@ -24,7 +25,7 @@ public interface MusicApi {
      * @param musicId
      * @return
      */
-    void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Music> callback);
+    void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Song> callback);
 
     /**
      * 获取某音乐id对应的音乐链接
@@ -43,4 +44,12 @@ public interface MusicApi {
      * @throws Exception
      */
     void getMusicLinkByIdsAsync(RequestCallback<List<? extends MusicLink>> callback, String... musicIds);
+
+    /**
+     * 获取专辑id对应的专辑信息
+     *
+     * @param callback
+     * @param albumId
+     */
+    void getAlbumInfoById(RequestCallback<Album> callback, String albumId);
 }

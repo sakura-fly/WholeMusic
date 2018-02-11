@@ -3,6 +3,7 @@ package wholemusic.core.util;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -17,6 +18,26 @@ public class AES {
      * @throws Exception
      */
     public static byte[] encrypt(String sSrc, byte[] sKey) throws Exception {
+        return encrypt(sSrc.getBytes("utf-8"), sKey);
+    }
+
+    /**
+     * @param sSrc
+     * @param sKey
+     * @return
+     * @throws Exception
+     */
+    public static byte[] encrypt(String sSrc, byte[] sKey, byte[] iv) throws Exception {
+        return encrypt(sSrc.getBytes("utf-8"), sKey, iv);
+    }
+
+    /**
+     * @param sSrc
+     * @param sKey
+     * @return
+     * @throws Exception
+     */
+    public static byte[] encrypt(byte[] sSrc, byte[] sKey, byte[] iv) throws Exception {
         if (sKey == null) {
             System.out.print("Key为空null");
             return null;
@@ -27,10 +48,30 @@ public class AES {
             return null;
         }
         SecretKeySpec skeySpec = new SecretKeySpec(sKey, "AES");
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");//"算法/模式/补码方式"
-        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        byte[] encrypted = cipher.doFinal(sSrc.getBytes("utf-8"));
+        IvParameterSpec ivspec = null;
+        if (iv != null) {
+            ivspec = new IvParameterSpec(iv);
+        }
+        Cipher cipher;
+        if (ivspec == null) {
+            cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");//"算法/模式/补码方式"
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+        } else {
+            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, ivspec);
+        }
+        byte[] encrypted = cipher.doFinal(sSrc);
         return encrypted;
+    }
+
+    /**
+     * @param sSrc
+     * @param sKey
+     * @return
+     * @throws Exception
+     */
+    public static byte[] encrypt(byte[] sSrc, byte[] sKey) throws Exception {
+        return encrypt(sSrc, sKey, null);
     }
 
     /**

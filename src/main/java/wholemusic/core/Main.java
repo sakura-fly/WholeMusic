@@ -1,7 +1,8 @@
 package wholemusic.core;
 
 import wholemusic.core.api.*;
-import wholemusic.core.model.Music;
+import wholemusic.core.model.Album;
+import wholemusic.core.model.Song;
 import wholemusic.core.model.MusicLink;
 
 import java.io.IOException;
@@ -19,21 +20,37 @@ public class Main {
     };
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        final MusicApi qq = MusicApiFactory.create(MusicProvider.QQ音乐);
-        qq.searchMusicAsync("孙燕姿", 0, new SimpleRequestCallback<List<? extends Music>>() {
-            @Override
-            public void onSuccess(List<? extends Music> result) {
-                qq.getMusicLinkByIdAsync(result.get(0).getMusicId(), linkCallback);
-                qq.getMusicLinkByIdAsync(result.get(1).getMusicId(), linkCallback);
-            }
-        });
+        testNeteaseAlbum();
+    }
 
-        final MusicApi netease = MusicApiFactory.create(MusicProvider.网易云音乐);
-        netease.searchMusicAsync("Suede", 0, new SimpleRequestCallback<List<? extends Music>>() {
+    private static void testQQMusic() {
+        final MusicApi qq = MusicApiFactory.create(MusicProvider.QQ音乐);
+        qq.searchMusicAsync("孙燕姿", 0, new SimpleRequestCallback<List<? extends Song>>() {
             @Override
-            public void onSuccess(List<? extends Music> result) {
-                netease.getMusicLinkByIdAsync(result.get(0).getMusicId(), linkCallback);
+            public void onSuccess(List<? extends Song> result) {
+                qq.getMusicLinkByIdAsync(result.get(0).getSongId(), linkCallback);
+                qq.getMusicLinkByIdAsync(result.get(1).getSongId(), linkCallback);
             }
         });
+    }
+
+    private static void testNeteaseMusic() {
+        final MusicApi netease = MusicApiFactory.create(MusicProvider.网易云音乐);
+        netease.searchMusicAsync("Suede", 0, new SimpleRequestCallback<List<? extends Song>>() {
+            @Override
+            public void onSuccess(List<? extends Song> result) {
+                netease.getMusicLinkByIdAsync(result.get(0).getSongId(), linkCallback);
+            }
+        });
+    }
+
+    private static void testNeteaseAlbum() {
+        final MusicApi netease = MusicApiFactory.create(MusicProvider.网易云音乐);
+        netease.getAlbumInfoById(new SimpleRequestCallback<Album>() {
+            @Override
+            public void onSuccess(Album album) {
+                System.out.println(album);
+            }
+        }, "37017747");
     }
 }

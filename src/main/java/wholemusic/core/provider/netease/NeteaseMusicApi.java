@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Hex;
 import wholemusic.core.api.MusicApi;
 import wholemusic.core.api.RequestCallback;
-import wholemusic.core.model.Music;
+import wholemusic.core.model.Album;
+import wholemusic.core.model.Song;
 import wholemusic.core.model.MusicLink;
 import wholemusic.core.util.AES;
 
@@ -18,12 +19,12 @@ public class NeteaseMusicApi implements MusicApi {
     private static final String SECRET = "7246674226682325323F5E6544673A51";
 
     @Override
-    public void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Music>> callback) {
+    public void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Song>> callback) {
         new NeteaseSearchMusicRequest(keyword, page).requestAsync(callback);
     }
 
     @Override
-    public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Music> callback) {
+    public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Song> callback) {
         throw new UnsupportedOperationException();
     }
 
@@ -46,6 +47,11 @@ public class NeteaseMusicApi implements MusicApi {
     @Override
     public void getMusicLinkByIdsAsync(RequestCallback<List<? extends MusicLink>> callback, String... musicIds) {
         new NeteaseGetMusicLinksRequest(musicIds).requestAsync(callback);
+    }
+
+    @Override
+    public void getAlbumInfoById(RequestCallback<Album> callback, String albumId) {
+        new NeteaseGetAlbumInfoRequest(albumId).requestAsync(callback);
     }
 
     static String encrypt(JSONObject json) {
