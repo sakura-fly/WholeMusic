@@ -1,10 +1,11 @@
-package wholemusic.core.api.impl.qq;
+package wholemusic.core.provider.qq;
 
 import com.alibaba.fastjson.JSONObject;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
+import wholemusic.core.model.Music;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by haohua on 2018/2/11.
  */
-public class QQSearchMusicRequest extends BaseRequest<List<QQSong>> {
+public class QQSearchMusicRequest extends BaseRequest<List<? extends Music>> {
     private final String mKeyword;
 
     public QQSearchMusicRequest(String keyword) {

@@ -1,11 +1,11 @@
 package wholemusic.core.api;
 
-import wholemusic.core.api.impl.baidu.BaiduMusicApi;
-import wholemusic.core.api.impl.kugou.KugouMusicApi;
-import wholemusic.core.api.impl.migu.MiguMusicApi;
-import wholemusic.core.api.impl.netease.NeteaseMusicApi;
-import wholemusic.core.api.impl.qq.QQMusicApi;
-import wholemusic.core.api.impl.xiami.XiamiMusicApi;
+import wholemusic.core.provider.baidu.BaiduMusicApi;
+import wholemusic.core.provider.kugou.KugouMusicApi;
+import wholemusic.core.provider.migu.MiguMusicApi;
+import wholemusic.core.provider.netease.NeteaseMusicApi;
+import wholemusic.core.provider.qq.QQMusicApi;
+import wholemusic.core.provider.xiami.XiamiMusicApi;
 
 /**
  * Created by haohua on 2018/2/11.

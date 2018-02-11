@@ -1,9 +1,8 @@
 package wholemusic.core.api;
 
-import wholemusic.core.api.model.Music;
-import wholemusic.core.api.model.MusicLink;
+import wholemusic.core.model.Music;
+import wholemusic.core.model.MusicLink;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,9 +13,10 @@ public interface MusicApi {
      * 使用关键词查询歌曲
      *
      * @param keyword
-     * @return the music list
+     * @param page
+     * @param callback
      */
-    List<? extends Music> searchMusic(String keyword) throws IOException;
+    void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Music>> callback);
 
     /**
      * 获取某音乐id对应的音乐信息
@@ -24,7 +24,7 @@ public interface MusicApi {
      * @param musicId
      * @return
      */
-    Music getMusicInfoById(String musicId) throws IOException;
+    void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Music> callback);
 
     /**
      * 获取某音乐id对应的音乐链接
@@ -33,7 +33,7 @@ public interface MusicApi {
      * @return
      * @throws Exception
      */
-    MusicLink getMusicLinkById(String musicId) throws IOException;
+    void getMusicLinkByIdAsync(String musicId, RequestCallback<MusicLink> callback);
 
     /**
      * 获取音乐id列表对应的音乐链接集合
@@ -42,5 +42,5 @@ public interface MusicApi {
      * @return
      * @throws Exception
      */
-    List<? extends MusicLink> getMusicLinkByIds(String... musicIds) throws IOException;
+    void getMusicLinkByIdsAsync(RequestCallback<List<? extends MusicLink>> callback, String... musicIds);
 }

@@ -1,4 +1,4 @@
-package wholemusic.core.api.model;
+package wholemusic.core.model;
 
 import java.util.List;
 

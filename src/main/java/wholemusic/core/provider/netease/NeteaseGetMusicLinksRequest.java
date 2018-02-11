@@ -1,4 +1,4 @@
-package wholemusic.core.api.impl.netease;
+package wholemusic.core.provider.netease;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -7,6 +7,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
+import wholemusic.core.model.MusicLink;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by haohua on 2018/2/11.
  */
-public class NeteaseGetMusicLinksRequest extends BaseRequest<List<NeteaseSongLink>> {
+public class NeteaseGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
     private final String[] mMusicIds;
 
     public NeteaseGetMusicLinksRequest(String... musicIds) {

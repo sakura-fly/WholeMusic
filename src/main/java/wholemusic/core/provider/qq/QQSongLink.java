@@ -1,7 +1,7 @@
-package wholemusic.core.api.impl.qq;
+package wholemusic.core.provider.qq;
 
-import wholemusic.core.api.model.BaseBean;
-import wholemusic.core.api.model.MusicLink;
+import wholemusic.core.model.BaseBean;
+import wholemusic.core.model.MusicLink;
 
 /**
  * Created by haohua on 2018/2/9.

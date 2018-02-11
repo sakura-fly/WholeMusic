@@ -1,4 +1,4 @@
-package wholemusic.core.api.impl.qq;
+package wholemusic.core.provider.qq;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -8,7 +8,6 @@ import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

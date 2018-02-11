@@ -1,4 +1,4 @@
-package wholemusic.core.api.model;
+package wholemusic.core.model;
 
 /**
  * Created by haohua on 2018/2/10.

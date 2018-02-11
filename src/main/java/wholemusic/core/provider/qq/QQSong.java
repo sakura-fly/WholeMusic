@@ -1,9 +1,9 @@
-package wholemusic.core.api.impl.qq;
+package wholemusic.core.provider.qq;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import wholemusic.core.api.model.Artist;
-import wholemusic.core.api.model.BaseBean;
-import wholemusic.core.api.model.Music;
+import wholemusic.core.model.Artist;
+import wholemusic.core.model.BaseBean;
+import wholemusic.core.model.Music;
 
 import java.util.ArrayList;
 
