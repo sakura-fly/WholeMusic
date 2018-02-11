@@ -1,4 +1,4 @@
-package wholemusic.core.api.framework.model;
+package wholemusic.core.api.model;
 
 import com.alibaba.fastjson.JSONObject;
 

@@ -1,0 +1,55 @@
+package wholemusic.core.api.impl.netease;
+
+import com.alibaba.fastjson.JSONObject;
+import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.Request;
+import okhttp3.Response;
+import wholemusic.core.api.BaseRequest;
+
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * Created by haohua on 2018/2/11.
+ */
+public class NeteaseSearchMusicRequest extends BaseRequest<List<NeteaseSong>> {
+    private final String mKeyword;
+    private static final int PAGE_SIZE = 10;
+    private final int mPage;
+
+    public NeteaseSearchMusicRequest(String keyword, int page) {
+        mKeyword = keyword;
+        mPage = page;
+    }
+
+    @Override
+    protected Request buildRequest() {
+        Request.Builder requestBuilder = new Request.Builder();
+        requestBuilder.url(HttpUrl.parse("http://music.163.com/api/linux/forward"));
+        requestBuilder.addHeader("Referrer", "http://music.163.com/");
+        JSONObject json = new JSONObject();
+        json.put("method", "POST");
+        json.put("url", "http://music.163.com/api/cloudsearch/pc");
+        JSONObject params = new JSONObject();
+        params.put("s", mKeyword);
+        params.put("type", 1);
+        params.put("offset", mPage * PAGE_SIZE);
+        params.put("limit", PAGE_SIZE);
+        json.put("params", params);
+        String encrypted = NeteaseMusicApi.encrypt(json);
+        FormBody body = new FormBody.Builder().add("eparams", encrypted).build();
+        requestBuilder.post(body);
+        final Request request = requestBuilder.build();
+        return request;
+    }
+
+    @Override
+    protected List<NeteaseSong> parseResult(Response response) throws IOException {
+        JSONObject responseJson = JSONObject.parseObject(response.body().string());
+        JSONObject result = responseJson.getJSONObject("result");
+        long songCount = result.getLongValue("songCount");
+        List<NeteaseSong> songs = result.getJSONArray("songs").toJavaList(NeteaseSong.class);
+        return songs;
+    }
+}

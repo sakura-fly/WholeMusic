@@ -1,9 +1,9 @@
 package wholemusic.core;
 
-import wholemusic.core.api.framework.MusicApi;
-import wholemusic.core.api.framework.model.Music;
-import wholemusic.core.api.impl.netease.NeteaseMusicApi;
-import wholemusic.core.api.impl.qq.QQMusicApi;
+import wholemusic.core.api.MusicApi;
+import wholemusic.core.api.MusicApiFactory;
+import wholemusic.core.api.MusicProvider;
+import wholemusic.core.api.model.Music;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        MusicApi qq = new QQMusicApi();
+        MusicApi qq = MusicApiFactory.create(MusicProvider.QQ音乐);
         List<? extends Music> result = qq.searchMusic("孙燕姿");
         String link1 = qq.getMusicLinkById(result.get(0).getMusicId()).getUrl();
         String link2 = qq.getMusicLinkById(result.get(1).getMusicId()).getUrl();
         System.out.println(link1);
         System.out.println(link2);
-        MusicApi netease = new NeteaseMusicApi();
+        MusicApi netease = MusicApiFactory.create(MusicProvider.网易云音乐);
         List<? extends Music> result2 = netease.searchMusic("Suede");
-        netease.getMusicLinkById("4279445");
+        netease.getMusicLinkById(result2.get(0).getMusicId());
         System.out.println(result2);
     }
 }

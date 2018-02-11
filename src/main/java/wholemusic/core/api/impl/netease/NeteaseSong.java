@@ -1,9 +1,9 @@
 package wholemusic.core.api.impl.netease;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import wholemusic.core.api.framework.model.Artist;
-import wholemusic.core.api.framework.model.BaseBean;
-import wholemusic.core.api.framework.model.Music;
+import wholemusic.core.api.model.Artist;
+import wholemusic.core.api.model.BaseBean;
+import wholemusic.core.api.model.Music;
 
 import java.util.List;
 

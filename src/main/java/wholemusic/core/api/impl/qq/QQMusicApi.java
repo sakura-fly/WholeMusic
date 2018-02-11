@@ -1,14 +1,8 @@
 package wholemusic.core.api.impl.qq;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import wholemusic.core.api.framework.MusicApi;
-import wholemusic.core.api.framework.model.Music;
-import wholemusic.core.api.framework.model.MusicLink;
+import wholemusic.core.api.MusicApi;
+import wholemusic.core.api.model.Music;
+import wholemusic.core.api.model.MusicLink;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,11 +12,10 @@ import java.util.List;
  */
 public class QQMusicApi implements MusicApi {
 
-    private static final String GUID = "5150825362";
+    static final String GUID = "5150825362";
 
-    private String mKeyCache;
-    private String mHostCache;
-    private static final String USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) " +
+    private QQUpdateVKeyRequest.VKey mKeyCache;
+    static final String USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) " +
             "AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1";
 
     public enum Quality {
@@ -39,24 +32,9 @@ public class QQMusicApi implements MusicApi {
         }
     }
 
-    public List<? extends Music> searchMusic(String keyWord) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp").newBuilder();
-        urlBuilder.addQueryParameter("w", keyWord);
-        urlBuilder.addQueryParameter("p", "0");
-        urlBuilder.addQueryParameter("n", "10");
-        urlBuilder.addQueryParameter("format", "json");
-        Request.Builder requestBuilder = new Request.Builder();
-        requestBuilder.url(urlBuilder.build());
-        requestBuilder.addHeader("User-Agent", USER_AGENT);
-        requestBuilder.addHeader("Referrer", "http://m.y.qq.com");
-        requestBuilder.get();
-        final Request request = requestBuilder.build();
-        Response response = client.newCall(request).execute();
-        JSONObject json = JSONObject.parseObject(response.body().string());
-        List<QQSong> list = json.getJSONObject("data").getJSONObject("song").getJSONArray("list")
-                .toJavaList(QQSong.class);
-        return list;
+    public List<? extends Music> searchMusic(String keyword) throws IOException {
+        List<QQSong> result = new QQSearchMusicRequest(keyword).requestSync();
+        return result;
     }
 
     public Music getMusicInfoById(String musicId) throws IOException {
@@ -66,34 +44,18 @@ public class QQMusicApi implements MusicApi {
     @Override
     public MusicLink getMusicLinkById(String musicId) throws IOException {
         if (mKeyCache == null) {
-            OkHttpClient client = new OkHttpClient();
-            HttpUrl.Builder urlBuilder = HttpUrl.parse("http://base.music.qq.com/fcgi-bin/fcg_musicexpress.fcg")
-                    .newBuilder();
-            urlBuilder.addQueryParameter("json", "3");
-            urlBuilder.addQueryParameter("guid", GUID);
-            urlBuilder.addQueryParameter("format", "json");
-            Request.Builder requestBuilder = new Request.Builder();
-            requestBuilder.url(urlBuilder.build());
-            requestBuilder.addHeader("User-Agent", USER_AGENT);
-            requestBuilder.addHeader("Referrer", "http://y.qq.com");
-            requestBuilder.get();
-            final Request request = requestBuilder.build();
-            Response response = client.newCall(request).execute();
-            JSONObject json = JSONObject.parseObject(response.body().string());
-            JSONArray sip = json.getJSONArray("sip");
-            String host = sip.getString(0);
-            String key = json.getString("key");
-            mKeyCache = key;
-            mHostCache = host;
+            mKeyCache = new QQUpdateVKeyRequest().requestSync();
         }
-        final String link = buildQQMusicLink(mHostCache, Quality.High, musicId, mKeyCache, GUID);
+        String host = mKeyCache.sips.get(0);
+        String vKey = mKeyCache.key;
+        final String link = buildQQMusicLink(host, Quality.High, musicId, vKey, GUID);
         QQSongLink result = new QQSongLink();
         result.url = link;
         return result;
     }
 
     @Override
-    public List<? extends MusicLink> getMusicLinkByIds(String... musicIds) throws Exception {
+    public List<? extends MusicLink> getMusicLinkByIds(String... musicIds) throws IOException {
         throw new UnsupportedOperationException("Not implemented yet!");
     }
 
