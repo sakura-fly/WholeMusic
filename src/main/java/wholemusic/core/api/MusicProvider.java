@@ -14,7 +14,7 @@ public enum MusicProvider {
     Neteast("网易云音乐", NeteaseMusicApi.class),
     QQ("QQ音乐", QQMusicApi.class),
     Xiami("虾米音乐", XiamiMusicApi.class),
-    Sougou("酷狗音乐", KugouMusicApi.class),
+    Kugou("酷狗音乐", KugouMusicApi.class),
     Baidu("百度音乐", BaiduMusicApi.class),
     Migu("咪咕音乐", MiguMusicApi.class),;
 
