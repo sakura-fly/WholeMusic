@@ -1,6 +1,9 @@
 package wholemusic.core.provider.qq;
 
 import com.alibaba.fastjson.annotation.JSONField;
+
+import wholemusic.core.api.MusicProvider;
+import wholemusic.core.model.Album;
 import wholemusic.core.model.Artist;
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.Song;
@@ -36,5 +39,16 @@ public class QQSong extends BaseBean implements Song {
     @Override
     public ArrayList<? extends Artist> getArtists() {
         return singers;
+    }
+
+    @Override
+    public Album getAlbum() {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public MusicProvider getMusicProvider() {
+        return MusicProvider.QQ音乐;
     }
 }

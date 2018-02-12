@@ -1,11 +1,14 @@
 package wholemusic.core.provider.netease;
 
 import com.alibaba.fastjson.JSONObject;
+
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
+
 import org.apache.commons.codec.binary.Base64;
+
 import wholemusic.core.api.BaseRequest;
 import wholemusic.core.model.Album;
 import wholemusic.core.util.AES;
@@ -64,8 +67,8 @@ public class NeteaseGetAlbumInfoRequest extends BaseRequest<Album> {
         final String jsonStr = json.toJSONString();
         try {
             byte[] params1 = AES.encrypt(jsonStr, NONCE.getBytes(), iv);
-            byte[] params2 = AES.encrypt(Base64.encodeBase64String(params1), secretKey.getBytes(), iv);
-            final String param2Base64 = Base64.encodeBase64String(params2);
+            byte[] params2 = AES.encrypt(new String(Base64.encodeBase64(params1)), secretKey.getBytes(), iv);
+            final String param2Base64 = new String(Base64.encodeBase64(params2));
             HashMap<String, String> result = new HashMap<>();
             result.put("params", param2Base64);
             result.put("encSecKey", encSecKey);

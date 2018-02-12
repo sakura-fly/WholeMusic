@@ -1,10 +1,14 @@
 package wholemusic.core.provider.netease;
 
 import com.alibaba.fastjson.annotation.JSONField;
+
+import wholemusic.core.api.MusicProvider;
+import wholemusic.core.model.Album;
 import wholemusic.core.model.Artist;
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.Song;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +22,12 @@ public class NeteaseSong extends BaseBean implements Song {
     @JSONField(name = "id")
     public long songId;
 
+    @JSONField(name = "ar")
+    public ArrayList<NeteaseArtist> artists;
+
+    @JSONField(name = "al")
+    public NeteaseAlbum album;
+
     @Override
     public String getName() {
         return name;
@@ -30,7 +40,16 @@ public class NeteaseSong extends BaseBean implements Song {
 
     @Override
     public List<? extends Artist> getArtists() {
-        // TODO
-        return null;
+        return artists;
+    }
+
+    @Override
+    public Album getAlbum() {
+        return album;
+    }
+
+    @Override
+    public MusicProvider getMusicProvider() {
+        return MusicProvider.网易云音乐;
     }
 }

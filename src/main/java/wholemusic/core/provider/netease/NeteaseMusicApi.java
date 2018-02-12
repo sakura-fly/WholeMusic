@@ -1,7 +1,9 @@
 package wholemusic.core.provider.netease;
 
 import com.alibaba.fastjson.JSONObject;
+
 import org.apache.commons.codec.binary.Hex;
+
 import wholemusic.core.api.MusicApi;
 import wholemusic.core.api.RequestCallback;
 import wholemusic.core.model.Album;
@@ -58,7 +60,7 @@ public class NeteaseMusicApi implements MusicApi {
         byte[] encrypted;
         try {
             encrypted = AES.encrypt(json.toString(), Hex.decodeHex(SECRET.toCharArray()));
-            return Hex.encodeHexString(encrypted).toUpperCase();
+            return new String(Hex.encodeHex(encrypted)).toUpperCase();
         } catch (Exception e) {
             e.printStackTrace();
         }

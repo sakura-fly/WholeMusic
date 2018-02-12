@@ -1,6 +1,8 @@
 package wholemusic.core.provider.netease;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
@@ -9,6 +11,7 @@ import wholemusic.core.api.BaseRequest;
 import wholemusic.core.model.Song;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +53,13 @@ public class NeteaseSearchMusicRequest extends BaseRequest<List<? extends Song>>
         JSONObject responseJson = JSONObject.parseObject(response.body().string());
         JSONObject result = responseJson.getJSONObject("result");
         long songCount = result.getLongValue("songCount");
-        List<NeteaseSong> songs = result.getJSONArray("songs").toJavaList(NeteaseSong.class);
+        JSONArray songArray = result.getJSONArray("songs");
+        final List<NeteaseSong> songs;
+        if (songCount != 0 && songArray != null) {
+            songs = songArray.toJavaList(NeteaseSong.class);
+        } else {
+            songs = new ArrayList<>();
+        }
         return songs;
     }
 }

@@ -1,6 +1,7 @@
 package wholemusic.core.provider.netease;
 
 import com.alibaba.fastjson.annotation.JSONField;
+
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.MusicLink;
 
@@ -23,9 +24,37 @@ public class NeteaseSongLink extends BaseBean implements MusicLink {
 
     @JSONField(name = "md5")
     public String md5;
+    @JSONField(name = "type")
+
+    public String type;
 
     @Override
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public long getSize() {
+        return size;
+    }
+
+    @Override
+    public String getSongId() {
+        return String.valueOf(songId);
+    }
+
+    @Override
+    public long getBitRate() {
+        return bitrate;
+    }
+
+    @Override
+    public String getMd5() {
+        return md5;
     }
 }
