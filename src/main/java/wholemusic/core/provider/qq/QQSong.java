@@ -49,6 +49,6 @@ public class QQSong extends BaseBean implements Song {
 
     @Override
     public MusicProvider getMusicProvider() {
-        return MusicProvider.QQ音乐;
+        return MusicProvider.QQ;
     }
 }

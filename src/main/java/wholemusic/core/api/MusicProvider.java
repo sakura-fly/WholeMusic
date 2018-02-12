@@ -11,16 +11,18 @@ import wholemusic.core.provider.xiami.XiamiMusicApi;
  * Created by haohua on 2018/2/11.
  */
 public enum MusicProvider {
-    网易云音乐(NeteaseMusicApi.class),
-    QQ音乐(QQMusicApi.class),
-    虾米音乐(XiamiMusicApi.class),
-    酷狗音乐(KugouMusicApi.class),
-    百度音乐(BaiduMusicApi.class),
-    咪咕音乐(MiguMusicApi.class),;
+    Neteast("网易云音乐", NeteaseMusicApi.class),
+    QQ("QQ音乐", QQMusicApi.class),
+    Xiami("虾米音乐", XiamiMusicApi.class),
+    Sougou("酷狗音乐", KugouMusicApi.class),
+    Baidu("百度音乐", BaiduMusicApi.class),
+    Migu("咪咕音乐", MiguMusicApi.class),;
 
     private final Class<? extends MusicApi> musicApiClass;
+    private final String name;
 
-    MusicProvider(Class<? extends MusicApi> musicApiClass) {
+    MusicProvider(String name, Class<? extends MusicApi> musicApiClass) {
+        this.name = name();
         this.musicApiClass = musicApiClass;
     }
 
@@ -28,4 +30,8 @@ public enum MusicProvider {
         return musicApiClass;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

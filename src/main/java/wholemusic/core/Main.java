@@ -24,7 +24,7 @@ public class Main {
     }
 
     private static void testQQMusic() {
-        final MusicApi qq = MusicApiFactory.create(MusicProvider.QQ音乐);
+        final MusicApi qq = MusicApiFactory.create(MusicProvider.QQ);
         qq.searchMusicAsync("孙燕姿", 0, new SimpleRequestCallback<List<? extends Song>>() {
             @Override
             public void onSuccess(List<? extends Song> result) {
@@ -35,7 +35,7 @@ public class Main {
     }
 
     private static void testNeteaseMusic() {
-        final MusicApi netease = MusicApiFactory.create(MusicProvider.网易云音乐);
+        final MusicApi netease = MusicApiFactory.create(MusicProvider.Neteast);
         netease.searchMusicAsync("Suede", 0, new SimpleRequestCallback<List<? extends Song>>() {
             @Override
             public void onSuccess(List<? extends Song> result) {
@@ -45,7 +45,7 @@ public class Main {
     }
 
     private static void testNeteaseAlbum() {
-        final MusicApi netease = MusicApiFactory.create(MusicProvider.网易云音乐);
+        final MusicApi netease = MusicApiFactory.create(MusicProvider.Neteast);
         netease.getAlbumInfoById(new SimpleRequestCallback<Album>() {
             @Override
             public void onSuccess(Album album) {

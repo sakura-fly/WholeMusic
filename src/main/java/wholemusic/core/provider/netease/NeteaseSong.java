@@ -50,6 +50,6 @@ public class NeteaseSong extends BaseBean implements Song {
 
     @Override
     public MusicProvider getMusicProvider() {
-        return MusicProvider.网易云音乐;
+        return MusicProvider.Neteast;
     }
 }
