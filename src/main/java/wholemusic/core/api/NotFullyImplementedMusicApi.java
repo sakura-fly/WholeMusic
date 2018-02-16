@@ -16,6 +16,11 @@ public class NotFullyImplementedMusicApi implements MusicApi {
     }
 
     @Override
+    public List<? extends Song> searchMusicSync(String keyword, int page) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Song> callback) {
         throw new UnsupportedOperationException();
     }

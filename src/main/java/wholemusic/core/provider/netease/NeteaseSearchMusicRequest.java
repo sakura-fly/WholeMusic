@@ -52,13 +52,13 @@ public class NeteaseSearchMusicRequest extends BaseRequest<List<? extends Song>>
     protected List<NeteaseSong> parseResult(Response response) throws IOException {
         JSONObject responseJson = JSONObject.parseObject(response.body().string());
         JSONObject result = responseJson.getJSONObject("result");
-        long songCount = result.getLongValue("songCount");
-        JSONArray songArray = result.getJSONArray("songs");
-        final List<NeteaseSong> songs;
-        if (songCount != 0 && songArray != null) {
-            songs = songArray.toJavaList(NeteaseSong.class);
-        } else {
-            songs = new ArrayList<>();
+        List<NeteaseSong> songs = new ArrayList<>();
+        if (result != null) {
+            long songCount = result.getLongValue("songCount");
+            JSONArray songArray = result.getJSONArray("songs");
+            if (songCount != 0 && songArray != null) {
+                songs = songArray.toJavaList(NeteaseSong.class);
+            }
         }
         return songs;
     }

@@ -26,6 +26,11 @@ public class NeteaseMusicApi implements MusicApi {
     }
 
     @Override
+    public List<? extends Song> searchMusicSync(String keyword, int page) throws IOException {
+        return new NeteaseSearchMusicRequest(keyword, page).requestSync();
+    }
+
+    @Override
     public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Song> callback) {
         throw new UnsupportedOperationException();
     }
