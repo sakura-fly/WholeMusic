@@ -18,4 +18,8 @@ public interface Song extends Serializable {
     Album getAlbum();
 
     MusicProvider getMusicProvider();
+
+    void setMusicLink(MusicLink musicLink);
+
+    MusicLink getMusicLink();
 }

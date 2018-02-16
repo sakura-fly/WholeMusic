@@ -16,7 +16,7 @@ public class NotFullyImplementedMusicApi implements MusicApi {
     }
 
     @Override
-    public List<? extends Song> searchMusicSync(String keyword, int page) {
+    public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) {
         throw new UnsupportedOperationException();
     }
 
@@ -27,6 +27,11 @@ public class NotFullyImplementedMusicApi implements MusicApi {
 
     @Override
     public void getMusicLinkByIdAsync(String musicId, RequestCallback<MusicLink> callback) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public MusicLink getMusicLinkByIdSync(String musicId) {
         throw new UnsupportedOperationException();
     }
 

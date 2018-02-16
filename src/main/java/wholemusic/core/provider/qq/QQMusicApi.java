@@ -17,6 +17,7 @@ public class QQMusicApi implements MusicApi {
     static final String GUID = "5150825362";
 
     private QQUpdateVKeyRequest.VKey mKeyCache;
+
     static final String USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) " +
             "AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1";
 
@@ -40,8 +41,14 @@ public class QQMusicApi implements MusicApi {
     }
 
     @Override
-    public List<? extends Song> searchMusicSync(String keyword, int page) throws IOException {
-        return new QQSearchMusicRequest(keyword).requestSync();
+    public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException {
+        List<? extends Song> result = new QQSearchMusicRequest(keyword).requestSync();
+        if (needLink) {
+            for (Song song : result) {
+                song.setMusicLink(getMusicLinkByIdSync(song.getSongId()));
+            }
+        }
+        return result;
     }
 
     @Override
@@ -71,6 +78,16 @@ public class QQMusicApi implements MusicApi {
             QQSongLink result = getSongLink(mKeyCache, musicId);
             callback.onSuccess(result);
         }
+    }
+
+    @Override
+    public MusicLink getMusicLinkByIdSync(String musicId) throws IOException {
+        if (mKeyCache == null) {
+            QQUpdateVKeyRequest.VKey vKey = new QQUpdateVKeyRequest().requestSync();
+            mKeyCache = vKey;
+        }
+        QQSongLink result = getSongLink(mKeyCache, musicId);
+        return result;
     }
 
     private static QQSongLink getSongLink(QQUpdateVKeyRequest.VKey vKeyObj, String musicId) {

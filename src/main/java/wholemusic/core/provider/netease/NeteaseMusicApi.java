@@ -12,11 +12,14 @@ import wholemusic.core.model.MusicLink;
 import wholemusic.core.util.AES;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by haohua on 2018/2/10.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class NeteaseMusicApi implements MusicApi {
     private static final String SECRET = "7246674226682325323F5E6544673A51";
 
@@ -26,8 +29,24 @@ public class NeteaseMusicApi implements MusicApi {
     }
 
     @Override
-    public List<? extends Song> searchMusicSync(String keyword, int page) throws IOException {
-        return new NeteaseSearchMusicRequest(keyword, page).requestSync();
+    public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException {
+        List<? extends Song> result = new NeteaseSearchMusicRequest(keyword, page).requestSync();
+        if (needLink) {
+            ArrayList<String> musicIds = new ArrayList<>();
+            for (Song song : result) {
+                musicIds.add(song.getSongId());
+            }
+            List<? extends MusicLink> links = new NeteaseGetMusicLinksRequest(musicIds.toArray(new String[]{}))
+                    .requestSync();
+            HashMap<String, MusicLink> map = new HashMap<>();
+            for (MusicLink link : links) {
+                map.put(link.getSongId(), link);
+            }
+            for (Song song : result) {
+                song.setMusicLink(map.get(song.getSongId()));
+            }
+        }
+        return result;
     }
 
     @Override
@@ -49,6 +68,11 @@ public class NeteaseMusicApi implements MusicApi {
                 callback.onSuccess(link);
             }
         }, musicId);
+    }
+
+    @Override
+    public MusicLink getMusicLinkByIdSync(String musicId) throws IOException {
+        return new NeteaseGetMusicLinksRequest(musicId).requestSync().get(0);
     }
 
     @Override

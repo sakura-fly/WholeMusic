@@ -26,7 +26,7 @@ public interface MusicApi {
      * @param keyword
      * @param page
      */
-    List<? extends Song> searchMusicSync(String keyword, int page) throws IOException;
+    List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException;
 
     /**
      * 获取某音乐id对应的音乐信息
@@ -44,6 +44,15 @@ public interface MusicApi {
      * @throws Exception
      */
     void getMusicLinkByIdAsync(String musicId, RequestCallback<MusicLink> callback);
+
+    /**
+     * 获取某音乐id对应的音乐链接
+     *
+     * @param musicId
+     * @return
+     * @throws Exception
+     */
+    MusicLink getMusicLinkByIdSync(String musicId) throws IOException;
 
     /**
      * 获取音乐id列表对应的音乐链接集合

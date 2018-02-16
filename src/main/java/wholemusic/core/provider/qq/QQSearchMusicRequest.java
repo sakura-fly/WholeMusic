@@ -25,7 +25,7 @@ public class QQSearchMusicRequest extends BaseRequest<List<? extends Song>> {
         HttpUrl.Builder urlBuilder = HttpUrl.parse("http://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp").newBuilder();
         urlBuilder.addQueryParameter("w", mKeyword);
         urlBuilder.addQueryParameter("p", "0");
-        urlBuilder.addQueryParameter("n", "10");
+        urlBuilder.addQueryParameter("n", "20");
         urlBuilder.addQueryParameter("format", "json");
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(urlBuilder.build());
