@@ -11,12 +11,14 @@ import wholemusic.core.model.MusicLink;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by haohua on 2018/2/11.
  */
 public class NeteaseGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
     private final String[] mMusicIds;
+    private final Random mRandom = new Random();
 
     public NeteaseGetMusicLinksRequest(String... musicIds) {
         mMusicIds = musicIds;
@@ -27,6 +29,7 @@ public class NeteaseGetMusicLinksRequest extends BaseRequest<List<? extends Musi
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(HttpUrl.parse("http://music.163.com/api/linux/forward"));
         requestBuilder.addHeader("Referrer", "http://music.163.com/");
+        requestBuilder.addHeader("X-REAL-IP", "47.93.50." + (1 + mRandom.nextInt(255)));
         JSONObject json = new JSONObject();
         json.put("method", "POST");
         json.put("url", "http://music.163.com/api/song/enhance/player/url");
