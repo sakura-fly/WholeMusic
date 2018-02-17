@@ -1,5 +1,7 @@
 package wholemusic.core.model;
 
+import wholemusic.core.api.MusicProvider;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,4 +14,6 @@ public interface Album extends Serializable {
     String getAlbumId();
 
     List<? extends Song> getSongs();
+
+    MusicProvider getMusicProvider();
 }

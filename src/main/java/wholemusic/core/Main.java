@@ -27,13 +27,13 @@ public class Main {
     }
 
     private static void testNeteaseMusic() throws IOException {
-        final MusicApi api = MusicApiFactory.create(MusicProvider.Neteast);
+        final MusicApi api = MusicApiFactory.create(MusicProvider.Netease);
         List<? extends Song> result = api.searchMusicSync("Suede", 0, true);
         System.out.println(result.get(0).getMusicLink().getUrl());
     }
 
     private static void testNeteaseAlbum() throws IOException {
-        final MusicApi api = MusicApiFactory.create(MusicProvider.Neteast);
+        final MusicApi api = MusicApiFactory.create(MusicProvider.Netease);
         Album album = api.getAlbumInfoByIdSync("37017747", true);
         System.out.println(album);
     }

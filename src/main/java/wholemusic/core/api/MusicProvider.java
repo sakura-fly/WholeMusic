@@ -11,7 +11,7 @@ import wholemusic.core.provider.xiami.XiamiMusicApi;
  * Created by haohua on 2018/2/11.
  */
 public enum MusicProvider {
-    Neteast("网易云音乐", NeteaseMusicApi.class),
+    Netease("网易云音乐", NeteaseMusicApi.class),
     QQ("QQ音乐", QQMusicApi.class),
     Xiami("虾米音乐", XiamiMusicApi.class),
     Kugou("酷狗音乐", KugouMusicApi.class),
