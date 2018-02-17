@@ -81,8 +81,13 @@ public class NeteaseMusicApi implements MusicApi {
     }
 
     @Override
-    public void getAlbumInfoById(RequestCallback<Album> callback, String albumId) {
+    public void getAlbumInfoByIdAsync(RequestCallback<Album> callback, String albumId) {
         new NeteaseGetAlbumInfoRequest(albumId).requestAsync(callback);
+    }
+
+    @Override
+    public Album getAlbumInfoByIdSync(String albumId) throws IOException {
+        return new NeteaseGetAlbumInfoRequest(albumId).requestSync();
     }
 
     static String encrypt(JSONObject json) {

@@ -69,5 +69,12 @@ public interface MusicApi {
      * @param callback
      * @param albumId
      */
-    void getAlbumInfoById(RequestCallback<Album> callback, String albumId);
+    void getAlbumInfoByIdAsync(RequestCallback<Album> callback, String albumId);
+
+    /**
+     * 获取专辑id对应的专辑信息
+     *
+     * @param albumId
+     */
+    Album getAlbumInfoByIdSync(String albumId) throws IOException;
 }

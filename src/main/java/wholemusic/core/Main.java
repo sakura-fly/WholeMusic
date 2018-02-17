@@ -48,7 +48,7 @@ public class Main {
 
     private static void testNeteaseAlbum() {
         final MusicApi netease = MusicApiFactory.create(MusicProvider.Neteast);
-        netease.getAlbumInfoById(new SimpleRequestCallback<Album>() {
+        netease.getAlbumInfoByIdAsync(new SimpleRequestCallback<Album>() {
             @Override
             public void onSuccess(Album album) {
                 System.out.println(album);

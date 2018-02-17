@@ -23,6 +23,12 @@ public class QQSong extends BaseBean implements Song {
     @JSONField(name = "singer")
     public ArrayList<QQSinger> singers;
 
+    @JSONField(name = "albummid")
+    public String albumMid;
+
+    @JSONField(name = "albumname")
+    public String albumName;
+
     private MusicLink musicLink;
 
     @Override
@@ -42,8 +48,10 @@ public class QQSong extends BaseBean implements Song {
 
     @Override
     public Album getAlbum() {
-        // TODO
-        return null;
+        QQAlbum album = new QQAlbum();
+        album.setName(this.albumName);
+        album.setAlbumId(this.albumMid);
+        return album;
     }
 
     @Override

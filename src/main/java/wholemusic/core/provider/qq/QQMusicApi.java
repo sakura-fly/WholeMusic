@@ -105,7 +105,12 @@ public class QQMusicApi implements MusicApi {
     }
 
     @Override
-    public void getAlbumInfoById(RequestCallback<Album> callback, String albumId) {
+    public void getAlbumInfoByIdAsync(RequestCallback<Album> callback, String albumId) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Album getAlbumInfoByIdSync(String albumId) {
         throw new UnsupportedOperationException();
     }
 
