@@ -2,6 +2,9 @@ group 'wholemusic'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "wholemusic.core.Main"
 
 sourceCompatibility = 1.7
 

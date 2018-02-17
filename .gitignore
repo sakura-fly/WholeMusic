@@ -25,5 +25,6 @@ hs_err_pid*
 *.ipr
 *.iws
 
+.gradle
 /build
 
