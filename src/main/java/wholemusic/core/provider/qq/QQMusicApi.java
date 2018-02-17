@@ -44,11 +44,15 @@ public class QQMusicApi implements MusicApi {
     public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException {
         List<? extends Song> result = new QQSearchMusicRequest(keyword).requestSync();
         if (needLink) {
-            for (Song song : result) {
-                song.setMusicLink(getMusicLinkByIdSync(song.getSongId()));
-            }
+            fillSongLinks(result);
         }
         return result;
+    }
+
+    private void fillSongLinks(List<? extends Song> result) throws IOException {
+        for (Song song : result) {
+            song.setMusicLink(getMusicLinkByIdSync(song.getSongId()));
+        }
     }
 
     @Override
@@ -110,8 +114,10 @@ public class QQMusicApi implements MusicApi {
     }
 
     @Override
-    public Album getAlbumInfoByIdSync(String albumId, boolean needLink) {
-        throw new UnsupportedOperationException();
+    public Album getAlbumInfoByIdSync(String albumId, boolean needLink) throws IOException {
+        Album album = new QQGetAlbumInfoRequest(albumId).requestSync();
+        fillSongLinks(album.getSongs());
+        return album;
     }
 
     private static String buildQQMusicLink(String host, Quality quality, String mid, String key, String guid) {

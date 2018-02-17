@@ -17,23 +17,30 @@ public class Main {
         testNeteaseMusic();
         testQQMusic();
         testNeteaseAlbum();
+        testQQAlbum();
     }
 
     private static void testQQMusic() throws IOException {
-        final MusicApi qq = MusicApiFactory.create(MusicProvider.QQ);
-        List<? extends Song> result = qq.searchMusicSync("孙燕姿", 0, true);
+        final MusicApi api = MusicApiFactory.create(MusicProvider.QQ);
+        List<? extends Song> result = api.searchMusicSync("孙燕姿", 0, true);
         System.out.println(result.get(0).getMusicLink().getUrl());
     }
 
     private static void testNeteaseMusic() throws IOException {
-        final MusicApi netease = MusicApiFactory.create(MusicProvider.Neteast);
-        List<? extends Song> result = netease.searchMusicSync("Suede", 0, true);
+        final MusicApi api = MusicApiFactory.create(MusicProvider.Neteast);
+        List<? extends Song> result = api.searchMusicSync("Suede", 0, true);
         System.out.println(result.get(0).getMusicLink().getUrl());
     }
 
     private static void testNeteaseAlbum() throws IOException {
-        final MusicApi netease = MusicApiFactory.create(MusicProvider.Neteast);
-        Album album = netease.getAlbumInfoByIdSync("37017747", true);
+        final MusicApi api = MusicApiFactory.create(MusicProvider.Neteast);
+        Album album = api.getAlbumInfoByIdSync("37017747", true);
+        System.out.println(album);
+    }
+
+    private static void testQQAlbum() throws IOException {
+        final MusicApi api = MusicApiFactory.create(MusicProvider.QQ);
+        Album album = api.getAlbumInfoByIdSync("001wmoL43SVFjj", true);
         System.out.println(album);
     }
 }
