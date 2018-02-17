@@ -29,6 +29,21 @@ public class QQSong extends BaseBean implements Song {
     @JSONField(name = "albumname")
     public String albumName;
 
+    @JSONField(name = "sizeogg")
+    public long sizeogg;
+
+    @JSONField(name = "sizeflac")
+    public long sizeflac;
+
+    @JSONField(name = "sizeape")
+    public long sizeape;
+
+    @JSONField(name = "size320")
+    public long size320;
+
+    @JSONField(name = "size128")
+    public long size128;
+
     private MusicLink musicLink;
 
     @Override
@@ -67,5 +82,20 @@ public class QQSong extends BaseBean implements Song {
     @Override
     public MusicLink getMusicLink() {
         return musicLink;
+    }
+
+    /**
+     * 根据size字段猜测url中的quality音质字段
+     *
+     * @return
+     */
+    public QQSongQuality guessQuality() {
+        if (size320 != 0) {
+            return QQSongQuality.High;
+        } else if (size128 != 0) {
+            return QQSongQuality.Medium;
+        } else {
+            return QQSongQuality.Low;
+        }
     }
 }

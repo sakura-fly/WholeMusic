@@ -21,20 +21,6 @@ public class QQMusicApi implements MusicApi {
     static final String USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) " +
             "AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1";
 
-    public enum Quality {
-        High("M800"), Medium("M500"), Low("C400");
-
-        private String prefix;
-
-        Quality(String prefix) {
-            this.prefix = prefix;
-        }
-
-        public String getPrefix() {
-            return prefix;
-        }
-    }
-
     @Override
     public void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Song>> callback) {
         new QQSearchMusicRequest(keyword).requestAsync(callback);
@@ -51,8 +37,17 @@ public class QQMusicApi implements MusicApi {
 
     private void fillSongLinks(List<? extends Song> result) throws IOException {
         for (Song song : result) {
-            song.setMusicLink(getMusicLinkByIdSync(song.getSongId()));
+            song.setMusicLink(getMusicLinkByIdSync(song));
         }
+    }
+
+    private MusicLink getMusicLinkByIdSync(Song song) throws IOException {
+        if (mKeyCache == null) {
+            QQUpdateVKeyRequest.VKey vKey = new QQUpdateVKeyRequest().requestSync();
+            mKeyCache = vKey;
+        }
+        QQSongLink result = getSongLink(mKeyCache, song);
+        return result;
     }
 
     @Override
@@ -62,42 +57,20 @@ public class QQMusicApi implements MusicApi {
 
     @Override
     public void getMusicLinkByIdAsync(final String musicId, final RequestCallback<MusicLink> callback) {
-        if (mKeyCache == null) {
-            new QQUpdateVKeyRequest().requestAsync(new RequestCallback<QQUpdateVKeyRequest.VKey>() {
-                @Override
-                public void onFailure(IOException e) {
-                    callback.onFailure(e);
-                }
-
-                @Override
-                public void onSuccess(QQUpdateVKeyRequest.VKey vKeyObj) {
-                    mKeyCache = vKeyObj;
-                    QQSongLink result = getSongLink(vKeyObj, musicId);
-                    callback.onSuccess(result);
-                }
-            });
-        } else {
-            // 直接成功
-            // TODO: check key expire
-            QQSongLink result = getSongLink(mKeyCache, musicId);
-            callback.onSuccess(result);
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public MusicLink getMusicLinkByIdSync(String musicId) throws IOException {
-        if (mKeyCache == null) {
-            QQUpdateVKeyRequest.VKey vKey = new QQUpdateVKeyRequest().requestSync();
-            mKeyCache = vKey;
-        }
-        QQSongLink result = getSongLink(mKeyCache, musicId);
-        return result;
+    public MusicLink getMusicLinkByIdSync(String musicId) {
+        throw new UnsupportedOperationException();
     }
 
-    private static QQSongLink getSongLink(QQUpdateVKeyRequest.VKey vKeyObj, String musicId) {
+    private static QQSongLink getSongLink(QQUpdateVKeyRequest.VKey vKeyObj, Song song)  {
         String host = vKeyObj.sips.get(0);
         String vKey = vKeyObj.key;
-        final String link = buildQQMusicLink(host, Quality.High, musicId, vKey, GUID);
+        QQSong  qqSong = (QQSong) song;
+        QQSongQuality quality = qqSong.guessQuality();
+        final String link = buildQQMusicLink(host, quality,  song.getSongId(), vKey, GUID);
         QQSongLink result = new QQSongLink();
         result.url = link;
         return result;
@@ -120,7 +93,9 @@ public class QQMusicApi implements MusicApi {
         return album;
     }
 
-    private static String buildQQMusicLink(String host, Quality quality, String mid, String key, String guid) {
-        return host + quality.getPrefix() + mid + ".mp3?vkey=" + key + "&guid=" + guid + "&fromtag=1";
+    private static String buildQQMusicLink(String host, QQSongQuality quality, String mid, String key, String guid) {
+        String link = host + quality.getPrefix() + mid + "." + quality.getSuffix() + "?vkey=" + key + "&guid=" +
+                guid + "&fromtag=1";
+        return link;
     }
 }

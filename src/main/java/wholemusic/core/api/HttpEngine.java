@@ -1,9 +1,7 @@
 package wholemusic.core.api;
 
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
+import wholemusic.core.util.CommonUtils;
 
 import java.io.IOException;
 
@@ -25,5 +23,13 @@ public class HttpEngine {
 
     public static void requestAsync(Request request, Callback callback) {
         getHttpClient().newCall(request).enqueue(callback);
+    }
+
+    public static Response sendHeadRequest(String url) throws IOException {
+        Request.Builder requestBuilder = new Request.Builder();
+        requestBuilder.url(HttpUrl.parse(url));
+        requestBuilder.head();
+        Response response = HttpEngine.requestSync(requestBuilder.build());
+        return response;
     }
 }
