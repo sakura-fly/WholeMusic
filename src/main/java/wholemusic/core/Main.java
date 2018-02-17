@@ -33,7 +33,7 @@ public class Main {
 
     private static void testNeteaseAlbum() throws IOException {
         final MusicApi netease = MusicApiFactory.create(MusicProvider.Neteast);
-        Album album = netease.getAlbumInfoByIdSync("37017747");
+        Album album = netease.getAlbumInfoByIdSync("37017747", true);
         System.out.println(album);
     }
 }

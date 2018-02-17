@@ -32,19 +32,7 @@ public class NeteaseMusicApi implements MusicApi {
     public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException {
         List<? extends Song> result = new NeteaseSearchMusicRequest(keyword, page).requestSync();
         if (needLink) {
-            ArrayList<String> musicIds = new ArrayList<>();
-            for (Song song : result) {
-                musicIds.add(song.getSongId());
-            }
-            List<? extends MusicLink> links = new NeteaseGetMusicLinksRequest(musicIds.toArray(new String[]{}))
-                    .requestSync();
-            HashMap<String, MusicLink> map = new HashMap<>();
-            for (MusicLink link : links) {
-                map.put(link.getSongId(), link);
-            }
-            for (Song song : result) {
-                song.setMusicLink(map.get(song.getSongId()));
-            }
+            fillSongLinks(result);
         }
         return result;
     }
@@ -86,8 +74,13 @@ public class NeteaseMusicApi implements MusicApi {
     }
 
     @Override
-    public Album getAlbumInfoByIdSync(String albumId) throws IOException {
-        return new NeteaseGetAlbumInfoRequest(albumId).requestSync();
+    public Album getAlbumInfoByIdSync(String albumId, boolean needLink) throws IOException {
+        Album result = new NeteaseGetAlbumInfoRequest(albumId).requestSync();
+        if (needLink) {
+            List<? extends Song> songs = result.getSongs();
+            fillSongLinks(songs);
+        }
+        return result;
     }
 
     static String encrypt(JSONObject json) {
@@ -99,5 +92,31 @@ public class NeteaseMusicApi implements MusicApi {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 使用api做一次请求，批量填入歌曲列表每一首歌曲的url
+     *
+     * @param songs
+     * @throws IOException
+     */
+    private static void fillSongLinks(List<? extends Song> songs) throws IOException {
+        // 1. 先获得所有songId组成的列表
+        ArrayList<String> musicIds = new ArrayList<>();
+        for (Song song : songs) {
+            musicIds.add(song.getSongId());
+        }
+        // 2. 使用api批量获取歌曲url
+        List<? extends MusicLink> links = new NeteaseGetMusicLinksRequest(musicIds.toArray(new String[]{}))
+                .requestSync();
+        // 3. 把songId/url分别作为key/value，存入字典
+        HashMap<String, MusicLink> map = new HashMap<>();
+        for (MusicLink link : links) {
+            map.put(link.getSongId(), link);
+        }
+        // 4. 循环一次，把上面索引表中的url数据填入Song对象
+        for (Song song : songs) {
+            song.setMusicLink(map.get(song.getSongId()));
+        }
     }
 }

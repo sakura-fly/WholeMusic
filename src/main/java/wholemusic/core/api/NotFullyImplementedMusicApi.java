@@ -46,7 +46,7 @@ public class NotFullyImplementedMusicApi implements MusicApi {
     }
 
     @Override
-    public Album getAlbumInfoByIdSync(String albumId) {
+    public Album getAlbumInfoByIdSync(String albumId, boolean needLink) {
         throw new UnsupportedOperationException();
     }
 }

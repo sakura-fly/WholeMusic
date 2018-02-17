@@ -75,6 +75,7 @@ public interface MusicApi {
      * 获取专辑id对应的专辑信息
      *
      * @param albumId
+     * @param needLink
      */
-    Album getAlbumInfoByIdSync(String albumId) throws IOException;
+    Album getAlbumInfoByIdSync(String albumId, boolean needLink) throws IOException;
 }
