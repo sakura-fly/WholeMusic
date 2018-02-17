@@ -1,9 +1,10 @@
 package wholemusic.core;
 
-import wholemusic.core.api.*;
+import wholemusic.core.api.MusicApi;
+import wholemusic.core.api.MusicApiFactory;
+import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.Album;
 import wholemusic.core.model.Song;
-import wholemusic.core.model.MusicLink;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,47 +13,27 @@ import java.util.List;
  * Created by haohua on 2018/2/8.
  */
 public class Main {
-    private static RequestCallback<MusicLink> linkCallback = new SimpleRequestCallback<MusicLink>() {
-        @Override
-        public void onSuccess(MusicLink result) {
-            System.out.println(result.getUrl());
-        }
-    };
-
     public static void main(String[] args) throws IOException {
         testNeteaseMusic();
         testQQMusic();
         testNeteaseAlbum();
     }
 
-    private static void testQQMusic() {
+    private static void testQQMusic() throws IOException {
         final MusicApi qq = MusicApiFactory.create(MusicProvider.QQ);
-        qq.searchMusicAsync("孙燕姿", 0, new SimpleRequestCallback<List<? extends Song>>() {
-            @Override
-            public void onSuccess(List<? extends Song> result) {
-                qq.getMusicLinkByIdAsync(result.get(0).getSongId(), linkCallback);
-                qq.getMusicLinkByIdAsync(result.get(1).getSongId(), linkCallback);
-            }
-        });
+        List<? extends Song> result = qq.searchMusicSync("孙燕姿", 0, true);
+        System.out.println(result.get(0).getMusicLink().getUrl());
     }
 
-    private static void testNeteaseMusic() {
+    private static void testNeteaseMusic() throws IOException {
         final MusicApi netease = MusicApiFactory.create(MusicProvider.Neteast);
-        netease.searchMusicAsync("Suede", 0, new SimpleRequestCallback<List<? extends Song>>() {
-            @Override
-            public void onSuccess(List<? extends Song> result) {
-                netease.getMusicLinkByIdAsync(result.get(0).getSongId(), linkCallback);
-            }
-        });
+        List<? extends Song> result = netease.searchMusicSync("Suede", 0, true);
+        System.out.println(result.get(0).getMusicLink().getUrl());
     }
 
-    private static void testNeteaseAlbum() {
+    private static void testNeteaseAlbum() throws IOException {
         final MusicApi netease = MusicApiFactory.create(MusicProvider.Neteast);
-        netease.getAlbumInfoByIdAsync(new SimpleRequestCallback<Album>() {
-            @Override
-            public void onSuccess(Album album) {
-                System.out.println(album);
-            }
-        }, "37017747");
+        Album album = netease.getAlbumInfoByIdSync("37017747");
+        System.out.println(album);
     }
 }
