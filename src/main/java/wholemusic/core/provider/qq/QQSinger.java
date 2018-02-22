@@ -11,8 +11,16 @@ public class QQSinger extends BaseBean implements Artist {
     @JSONField(name = "name")
     public String name;
 
+    @JSONField(name = "mid")
+    public String mid;
+
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getId() {
+        return mid;
     }
 }

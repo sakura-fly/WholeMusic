@@ -26,12 +26,14 @@ public class Main {
         System.out.println(result.get(0).getMusicLink().getUrl());
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     private static void testNeteaseMusic() throws IOException {
         final MusicApi api = MusicApiFactory.create(MusicProvider.Netease);
         List<? extends Song> result = api.searchMusicSync("Suede", 0, true);
         System.out.println(result.get(0).getMusicLink().getUrl());
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     private static void testNeteaseAlbum() throws IOException {
         final MusicApi api = MusicApiFactory.create(MusicProvider.Netease);
         Album album = api.getAlbumInfoByIdSync("37017747", true);
@@ -40,7 +42,8 @@ public class Main {
 
     private static void testQQAlbum() throws IOException {
         final MusicApi api = MusicApiFactory.create(MusicProvider.QQ);
-        Album album = api.getAlbumInfoByIdSync("001wmoL43SVFjj", true);
+        // Album album = api.getAlbumInfoByIdSync("001wmoL43SVFjj", true);
+        Album album = api.getAlbumInfoByIdSync("000yiVfk1EpZIs", true);
         System.out.println(album);
     }
 }

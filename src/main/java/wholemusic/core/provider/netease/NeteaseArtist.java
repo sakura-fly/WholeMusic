@@ -9,6 +9,7 @@ import wholemusic.core.model.BaseBean;
  * Created by haohua on 2018/2/12.
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public class NeteaseArtist extends BaseBean implements Artist {
     @JSONField(name = "name")
     public String name;
@@ -19,5 +20,10 @@ public class NeteaseArtist extends BaseBean implements Artist {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getId() {
+        return String.valueOf(id);
     }
 }

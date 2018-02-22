@@ -15,6 +15,8 @@ public interface Song extends Serializable {
 
     List<? extends Artist> getArtists();
 
+    String getFormattedArtistsString();
+
     Album getAlbum();
 
     MusicProvider getMusicProvider();

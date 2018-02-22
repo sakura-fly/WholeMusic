@@ -13,6 +13,15 @@ public interface Album extends Serializable {
 
     String getAlbumId();
 
+    List<? extends Artist> getArtists();
+
+    /**
+     * 获得多个artists格式化后的字符串
+     *
+     * @return
+     */
+    String getFormattedArtistsString();
+
     List<? extends Song> getSongs();
 
     MusicProvider getMusicProvider();

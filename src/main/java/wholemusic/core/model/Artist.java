@@ -7,4 +7,6 @@ import java.io.Serializable;
  */
 public interface Artist extends Serializable {
     String getName();
+
+    String getId();
 }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.*;
+import wholemusic.core.util.SongUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,11 @@ public class NeteaseSong extends BaseBean implements Song {
     @Override
     public List<? extends Artist> getArtists() {
         return artists;
+    }
+
+    @Override
+    public String getFormattedArtistsString() {
+        return SongUtils.getArtistsString(this);
     }
 
     @Override

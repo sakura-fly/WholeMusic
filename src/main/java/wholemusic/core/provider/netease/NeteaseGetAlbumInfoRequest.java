@@ -27,6 +27,7 @@ import java.util.Map;
  */
 public class NeteaseGetAlbumInfoRequest extends BaseRequest<Album> {
     private final String mAlbumId;
+    @SuppressWarnings("SpellCheckingInspection")
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like " +
             "Gecko) Chrome/35.0.1916.157 Safari/537.36";
     private static final String COOKIE = "os=pc; osver=Microsoft-Windows-10-Professional-build-10586-64bit; " +
@@ -51,6 +52,7 @@ public class NeteaseGetAlbumInfoRequest extends BaseRequest<Album> {
         requestBuilder.addHeader("User-Agent", USER_AGENT);
         requestBuilder.addHeader("Cookie", COOKIE);
         JSONObject json = new JSONObject();
+        //noinspection SpellCheckingInspection
         json.put("csrf_token", "");
         HashMap<String, String> encrypted = encrypt(json);
         FormBody.Builder formBuilder = new FormBody.Builder();
@@ -82,6 +84,7 @@ public class NeteaseGetAlbumInfoRequest extends BaseRequest<Album> {
     @Override
     protected Album parseResult(Response response) throws IOException {
         JSONObject json = JSONObject.parseObject(response.body().string());
+        //noinspection SpellCheckingInspection
         NeteaseAlbum album = json.getJSONObject("album").toJavaObject(NeteaseAlbum.class);
         List<NeteaseSong> songs = json.getJSONArray("songs").toJavaList(NeteaseSong.class);
         album.songs = songs;

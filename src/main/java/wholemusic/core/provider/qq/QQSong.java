@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.*;
+import wholemusic.core.util.SongUtils;
 
 import java.util.ArrayList;
 
@@ -59,6 +60,11 @@ public class QQSong extends BaseBean implements Song {
     @Override
     public ArrayList<? extends Artist> getArtists() {
         return singers;
+    }
+
+    @Override
+    public String getFormattedArtistsString() {
+        return SongUtils.getArtistsString(this);
     }
 
     @Override
