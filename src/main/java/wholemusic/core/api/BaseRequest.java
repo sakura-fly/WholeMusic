@@ -31,7 +31,7 @@ public abstract class BaseRequest<TResult> {
                 final TResult parsedResult = parseResult(response);
                 callback.onSuccess(parsedResult);
             }
-        });
+        }, useProxy());
     }
 
     /**
@@ -42,7 +42,7 @@ public abstract class BaseRequest<TResult> {
      */
     public final TResult requestSync() throws IOException {
         Request request = buildRequest();
-        Response response = HttpEngine.requestSync(request);
+        Response response = HttpEngine.requestSync(request, useProxy());
         TResult parsed = parseResult(response);
         return parsed;
     }
@@ -62,4 +62,13 @@ public abstract class BaseRequest<TResult> {
      * @throws IOException
      */
     protected abstract TResult parseResult(Response response) throws IOException;
+
+    /**
+     * 是否使用代理
+     *
+     * @return
+     */
+    protected boolean useProxy() {
+        return false;
+    }
 }
