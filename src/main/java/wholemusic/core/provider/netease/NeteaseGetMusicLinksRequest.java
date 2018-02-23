@@ -12,14 +12,13 @@ import wholemusic.core.util.CommonUtils;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by haohua on 2018/2/11.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class NeteaseGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
     private final String[] mMusicIds;
-    private final Random mRandom = new Random();
 
     public NeteaseGetMusicLinksRequest(String... musicIds) {
         mMusicIds = musicIds;

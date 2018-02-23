@@ -5,15 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Hex;
 
 import wholemusic.core.api.MusicApi;
-import wholemusic.core.api.RequestCallback;
 import wholemusic.core.model.Album;
 import wholemusic.core.model.Song;
 import wholemusic.core.model.MusicLink;
 import wholemusic.core.util.AES;
+import wholemusic.core.util.Function;
+import wholemusic.core.util.SongUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,39 +22,26 @@ import java.util.List;
 public class NeteaseMusicApi implements MusicApi {
     private static final String SECRET = "7246674226682325323F5E6544673A51";
 
-    @Override
-    public void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Song>> callback) {
-        new NeteaseSearchMusicRequest(keyword, page).requestAsync(callback);
-    }
+    private Function<String[], List<? extends MusicLink>> mGetSongLinksRequestFunction = new Function<String[],
+            List<? extends MusicLink>>() {
+        @Override
+        public List<? extends MusicLink> apply(String[] musicIds) {
+            try {
+                return new NeteaseGetMusicLinksRequest(musicIds).requestSync();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    };
 
     @Override
     public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException {
         List<? extends Song> result = new NeteaseSearchMusicRequest(keyword, page).requestSync();
         if (needLink) {
-            fillSongLinks(result);
+            SongUtils.fillSongLinks(result, mGetSongLinksRequestFunction);
         }
         return result;
-    }
-
-    @Override
-    public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Song> callback) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void getMusicLinkByIdAsync(String musicId, final RequestCallback<MusicLink> callback) {
-        getMusicLinkByIdsAsync(new RequestCallback<List<? extends MusicLink>>() {
-            @Override
-            public void onFailure(IOException e) {
-                callback.onFailure(e);
-            }
-
-            @Override
-            public void onSuccess(List<? extends MusicLink> musicLinks) {
-                MusicLink link = musicLinks.get(0);
-                callback.onSuccess(link);
-            }
-        }, musicId);
     }
 
     @Override
@@ -64,21 +50,11 @@ public class NeteaseMusicApi implements MusicApi {
     }
 
     @Override
-    public void getMusicLinkByIdsAsync(RequestCallback<List<? extends MusicLink>> callback, String... musicIds) {
-        new NeteaseGetMusicLinksRequest(musicIds).requestAsync(callback);
-    }
-
-    @Override
-    public void getAlbumInfoByIdAsync(RequestCallback<Album> callback, String albumId) {
-        new NeteaseGetAlbumInfoRequest(albumId).requestAsync(callback);
-    }
-
-    @Override
     public Album getAlbumInfoByIdSync(String albumId, boolean needLink) throws IOException {
         Album result = new NeteaseGetAlbumInfoRequest(albumId).requestSync();
         if (needLink) {
             List<? extends Song> songs = result.getSongs();
-            fillSongLinks(songs);
+            SongUtils.fillSongLinks(songs, mGetSongLinksRequestFunction);
         }
         return result;
     }
@@ -94,29 +70,4 @@ public class NeteaseMusicApi implements MusicApi {
         return null;
     }
 
-    /**
-     * 使用api做一次请求，批量填入歌曲列表每一首歌曲的url
-     *
-     * @param songs
-     * @throws IOException
-     */
-    private static void fillSongLinks(List<? extends Song> songs) throws IOException {
-        // 1. 先获得所有songId组成的列表
-        ArrayList<String> musicIds = new ArrayList<>();
-        for (Song song : songs) {
-            musicIds.add(song.getSongId());
-        }
-        // 2. 使用api批量获取歌曲url
-        List<? extends MusicLink> links = new NeteaseGetMusicLinksRequest(musicIds.toArray(new String[]{}))
-                .requestSync();
-        // 3. 把songId/url分别作为key/value，存入字典
-        HashMap<String, MusicLink> map = new HashMap<>();
-        for (MusicLink link : links) {
-            map.put(link.getSongId(), link);
-        }
-        // 4. 循环一次，把上面索引表中的url数据填入Song对象
-        for (Song song : songs) {
-            song.setMusicLink(map.get(song.getSongId()));
-        }
-    }
 }

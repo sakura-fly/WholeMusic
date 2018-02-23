@@ -16,6 +16,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         testNeteaseMusic();
         testQQMusic();
+        testBaiduMusic();
+
         testNeteaseAlbum();
         testQQAlbum();
     }
@@ -30,6 +32,13 @@ public class Main {
     private static void testNeteaseMusic() throws IOException {
         final MusicApi api = MusicApiFactory.create(MusicProvider.Netease);
         List<? extends Song> result = api.searchMusicSync("Suede", 0, true);
+        System.out.println(result.get(0).getMusicLink().getUrl());
+    }
+
+    @SuppressWarnings("SpellCheckingInspection")
+    private static void testBaiduMusic() throws IOException {
+        final MusicApi api = MusicApiFactory.create(MusicProvider.Baidu);
+        List<? extends Song> result = api.searchMusicSync("岳云鹏 送情郎", 0, true);
         System.out.println(result.get(0).getMusicLink().getUrl());
     }
 

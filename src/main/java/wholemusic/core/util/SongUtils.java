@@ -2,9 +2,12 @@ package wholemusic.core.util;
 
 import wholemusic.core.model.Album;
 import wholemusic.core.model.Artist;
+import wholemusic.core.model.MusicLink;
 import wholemusic.core.model.Song;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SongUtils {
@@ -32,5 +35,31 @@ public class SongUtils {
 
     private static String generateSongFilename(Song song) {
         return song.getName() + " - " + getArtistsString(song) + ".mp3";
+    }
+
+    /**
+     * 使用api做一次请求，批量填入歌曲列表每一首歌曲的url
+     *
+     * @param songs
+     * @throws IOException
+     */
+    public static void fillSongLinks(List<? extends Song> songs, Function<String[], List<? extends MusicLink>>
+            function) {
+        // 1. 先获得所有songId组成的列表
+        ArrayList<String> musicIds = new ArrayList<>();
+        for (Song song : songs) {
+            musicIds.add(song.getSongId());
+        }
+        // 2. 使用api批量获取歌曲url
+        List<? extends MusicLink> links = function.apply(musicIds.toArray(new String[]{}));
+        // 3. 把songId/url分别作为key/value，存入字典
+        HashMap<String, MusicLink> map = new HashMap<>();
+        for (MusicLink link : links) {
+            map.put(link.getSongId(), link);
+        }
+        // 4. 循环一次，把上面索引表中的url数据填入Song对象
+        for (Song song : songs) {
+            song.setMusicLink(map.get(song.getSongId()));
+        }
     }
 }

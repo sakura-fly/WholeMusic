@@ -1,7 +1,6 @@
 package wholemusic.core.provider.qq;
 
 import wholemusic.core.api.MusicApi;
-import wholemusic.core.api.RequestCallback;
 import wholemusic.core.model.Album;
 import wholemusic.core.model.Song;
 import wholemusic.core.model.MusicLink;
@@ -20,11 +19,6 @@ public class QQMusicApi implements MusicApi {
 
     static final String USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) " +
             "AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1";
-
-    @Override
-    public void searchMusicAsync(String keyword, int page, RequestCallback<List<? extends Song>> callback) {
-        new QQSearchMusicRequest(keyword).requestAsync(callback);
-    }
 
     @Override
     public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException {
@@ -51,16 +45,6 @@ public class QQMusicApi implements MusicApi {
     }
 
     @Override
-    public void getMusicInfoByIdAsync(String musicId, RequestCallback<? extends Song> callback) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void getMusicLinkByIdAsync(final String musicId, final RequestCallback<MusicLink> callback) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public MusicLink getMusicLinkByIdSync(String musicId) {
         throw new UnsupportedOperationException();
     }
@@ -74,16 +58,6 @@ public class QQMusicApi implements MusicApi {
         QQSongLink result = new QQSongLink();
         result.url = link;
         return result;
-    }
-
-    @Override
-    public void getMusicLinkByIdsAsync(RequestCallback<List<? extends MusicLink>> callback, String... musicIds) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void getAlbumInfoByIdAsync(RequestCallback<Album> callback, String albumId) {
-        throw new UnsupportedOperationException();
     }
 
     @Override

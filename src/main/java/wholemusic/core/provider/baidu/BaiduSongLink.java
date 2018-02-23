@@ -1,7 +1,6 @@
-package wholemusic.core.provider.netease;
+package wholemusic.core.provider.baidu;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.MusicLink;
 
@@ -9,25 +8,22 @@ import wholemusic.core.model.MusicLink;
  * Created by haohua on 2018/2/9.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class NeteaseSongLink extends BaseBean implements MusicLink {
+public class BaiduSongLink extends BaseBean implements MusicLink {
 
-    @JSONField(name = "url")
+    @JSONField(name = "songLink")
     public String url;
 
-    @JSONField(name = "id")
+    @JSONField(name = "songId")
     public long songId;
 
     @JSONField(name = "size")
     public long size;
 
-    @JSONField(name = "br")
+    @JSONField(name = "rate")
     public long bitrate;
 
-    @JSONField(name = "md5")
-    public String md5;
-    @JSONField(name = "type")
-
-    public String type;
+    @JSONField(name = "format")
+    public String format;
 
     @Override
     public String getUrl() {
@@ -36,7 +32,7 @@ public class NeteaseSongLink extends BaseBean implements MusicLink {
 
     @Override
     public String getType() {
-        return type;
+        return format;
     }
 
     @Override
@@ -56,6 +52,7 @@ public class NeteaseSongLink extends BaseBean implements MusicLink {
 
     @Override
     public String getMd5() {
-        return md5;
+        // TODO
+        return null;
     }
 }
