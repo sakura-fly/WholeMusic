@@ -18,6 +18,7 @@ public class Main {
         testQQMusic();
         testBaiduMusic();
         testMiguMusic();
+        testKugouMusic();
 
         testNeteaseAlbum();
         testQQAlbum();
@@ -47,6 +48,14 @@ public class Main {
     private static void testMiguMusic() throws IOException {
         final MusicApi api = MusicApiFactory.create(MusicProvider.Migu);
         List<? extends Song> result = api.searchMusicSync("孙燕姿 第一天", 0, true);
+        System.out.println(result.get(0).getMusicLink().getUrl());
+    }
+
+
+    @SuppressWarnings("SpellCheckingInspection")
+    private static void testKugouMusic() throws IOException {
+        final MusicApi api = MusicApiFactory.create(MusicProvider.Kugou);
+        List<? extends Song> result = api.searchMusicSync("Beyond", 0, true);
         System.out.println(result.get(0).getMusicLink().getUrl());
     }
 

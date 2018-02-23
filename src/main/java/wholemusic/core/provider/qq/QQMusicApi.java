@@ -22,7 +22,7 @@ public class QQMusicApi implements MusicApi {
 
     @Override
     public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException {
-        List<? extends Song> result = new QQSearchMusicRequest(keyword).requestSync();
+        List<? extends Song> result = new QQSearchMusicRequest(keyword, page).requestSync();
         if (needLink) {
             fillSongLinks(result);
         }

@@ -18,7 +18,7 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 class BaiduSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     private final String mKeyword;
-    private static final int PAGE_SIZE = 20;
+    private static final int PAGE_SIZE = 10;
     private final int mPage;
 
     public BaiduSearchMusicRequest(String keyword, int page) {
