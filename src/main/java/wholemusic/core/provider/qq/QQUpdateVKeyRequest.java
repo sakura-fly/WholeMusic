@@ -13,8 +13,7 @@ import java.util.List;
 /**
  * Created by haohua on 2018/2/11.
  */
-public class QQUpdateVKeyRequest extends BaseRequest<QQUpdateVKeyRequest.VKey> {
-
+class QQUpdateVKeyRequest extends BaseRequest<QQUpdateVKeyRequest.VKey> {
 
     public final static class VKey {
         public String key;

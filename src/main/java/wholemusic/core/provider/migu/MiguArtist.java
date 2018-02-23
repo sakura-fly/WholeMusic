@@ -1,21 +1,20 @@
-package wholemusic.core.provider.netease;
+package wholemusic.core.provider.migu;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import wholemusic.core.model.Artist;
 import wholemusic.core.model.BaseBean;
 
 /**
- * Created by haohua on 2018/2/12.
+ * Created by haohua on 2018/2/23.
  */
 
 @SuppressWarnings("SpellCheckingInspection")
-class NeteaseArtist extends BaseBean implements Artist {
+class MiguArtist extends BaseBean implements Artist {
     @JSONField(name = "name")
     public String name;
 
     @JSONField(name = "id")
-    public long id;
+    public String id;
 
     @Override
     public String getName() {
@@ -24,6 +23,6 @@ class NeteaseArtist extends BaseBean implements Artist {
 
     @Override
     public String getId() {
-        return String.valueOf(id);
+        return id;
     }
 }

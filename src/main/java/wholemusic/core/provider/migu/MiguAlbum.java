@@ -1,4 +1,4 @@
-package wholemusic.core.provider.netease;
+package wholemusic.core.provider.migu;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.api.MusicProvider;
@@ -11,21 +11,19 @@ import wholemusic.core.util.SongUtils;
 import java.util.List;
 
 /**
- * Created by haohua on 2018/2/11.
+ * Created by haohua on 2018/2/23.
  */
 @SuppressWarnings("SpellCheckingInspection")
-class NeteaseAlbum extends BaseBean implements Album {
+class MiguAlbum extends BaseBean implements Album {
 
-    @JSONField(name = "name")
     public String name;
 
-    @JSONField(name = "id")
-    public long id;
+    public String id;
 
     @JSONField(name = "artists")
-    public List<NeteaseArtist> artists;
+    public List<MiguArtist> artists;
 
-    public List<NeteaseSong> songs;
+    public List<MiguSong> songs;
 
     @Override
     public String getName() {
@@ -34,7 +32,7 @@ class NeteaseAlbum extends BaseBean implements Album {
 
     @Override
     public String getAlbumId() {
-        return String.valueOf(id);
+        return id;
     }
 
     @Override
@@ -42,7 +40,7 @@ class NeteaseAlbum extends BaseBean implements Album {
         return songs;
     }
 
-    public void setSongs(List<NeteaseSong> songs) {
+    public void setSongs(List<MiguSong> songs) {
         this.songs = songs;
     }
 
@@ -51,7 +49,7 @@ class NeteaseAlbum extends BaseBean implements Album {
         return artists;
     }
 
-    public void setArtists(List<NeteaseArtist> artists) {
+    public void setArtists(List<MiguArtist> artists) {
         this.artists = artists;
     }
 
@@ -62,6 +60,6 @@ class NeteaseAlbum extends BaseBean implements Album {
 
     @Override
     public MusicProvider getMusicProvider() {
-        return MusicProvider.Netease;
+        return MusicProvider.Migu;
     }
 }

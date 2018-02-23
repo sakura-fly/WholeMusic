@@ -1,4 +1,4 @@
-package wholemusic.core.provider.baidu;
+package wholemusic.core.provider.migu;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.api.MusicProvider;
@@ -12,27 +12,32 @@ import java.util.List;
  * Created by haohua on 2018/2/23.
  */
 @SuppressWarnings("SpellCheckingInspection")
-class BaiduSong extends BaseBean implements Song {
+class MiguSong extends BaseBean implements Song {
 
-    @JSONField(name = "title")
+    @JSONField(name = "songName")
     public String name;
 
     @JSONField(name = "song_id")
     public long songId;
 
-    @JSONField(name = "author")
+    @JSONField(name = "artist")
     public String artist;
 
-    @JSONField(name = "all_artist_id")
-    public String artistIds;
 
-    @JSONField(name = "album_id")
+    @JSONField(name = "cover")
+    public String cover;
+
+    @JSONField(name = "albumId")
     public String albumId;
 
-    @JSONField(name = "album_title")
-    public String albumTitle;
+    @JSONField(name = "albumName")
+    public String albumName;
 
-    private MusicLink musicLink;
+    @JSONField(name = "mp3")
+    public String songUrl;
+
+    @JSONField(name = "lyrics")
+    public String lyricsUrl;
 
     @Override
     public String getName() {
@@ -46,11 +51,11 @@ class BaiduSong extends BaseBean implements Song {
 
     @Override
     public List<? extends Artist> getArtists() {
-        ArrayList<BaiduArtist> result = new ArrayList<>();
-        String[] artistIdArray = artistIds.split(",");
-        for (String artistId : artistIdArray) {
-            BaiduArtist artist = new BaiduArtist();
-            artist.id = artistId;
+        ArrayList<MiguArtist> result = new ArrayList<>();
+        String[] artistArray = artist.split(",");
+        for (String name : artistArray) {
+            MiguArtist artist = new MiguArtist();
+            artist.name = name.trim();
             result.add(artist);
         }
         return result;
@@ -64,23 +69,23 @@ class BaiduSong extends BaseBean implements Song {
 
     @Override
     public Album getAlbum() {
-        BaiduAlbum album = new BaiduAlbum();
-        album.id = this.albumId;
-        album.name = albumTitle;
-        return album;
+        // TODO
+        return null;
     }
 
     @Override
     public MusicProvider getMusicProvider() {
-        return MusicProvider.Baidu;
+        return MusicProvider.Migu;
     }
 
     @Override
     public MusicLink getMusicLink() {
-        return musicLink;
+        MiguSongLink link = new MiguSongLink();
+        link.setUrl(songUrl);
+        return link;
     }
 
     public void setMusicLink(MusicLink musicLink) {
-        this.musicLink = musicLink;
+        throw new UnsupportedOperationException();
     }
 }

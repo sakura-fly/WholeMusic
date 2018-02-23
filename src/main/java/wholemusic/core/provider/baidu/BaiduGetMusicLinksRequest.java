@@ -17,7 +17,7 @@ import java.util.List;
  * Created by haohua on 2018/2/23.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class BaiduGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
+class BaiduGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
     private final String[] mMusicIds;
 
     public BaiduGetMusicLinksRequest(String... musicIds) {

@@ -16,7 +16,7 @@ import java.util.List;
  * Created by haohua on 2018/2/23.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class BaiduSearchMusicRequest extends BaseRequest<List<? extends Song>> {
+class BaiduSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     private final String mKeyword;
     private static final int PAGE_SIZE = 20;
     private final int mPage;

@@ -4,15 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.apache.commons.codec.binary.Base64;
 import wholemusic.core.api.BaseRequest;
 import wholemusic.core.model.Album;
-import wholemusic.core.provider.netease.NeteaseAlbum;
-import wholemusic.core.provider.netease.NeteaseSong;
-import wholemusic.core.util.AES;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,7 +17,7 @@ import java.util.List;
 /**
  * 参考: https://juejin.im/post/5a35228e51882506a463b172
  */
-public class QQGetAlbumInfoRequest extends BaseRequest<Album> {
+class QQGetAlbumInfoRequest extends BaseRequest<Album> {
     private final String mAlbumId;
 
     public QQGetAlbumInfoRequest(String albumId) {

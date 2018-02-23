@@ -9,7 +9,7 @@ import wholemusic.core.model.MusicLink;
  * Created by haohua on 2018/2/9.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class NeteaseSongLink extends BaseBean implements MusicLink {
+class NeteaseSongLink extends BaseBean implements MusicLink {
 
     @JSONField(name = "url")
     public String url;

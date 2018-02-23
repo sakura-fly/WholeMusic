@@ -1,4 +1,4 @@
-package wholemusic.core.provider.kugou;
+package wholemusic.core.provider.yiting;
 
 import wholemusic.core.api.NotFullyImplementedMusicApi;
 
@@ -6,5 +6,5 @@ import wholemusic.core.api.NotFullyImplementedMusicApi;
  * Created by haohua on 2018/2/11.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class KugouMusicApi extends NotFullyImplementedMusicApi {
+public class YitingMusicApi extends NotFullyImplementedMusicApi {
 }

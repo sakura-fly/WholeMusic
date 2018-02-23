@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by haohua on 2018/2/17.
  */
-public class QQAlbum extends BaseBean implements Album {
+class QQAlbum extends BaseBean implements Album {
     @JSONField(name = "name")
     private String name;
 

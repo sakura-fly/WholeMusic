@@ -9,7 +9,7 @@ import wholemusic.core.model.BaseBean;
  */
 
 @SuppressWarnings("SpellCheckingInspection")
-public class BaiduArtist extends BaseBean implements Artist {
+class BaiduArtist extends BaseBean implements Artist {
     @JSONField(name = "name")
     public String name;
 

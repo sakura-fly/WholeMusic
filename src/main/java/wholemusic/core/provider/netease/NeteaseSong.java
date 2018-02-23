@@ -13,7 +13,7 @@ import java.util.List;
  * Created by haohua on 2018/2/9.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class NeteaseSong extends BaseBean implements Song {
+class NeteaseSong extends BaseBean implements Song {
 
     @JSONField(name = "name")
     public String name;

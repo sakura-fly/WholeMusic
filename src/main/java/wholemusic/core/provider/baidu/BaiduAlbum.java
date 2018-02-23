@@ -6,8 +6,6 @@ import wholemusic.core.model.Album;
 import wholemusic.core.model.Artist;
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.Song;
-import wholemusic.core.provider.netease.NeteaseArtist;
-import wholemusic.core.provider.netease.NeteaseSong;
 import wholemusic.core.util.SongUtils;
 
 import java.util.List;
@@ -16,7 +14,7 @@ import java.util.List;
  * Created by haohua on 2018/2/11.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class BaiduAlbum extends BaseBean implements Album {
+class BaiduAlbum extends BaseBean implements Album {
 
     public String name;
 

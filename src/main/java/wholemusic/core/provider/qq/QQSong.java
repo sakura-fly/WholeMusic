@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by haohua on 2018/2/9.
  */
-public class QQSong extends BaseBean implements Song {
+class QQSong extends BaseBean implements Song {
     @JSONField(name = "songname")
     public String name;
 

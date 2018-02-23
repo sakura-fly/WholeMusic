@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by haohua on 2018/2/11.
  */
-public class QQSearchMusicRequest extends BaseRequest<List<? extends Song>> {
+class QQSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     private final String mKeyword;
 
     public QQSearchMusicRequest(String keyword) {

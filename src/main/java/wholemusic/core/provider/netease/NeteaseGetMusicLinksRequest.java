@@ -17,7 +17,7 @@ import java.util.List;
  * Created by haohua on 2018/2/11.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class NeteaseGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
+class NeteaseGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
     private final String[] mMusicIds;
 
     public NeteaseGetMusicLinksRequest(String... musicIds) {

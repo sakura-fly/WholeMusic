@@ -1,6 +1,6 @@
 package wholemusic.core.provider.qq;
 
-public enum QQSongQuality {
+enum QQSongQuality {
     High("M800", "mp3"), Medium("M500", "mp3"), Low("C400", "m4a");
 
     private String prefix;

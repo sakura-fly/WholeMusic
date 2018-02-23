@@ -8,7 +8,7 @@ import wholemusic.core.model.MusicLink;
  * Created by haohua on 2018/2/9.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class BaiduSongLink extends BaseBean implements MusicLink {
+class BaiduSongLink extends BaseBean implements MusicLink {
 
     @JSONField(name = "songLink")
     public String url;

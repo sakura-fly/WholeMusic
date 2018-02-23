@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * 参考: https://github.com/metowolf/NeteaseCloudMusicApi/blob/master/weapi/NeteaseMusicAPI_mini.php
  */
-public class NeteaseGetAlbumInfoRequest extends BaseRequest<Album> {
+class NeteaseGetAlbumInfoRequest extends BaseRequest<Album> {
     private final String mAlbumId;
     @SuppressWarnings("SpellCheckingInspection")
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like " +

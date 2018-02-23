@@ -1,4 +1,4 @@
-package wholemusic.core.provider.qq;
+package wholemusic.core.provider.migu;
 
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.MusicLink;
@@ -6,8 +6,10 @@ import wholemusic.core.model.MusicLink;
 /**
  * Created by haohua on 2018/2/9.
  */
-class QQSongLink extends BaseBean implements MusicLink {
-    public String url;
+@SuppressWarnings("SpellCheckingInspection")
+class MiguSongLink extends BaseBean implements MusicLink {
+
+    private String url;
 
     @Override
     public String getUrl() {
@@ -37,5 +39,9 @@ class QQSongLink extends BaseBean implements MusicLink {
     @Override
     public String getMd5() {
         return null;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
