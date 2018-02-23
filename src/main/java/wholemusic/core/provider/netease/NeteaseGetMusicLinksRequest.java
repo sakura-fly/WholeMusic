@@ -7,6 +7,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
+import wholemusic.core.config.Constants;
 import wholemusic.core.model.MusicLink;
 import wholemusic.core.util.CommonUtils;
 
@@ -28,7 +29,7 @@ class NeteaseGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>>
     protected Request buildRequest() {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(HttpUrl.parse("http://music.163.com/api/linux/forward"));
-        requestBuilder.addHeader("Referrer", "http://music.163.com/");
+        requestBuilder.addHeader(Constants.REFERER, "http://music.163.com/");
         requestBuilder.addHeader("X-REAL-IP", CommonUtils.generateChinaRandomIP());
         JSONObject json = new JSONObject();
         json.put("method", "POST");

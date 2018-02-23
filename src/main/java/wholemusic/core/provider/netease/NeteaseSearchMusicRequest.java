@@ -8,6 +8,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
+import wholemusic.core.config.Constants;
 import wholemusic.core.model.Song;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ class NeteaseSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     protected Request buildRequest() {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(HttpUrl.parse("http://music.163.com/api/linux/forward"));
-        requestBuilder.addHeader("Referrer", "http://music.163.com/");
+        requestBuilder.addHeader(Constants.REFERER, "http://music.163.com/");
         JSONObject json = new JSONObject();
         json.put("method", "POST");
         json.put("url", "http://music.163.com/api/cloudsearch/pc");

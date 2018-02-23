@@ -5,6 +5,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
+import wholemusic.core.config.Constants;
 import wholemusic.core.model.Song;
 
 import java.io.IOException;
@@ -33,7 +34,7 @@ class QQSearchMusicRequest extends BaseRequest<List<? extends Song>> {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(urlBuilder.build());
         requestBuilder.addHeader("User-Agent", QQMusicApi.USER_AGENT);
-        requestBuilder.addHeader("Referrer", "http://m.y.qq.com");
+        requestBuilder.addHeader(Constants.REFERER, "http://m.y.qq.com");
         requestBuilder.get();
         final Request request = requestBuilder.build();
         return request;

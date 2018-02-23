@@ -6,6 +6,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
+import wholemusic.core.config.Constants;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ class KugouSearchMusicRequest extends BaseRequest<List<KugouSong>> {
         urlBuilder.addQueryParameter("page", String.valueOf(mPage));
         urlBuilder.addQueryParameter("pagesize", String.valueOf(PAGE_SIZE));
         requestBuilder.url(urlBuilder.build());
-        requestBuilder.addHeader("Referrer", "http://m.kugou.com/v2/static/html/search.html");
+        requestBuilder.addHeader(Constants.REFERER, "http://m.kugou.com/v2/static/html/search.html");
         requestBuilder.addHeader("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) " +
                 "AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1");
         requestBuilder.get();

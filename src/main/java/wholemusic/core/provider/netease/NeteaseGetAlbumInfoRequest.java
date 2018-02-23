@@ -10,6 +10,7 @@ import okhttp3.Response;
 import org.apache.commons.codec.binary.Base64;
 
 import wholemusic.core.api.BaseRequest;
+import wholemusic.core.config.Constants;
 import wholemusic.core.model.Album;
 import wholemusic.core.util.AES;
 
@@ -48,7 +49,7 @@ class NeteaseGetAlbumInfoRequest extends BaseRequest<Album> {
     protected Request buildRequest() {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(HttpUrl.parse("http://music.163.com/weapi/v1/album/" + mAlbumId + "?csrf_token="));
-        requestBuilder.addHeader("Referrer", "http://music.163.com/");
+        requestBuilder.addHeader(Constants.REFERER, "http://music.163.com/");
         requestBuilder.addHeader("User-Agent", USER_AGENT);
         requestBuilder.addHeader("Cookie", COOKIE);
         JSONObject json = new JSONObject();

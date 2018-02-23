@@ -1,4 +1,4 @@
-package wholemusic.core.provider.baidu;
+package wholemusic.core.provider.kuwo;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -17,12 +17,12 @@ import java.util.List;
  * Created by haohua on 2018/2/23.
  */
 @SuppressWarnings("SpellCheckingInspection")
-class BaiduSearchMusicRequest extends BaseRequest<List<? extends Song>> {
+class KuwoSearchMusicRequest extends BaseRequest<List<KuwoSong>> {
     private final String mKeyword;
     private static final int PAGE_SIZE = 10;
     private final int mPage;
 
-    public BaiduSearchMusicRequest(String keyword, int page) {
+    public KuwoSearchMusicRequest(String keyword, int page) {
         mKeyword = keyword;
         mPage = page;
     }
@@ -30,26 +30,28 @@ class BaiduSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     @Override
     protected Request buildRequest() {
         Request.Builder requestBuilder = new Request.Builder();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://musicapi.qianqian.com/v1/restserver/ting").newBuilder();
-        urlBuilder.addQueryParameter("method", "baidu.ting.search.common");
-        urlBuilder.addQueryParameter("query", mKeyword);
-        urlBuilder.addQueryParameter("format", "json");
-        urlBuilder.addQueryParameter("page_no", String.valueOf(mPage));
-        urlBuilder.addQueryParameter("page_size", String.valueOf(PAGE_SIZE));
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://search.kuwo.cn/r.s").newBuilder();
+        urlBuilder.addQueryParameter("all", mKeyword);
+        urlBuilder.addQueryParameter("ft", "music");
+        urlBuilder.addQueryParameter("itemset", "web_2013");
+        urlBuilder.addQueryParameter("pn", String.valueOf(mPage));
+        urlBuilder.addQueryParameter("rn", String.valueOf(PAGE_SIZE));
+        urlBuilder.addQueryParameter("rformat", "json");
+        urlBuilder.addQueryParameter("encoding", "utf8");
         requestBuilder.url(urlBuilder.build());
-        requestBuilder.addHeader(Constants.REFERER, "http://music.baidu.com/");
+        requestBuilder.addHeader(Constants.REFERER, "http://player.kuwo.cn/webmusic/play");
         requestBuilder.get();
         final Request request = requestBuilder.build();
         return request;
     }
 
     @Override
-    protected List<BaiduSong> parseResult(Response response) throws IOException {
+    protected List<KuwoSong> parseResult(Response response) throws IOException {
         JSONObject responseJson = JSONObject.parseObject(response.body().string());
-        JSONArray songArray = responseJson.getJSONArray("song_list");
-        List<BaiduSong> songs = new ArrayList<>();
+        JSONArray songArray = responseJson.getJSONArray("abslist");
+        List<KuwoSong> songs = new ArrayList<>();
         if (songArray != null) {
-            songs = songArray.toJavaList(BaiduSong.class);
+            songs = songArray.toJavaList(KuwoSong.class);
         }
         return songs;
     }

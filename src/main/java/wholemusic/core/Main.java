@@ -19,6 +19,7 @@ public class Main {
         testBaiduMusic();
         testMiguMusic();
         testKugouMusic();
+        testKuwoMusic();
 
         testNeteaseAlbum();
         testQQAlbum();
@@ -58,6 +59,14 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("Beyond", 0, true);
         System.out.println(result.get(0).getMusicLink().getUrl());
     }
+
+    @SuppressWarnings("SpellCheckingInspection")
+    private static void testKuwoMusic() throws IOException {
+        final MusicApi api = MusicApiFactory.create(MusicProvider.Kuwo);
+        List<? extends Song> result = api.searchMusicSync("Beyond", 0, true);
+        System.out.println(result.get(0).getMusicLink().getUrl());
+    }
+
 
     @SuppressWarnings("SpellCheckingInspection")
     private static void testNeteaseAlbum() throws IOException {
