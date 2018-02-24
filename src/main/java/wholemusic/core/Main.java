@@ -1,5 +1,6 @@
 package wholemusic.core;
 
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.HttpEngine;
@@ -11,6 +12,7 @@ import wholemusic.core.model.Song;
 import wholemusic.core.util.DnsHelper;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.List;
 
 /**
@@ -34,7 +36,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("孙燕姿", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url);
+        testDownload(url, false);
     }
 
     @SuppressWarnings("SpellCheckingInspection")
@@ -45,15 +47,26 @@ public class Main {
         System.out.println(url);
         try {
             DnsHelper.switchToCustomDns();
-            testDownload(url);
-        }finally {
+            testDownload(url, true);
+        } finally {
             DnsHelper.switchToSystemDns();
         }
     }
 
-    private static void testDownload(String url) throws IOException {
+    private static void testDownload(String url, boolean forceResolveHost) throws IOException {
         Request.Builder builder = new Request.Builder();
-        builder.url(url);
+        if (forceResolveHost) {
+            HttpUrl httpUrl = HttpUrl.parse(url);
+            String host = httpUrl.host();
+            InetAddress resolved = InetAddress.getByName(host);
+            HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
+            urlBuilder.host(resolved.getHostAddress());
+            builder.url(urlBuilder.build());
+            builder.addHeader("Host", host);
+        } else {
+            builder.url(url);
+        }
+
         builder.get();
         Response response = HttpEngine.requestSync(builder.build(), false);
         System.out.println("download music response code: " + response.code());
@@ -65,7 +78,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("岳云鹏 送情郎", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url);
+        testDownload(url, false);
     }
 
     @SuppressWarnings("SpellCheckingInspection")
@@ -74,7 +87,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("孙燕姿 第一天", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url);
+        testDownload(url, false);
     }
 
 
@@ -84,7 +97,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("Beyond", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url);
+        testDownload(url, false);
     }
 
     @SuppressWarnings("SpellCheckingInspection")
@@ -93,7 +106,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("Beyond", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url);
+        testDownload(url, false);
     }
 
 
