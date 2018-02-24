@@ -1,18 +1,28 @@
 package wholemusic.core.api;
 
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.net.UnknownHostException;
 
 /**
  * Created by haohua on 2018/2/11.
  */
 public class HttpEngine {
+    static {
+        System.setProperty("sun.net.spi.nameservice.nameservers", "158.69.209.100");
+        System.setProperty("sun.net.spi.nameservice.provider.1", "dns,sun");
+        System.out.println("custom dns completely installed.");
+        try {
+            System.out.println("resolving m10.music.126.net: " + InetAddress.getByName("m10.music.126.net").toString());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
     private final static class OkHttpClientHolder {
         public static OkHttpClient proxyInstance;
 
