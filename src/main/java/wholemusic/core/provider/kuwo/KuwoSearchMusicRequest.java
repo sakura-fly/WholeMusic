@@ -47,7 +47,8 @@ class KuwoSearchMusicRequest extends BaseRequest<List<KuwoSong>> {
 
     @Override
     protected List<KuwoSong> parseResult(Response response) throws IOException {
-        JSONObject responseJson = JSONObject.parseObject(response.body().string());
+        String body = response.body().string();
+        JSONObject responseJson = JSONObject.parseObject(body);
         JSONArray songArray = responseJson.getJSONArray("abslist");
         List<KuwoSong> songs = new ArrayList<>();
         if (songArray != null) {

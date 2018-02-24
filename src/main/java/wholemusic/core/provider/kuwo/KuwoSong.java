@@ -3,6 +3,7 @@ package wholemusic.core.provider.kuwo;
 import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.*;
+import wholemusic.core.util.CommonUtils;
 import wholemusic.core.util.SongUtils;
 
 import java.util.ArrayList;
@@ -15,25 +16,26 @@ import java.util.List;
 class KuwoSong extends BaseBean implements Song {
 
     @JSONField(name = "SONGNAME")
-    public String name;
+    public String nameRaw;
 
     @JSONField(name = "MUSICRID")
     public String songId;
 
     @JSONField(name = "ARTIST")
-    public String artist;
+    public String artistRaw;
 
     @JSONField(name = "ALBUMID")
     public String albumId;
 
     @JSONField(name = "ALBUM")
-    public String albumName;
+    public String albumNameRaw;
 
     private MusicLink musicLink;
 
     @Override
     public String getName() {
-        return name;
+        String result = CommonUtils.unescapeHtmlAndXml(nameRaw);
+        return result;
     }
 
     @Override
@@ -44,7 +46,7 @@ class KuwoSong extends BaseBean implements Song {
     @Override
     public List<? extends Artist> getArtists() {
         ArrayList<KuwoArtist> result = new ArrayList<>();
-        String[] artistArray = artist.split(",");
+        String[] artistArray = getArtist().split(",");
         for (String name : artistArray) {
             KuwoArtist artist = new KuwoArtist();
             artist.name = name.trim();
@@ -55,14 +57,15 @@ class KuwoSong extends BaseBean implements Song {
 
     @Override
     public String getFormattedArtistsString() {
-        // TODO
         return SongUtils.getArtistsString(this);
     }
 
     @Override
     public Album getAlbum() {
-        // TODO
-        return null;
+        KuwoAlbum album = new KuwoAlbum();
+        album.id = albumId;
+        album.name = getAlbumName();
+        return album;
     }
 
     @Override
@@ -77,5 +80,15 @@ class KuwoSong extends BaseBean implements Song {
 
     public void setMusicLink(MusicLink musicLink) {
         this.musicLink = musicLink;
+    }
+
+    public String getArtist() {
+        String artist = CommonUtils.unescapeHtmlAndXml(artistRaw);
+        return artist;
+    }
+
+    public String getAlbumName() {
+        String albumName = CommonUtils.unescapeHtmlAndXml(albumNameRaw);
+        return albumName;
     }
 }

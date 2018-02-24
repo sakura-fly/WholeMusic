@@ -26,6 +26,9 @@ public class HttpEngine {
             @Override
             public List<InetAddress> lookup(String hostname) throws UnknownHostException {
                 List<InetAddress> systemResult = systemDns(hostname);
+                if ("127.0.0.1".equals(hostname)) {
+                    return systemResult;
+                }
                 ArrayList<InetAddress> finalResult = new ArrayList<>();
                 for (InetAddress address : systemResult) {
                     if (!"127.0.0.1".equals(address.getHostAddress())) {

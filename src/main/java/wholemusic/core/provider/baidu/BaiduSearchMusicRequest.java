@@ -45,7 +45,8 @@ class BaiduSearchMusicRequest extends BaseRequest<List<? extends Song>> {
 
     @Override
     protected List<BaiduSong> parseResult(Response response) throws IOException {
-        JSONObject responseJson = JSONObject.parseObject(response.body().string());
+        String body = response.body().string();
+        JSONObject responseJson = JSONObject.parseObject(body);
         JSONArray songArray = responseJson.getJSONArray("song_list");
         List<BaiduSong> songs = new ArrayList<>();
         if (songArray != null) {

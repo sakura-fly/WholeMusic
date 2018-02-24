@@ -1,5 +1,7 @@
 package wholemusic.core.util;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,4 +23,7 @@ public class CommonUtils {
         return sb.toString();
     }
 
+    public static String unescapeHtmlAndXml(String text) {
+        return StringEscapeUtils.unescapeHtml4(StringEscapeUtils.unescapeXml(text));
+    }
 }

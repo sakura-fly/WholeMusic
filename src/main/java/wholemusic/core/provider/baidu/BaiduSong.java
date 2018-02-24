@@ -36,7 +36,7 @@ class BaiduSong extends BaseBean implements Song {
 
     @Override
     public String getName() {
-        return name;
+        return removeEm(name);
     }
 
     @Override
@@ -47,10 +47,10 @@ class BaiduSong extends BaseBean implements Song {
     @Override
     public List<? extends Artist> getArtists() {
         ArrayList<BaiduArtist> result = new ArrayList<>();
-        String[] artistIdArray = artistIds.split(",");
-        for (String artistId : artistIdArray) {
+        String[] artistNames = getArtist().split(",");
+        for (String name : artistNames) {
             BaiduArtist artist = new BaiduArtist();
-            artist.id = artistId;
+            artist.name = name;
             result.add(artist);
         }
         return result;
@@ -58,7 +58,6 @@ class BaiduSong extends BaseBean implements Song {
 
     @Override
     public String getFormattedArtistsString() {
-        // TODO
         return SongUtils.getArtistsString(this);
     }
 
@@ -66,7 +65,7 @@ class BaiduSong extends BaseBean implements Song {
     public Album getAlbum() {
         BaiduAlbum album = new BaiduAlbum();
         album.id = this.albumId;
-        album.name = albumTitle;
+        album.name = getAlbumTitle();
         return album;
     }
 
@@ -82,5 +81,17 @@ class BaiduSong extends BaseBean implements Song {
 
     public void setMusicLink(MusicLink musicLink) {
         this.musicLink = musicLink;
+    }
+
+    public String getArtist() {
+        return removeEm(artist);
+    }
+
+    public String getAlbumTitle() {
+        return removeEm(albumTitle);
+    }
+
+    private static String removeEm(String text) {
+        return text.replaceAll("<em>", "").replaceAll("</em>", "");
     }
 }

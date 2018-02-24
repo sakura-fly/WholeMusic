@@ -45,21 +45,23 @@ public class SongUtils {
      */
     public static void fillSongLinks(List<? extends Song> songs, Function<String[], List<? extends MusicLink>>
             function) {
-        // 1. 先获得所有songId组成的列表
-        ArrayList<String> musicIds = new ArrayList<>();
-        for (Song song : songs) {
-            musicIds.add(song.getSongId());
-        }
-        // 2. 使用api批量获取歌曲url
-        List<? extends MusicLink> links = function.apply(musicIds.toArray(new String[]{}));
-        // 3. 把songId/url分别作为key/value，存入字典
-        HashMap<String, MusicLink> map = new HashMap<>();
-        for (MusicLink link : links) {
-            map.put(link.getSongId(), link);
-        }
-        // 4. 循环一次，把上面索引表中的url数据填入Song对象
-        for (Song song : songs) {
-            song.setMusicLink(map.get(song.getSongId()));
+        if (songs != null && !songs.isEmpty()) {
+            // 1. 先获得所有songId组成的列表
+            ArrayList<String> musicIds = new ArrayList<>();
+            for (Song song : songs) {
+                musicIds.add(song.getSongId());
+            }
+            // 2. 使用api批量获取歌曲url
+            List<? extends MusicLink> links = function.apply(musicIds.toArray(new String[]{}));
+            // 3. 把songId/url分别作为key/value，存入字典
+            HashMap<String, MusicLink> map = new HashMap<>();
+            for (MusicLink link : links) {
+                map.put(link.getSongId(), link);
+            }
+            // 4. 循环一次，把上面索引表中的url数据填入Song对象
+            for (Song song : songs) {
+                song.setMusicLink(map.get(song.getSongId()));
+            }
         }
     }
 }

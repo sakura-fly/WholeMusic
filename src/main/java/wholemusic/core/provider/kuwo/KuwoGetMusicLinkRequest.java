@@ -1,6 +1,7 @@
 package wholemusic.core.provider.kuwo;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -34,8 +35,12 @@ class KuwoGetMusicLinkRequest extends BaseRequest<KuwoSongLink> {
 
     @Override
     protected KuwoSongLink parseResult(Response response) throws IOException {
-        JSONObject responseJson = JSONObject.parseObject(response.body().string());
-        KuwoSongLink link = responseJson.toJavaObject(KuwoSongLink.class);
+        String body = response.body().string();
+        body = body.replaceAll("&", "&amp;");
+        XmlMapper mapper = new XmlMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        KuwoSongLink link = mapper.readValue(body, KuwoSongLink.class);
         return link;
     }
 }
