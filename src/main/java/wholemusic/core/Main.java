@@ -45,13 +45,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("Suede", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        try {
-            DnsHelper.switchToCustomDns();
-            DnsHelper.testResolve();
-            testDownload(url, true);
-        } finally {
-            DnsHelper.switchToSystemDns();
-        }
+        testDownload(url, false);
     }
 
     private static void testDownload(String url, boolean forceResolveHost) throws IOException {
@@ -59,9 +53,9 @@ public class Main {
         if (forceResolveHost) {
             HttpUrl httpUrl = HttpUrl.parse(url);
             String host = httpUrl.host();
-            InetAddress resolved = InetAddress.getByName(host);
+            String ip = DnsHelper.resolveIp(host);
             HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
-            urlBuilder.host(resolved.getHostAddress());
+            urlBuilder.host(ip);
             builder.url(urlBuilder.build());
             builder.addHeader("Host", host);
         } else {
