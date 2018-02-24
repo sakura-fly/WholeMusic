@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by haohua on 2018/2/11.
@@ -46,7 +47,11 @@ public class HttpEngine {
                 }
                 return finalResult;
             }
-        }).build();
+        })
+                .connectTimeout(2, TimeUnit.SECONDS)
+                .readTimeout(2, TimeUnit.SECONDS)
+                .writeTimeout(2, TimeUnit.SECONDS)
+                .build();
 
         private static final List<InetAddress> systemDns(String hostname) throws UnknownHostException {
             if (hostname == null) throw new UnknownHostException("hostname == null");
