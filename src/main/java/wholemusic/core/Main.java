@@ -47,6 +47,7 @@ public class Main {
         System.out.println(url);
         try {
             DnsHelper.switchToCustomDns();
+            DnsHelper.testResolve();
             testDownload(url, true);
         } finally {
             DnsHelper.switchToSystemDns();

@@ -16,7 +16,7 @@ public class DnsHelper {
     }
 
     @SuppressWarnings("unused")
-    private static void testResolve() {
+    public static void testResolve() {
         try {
             System.out.println("resolving m10.music.126.net --> " + InetAddress.getByName("m10.music.126.net"));
         } catch (UnknownHostException e) {
