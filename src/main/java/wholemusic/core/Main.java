@@ -8,6 +8,7 @@ import wholemusic.core.api.MusicApiFactory;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.Album;
 import wholemusic.core.model.Song;
+import wholemusic.core.util.DnsHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,7 +43,12 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("Suede", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url);
+        try {
+            DnsHelper.switchToCustomDns();
+            testDownload(url);
+        }finally {
+            DnsHelper.switchToSystemDns();
+        }
     }
 
     private static void testDownload(String url) throws IOException {
