@@ -18,7 +18,7 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 class KugouSearchMusicRequest extends BaseRequest<List<KugouSong>> {
     private final String mKeyword;
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = Constants.PAGE_SIZE;
     private final int mPage;
 
     public KugouSearchMusicRequest(String keyword, int page) {

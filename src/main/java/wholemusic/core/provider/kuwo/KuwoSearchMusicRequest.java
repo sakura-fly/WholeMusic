@@ -19,7 +19,7 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 class KuwoSearchMusicRequest extends BaseRequest<List<KuwoSong>> {
     private final String mKeyword;
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = Constants.PAGE_SIZE;
     private final int mPage;
 
     public KuwoSearchMusicRequest(String keyword, int page) {

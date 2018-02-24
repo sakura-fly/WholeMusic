@@ -16,7 +16,7 @@ import java.util.List;
  */
 class QQSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     private final String mKeyword;
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = Constants.PAGE_SIZE;
     private final int mPage;
 
     public QQSearchMusicRequest(String keyword, int page) {
