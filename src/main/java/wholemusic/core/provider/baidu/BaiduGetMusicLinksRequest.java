@@ -39,6 +39,7 @@ class BaiduGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
     @Override
     protected List<BaiduSongLink> parseResult(Response response) throws IOException {
         JSONObject responseJson = JSONObject.parseObject(response.body().string());
+        System.out.println(responseJson.toJSONString());
         JSONArray jsonData = responseJson.getJSONObject("data").getJSONArray("songList");
         List<BaiduSongLink> songLinks = jsonData.toJavaList(BaiduSongLink.class);
         return songLinks;
