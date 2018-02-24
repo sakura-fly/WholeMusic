@@ -1,6 +1,5 @@
 package wholemusic.core;
 
-import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.HttpEngine;
@@ -9,10 +8,8 @@ import wholemusic.core.api.MusicApiFactory;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.Album;
 import wholemusic.core.model.Song;
-import wholemusic.core.util.DnsHelper;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.List;
 
 /**
@@ -36,7 +33,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("孙燕姿", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url, false);
+        testDownload(url);
     }
 
     @SuppressWarnings("SpellCheckingInspection")
@@ -45,10 +42,10 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("Suede", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url, false);
+        testDownload(url);
     }
 
-    private static void testDownload(String url, boolean forceResolveHost) throws IOException {
+    private static void testDownload(String url) throws IOException {
         Request.Builder builder = new Request.Builder();
         builder.url(url);
         builder.get();
@@ -62,7 +59,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("岳云鹏 送情郎", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url, false);
+        testDownload(url);
     }
 
     @SuppressWarnings("SpellCheckingInspection")
@@ -71,7 +68,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("孙燕姿 第一天", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url, false);
+        testDownload(url);
     }
 
 
@@ -81,7 +78,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("Beyond", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url, false);
+        testDownload(url);
     }
 
     @SuppressWarnings("SpellCheckingInspection")
@@ -90,7 +87,7 @@ public class Main {
         List<? extends Song> result = api.searchMusicSync("Beyond", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
-        testDownload(url, false);
+        testDownload(url);
     }
 
 
