@@ -17,11 +17,11 @@ public enum MusicProvider {
     Netease("网易云音乐", NeteaseMusicApi.class),
     QQ("QQ音乐", QQMusicApi.class),
     Xiami("虾米音乐", XiamiMusicApi.class),
-    Kugou("酷狗音乐", KugouMusicApi.class),
-    Kuwo("酷我音乐", KuwoMusicApi.class),
     Baidu("百度音乐", BaiduMusicApi.class),
     Migu("咪咕音乐", MiguMusicApi.class),
-    Yiting("一听音乐", YitingMusicApi.class),;
+    Kuwo("酷我音乐", KuwoMusicApi.class),
+    Yiting("一听音乐", YitingMusicApi.class),
+    Kugou("酷狗音乐", KugouMusicApi.class),;
 
     private final Class<? extends MusicApi> musicApiClass;
     private final String providerName;
