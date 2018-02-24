@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.Security;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class DnsHelper {
@@ -19,13 +22,9 @@ public class DnsHelper {
         }
     }
 
-    public static String resolveIp(String host) throws IOException {
+    public static List<String> resolveIp(String host) throws IOException {
         String result = CommonUtils.runCmd(new String[]{"dig", "+short", "@" + DNS, host});
         String[] lines = result.split("\n");
-        if (lines.length >= 1) {
-            return lines[0];
-        } else {
-            return result;
-        }
+        return Arrays.asList(lines);
     }
 }

@@ -2,6 +2,7 @@ package wholemusic.core.api;
 
 import okhttp3.*;
 import wholemusic.core.util.DnsHelper;
+import wholemusic.core.util.TextUtils;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -26,18 +27,23 @@ public class HttpEngine {
                 List<InetAddress> systemResult = systemDns(hostname);
                 ArrayList<InetAddress> finalResult = new ArrayList<>();
                 for (InetAddress address : systemResult) {
-                    System.out.println(address);
-                    System.out.println("isLocal? " + address.isAnyLocalAddress());
-                    finalResult.add(address);
+                    if (!"127.0.0.1".equals(address.getHostAddress())) {
+                        finalResult.add(address);
+                    }
                 }
-//                ArrayList<InetAddress> result = new ArrayList<>();
-//                try {
-//                    String ip = DnsHelper.resolveIp(hostname);
-//                    InetAddress address = InetAddress.getByName(ip);
-//                    result.add(address);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                if (finalResult.isEmpty()) {
+                    try {
+                        List<String> list = DnsHelper.resolveIp(hostname);
+                        for (String ip : list) {
+                            if (!TextUtils.isEmpty(ip)) {
+                                InetAddress address = InetAddress.getByName(ip);
+                                finalResult.add(address);
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 return finalResult;
             }
         }).build();

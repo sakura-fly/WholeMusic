@@ -50,18 +50,7 @@ public class Main {
 
     private static void testDownload(String url, boolean forceResolveHost) throws IOException {
         Request.Builder builder = new Request.Builder();
-        if (forceResolveHost) {
-            HttpUrl httpUrl = HttpUrl.parse(url);
-            String host = httpUrl.host();
-            String ip = DnsHelper.resolveIp(host);
-            HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
-            urlBuilder.host(ip);
-            builder.url(urlBuilder.build());
-            builder.addHeader("Host", host);
-        } else {
-            builder.url(url);
-        }
-
+        builder.url(url);
         builder.get();
         Response response = HttpEngine.requestSync(builder.build(), false);
         System.out.println("download music response code: " + response.code());
