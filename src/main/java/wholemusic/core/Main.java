@@ -23,6 +23,7 @@ public class Main {
         testMiguMusic();
         testKugouMusic();
         testKuwoMusic();
+        testYitingMusic();
 
         testNeteaseAlbum();
         testQQAlbum();
@@ -51,6 +52,7 @@ public class Main {
         builder.get();
         Response response = HttpEngine.requestSync(builder.build(), false);
         System.out.println("download music response code: " + response.code());
+        response.close();
     }
 
     @SuppressWarnings("SpellCheckingInspection")
@@ -84,6 +86,15 @@ public class Main {
     @SuppressWarnings("SpellCheckingInspection")
     private static void testKuwoMusic() throws IOException {
         final MusicApi api = MusicApiFactory.create(MusicProvider.Kuwo);
+        List<? extends Song> result = api.searchMusicSync("Beyond", 0, true);
+        String url = result.get(0).getMusicLink().getUrl();
+        System.out.println(url);
+        testDownload(url);
+    }
+
+    @SuppressWarnings("SpellCheckingInspection")
+    private static void testYitingMusic() throws IOException {
+        final MusicApi api = MusicApiFactory.create(MusicProvider.Yiting);
         List<? extends Song> result = api.searchMusicSync("Beyond", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);

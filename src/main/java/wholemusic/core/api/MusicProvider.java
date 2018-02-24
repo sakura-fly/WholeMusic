@@ -16,12 +16,12 @@ import wholemusic.core.provider.yiting.YitingMusicApi;
 public enum MusicProvider {
     Netease("网易云音乐", NeteaseMusicApi.class),
     QQ("QQ音乐", QQMusicApi.class),
+    Kugou("酷狗音乐", KugouMusicApi.class),
     Xiami("虾米音乐", XiamiMusicApi.class),
     Baidu("百度音乐", BaiduMusicApi.class),
     Migu("咪咕音乐", MiguMusicApi.class),
-    Kuwo("酷我音乐", KuwoMusicApi.class),
     Yiting("一听音乐", YitingMusicApi.class),
-    Kugou("酷狗音乐", KugouMusicApi.class),;
+    Kuwo("酷我音乐", KuwoMusicApi.class),;
 
     private final Class<? extends MusicApi> musicApiClass;
     private final String providerName;
