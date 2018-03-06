@@ -46,19 +46,19 @@ public class JsonArrayParseDemo {
                 fieldsWithJsonAnnotation.put(jsonName, field);
             }
         }
-        // debug
-        System.out.println(fieldsWithJsonAnnotation);
         final ArrayList<T> result = new ArrayList<>();
         JSONArray jsonArray = JSONArray.parseArray(json);
-        // 外层循环: 对jsonArray进行循环
+        // 外层循环: 对jsonArray进行遍历
         for (int i = 0; i < jsonArray.size(); i++) {
+            // 这里jsonArray的当前元素不一定是JSONObject, 还可能是基本值类型
+            // 真实场景需要运行时判断类型，此处为了简单假定一定是JSONObject
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject != null) {
                 try {
                     // 反射调用T类型的构造函数
                     Constructor<T> constructor = clazz.getDeclaredConstructor();
                     T objectItem = constructor.newInstance();
-                    // 内层滚环: 对每一个field进行循环
+                    // 内层循环: 对每一个field进行遍历
                     for (Map.Entry<String, Field> entry : fieldsWithJsonAnnotation.entrySet()) {
                         final String jsonKey = entry.getKey();
                         final Field field = entry.getValue();
@@ -71,6 +71,7 @@ public class JsonArrayParseDemo {
                                 // 使用反射给当前field赋值
                                 field.set(objectItem, jValue);
                             } catch (IllegalAccessException e) {
+                                e.printStackTrace();
                             }
                         }
                     }
