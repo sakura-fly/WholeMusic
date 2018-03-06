@@ -52,7 +52,8 @@ class NeteaseSearchMusicRequest extends BaseRequest<List<? extends Song>> {
 
     @Override
     protected List<NeteaseSong> parseResult(Response response) throws IOException {
-        JSONObject responseJson = JSONObject.parseObject(response.body().string());
+        String body = responseBodyToString(response);
+        JSONObject responseJson = JSONObject.parseObject(body);
         JSONObject result = responseJson.getJSONObject("result");
         List<NeteaseSong> songs = new ArrayList<>();
         if (result != null) {

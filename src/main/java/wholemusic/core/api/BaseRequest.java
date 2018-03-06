@@ -47,6 +47,11 @@ public abstract class BaseRequest<TResult> {
         return parsed;
     }
 
+    protected static String responseBodyToString(Response response) throws IOException {
+        final String body = response.body().string();
+        return body;
+    }
+
     /**
      * 需要构造的请求
      *

@@ -60,12 +60,17 @@ public class NeteaseMusicApi implements MusicApi {
     }
 
     static String encrypt(JSONObject json) {
+        return encrypt(json.toString());
+    }
+
+    static String encrypt(String raw) {
         byte[] encrypted;
         try {
-            encrypted = AES.encrypt(json.toString(), Hex.decodeHex(SECRET.toCharArray()));
+            encrypted = AES.encrypt(raw, Hex.decodeHex(SECRET.toCharArray()));
             return new String(Hex.encodeHex(encrypted)).toUpperCase();
         } catch (Exception e) {
             e.printStackTrace();
+
         }
         return null;
     }

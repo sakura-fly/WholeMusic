@@ -31,7 +31,7 @@ public class Main {
 
     private static void testQQMusic() throws IOException {
         final MusicApi api = MusicApiFactory.create(MusicProvider.QQ);
-        List<? extends Song> result = api.searchMusicSync("孙燕姿", 0, true);
+        List<? extends Song> result = api.searchMusicSync("孙燕姿 第一天", 0, true);
         String url = result.get(0).getMusicLink().getUrl();
         System.out.println(url);
         testDownload(url);
