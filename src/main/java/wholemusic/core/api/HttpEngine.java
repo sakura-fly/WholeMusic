@@ -51,9 +51,9 @@ public class HttpEngine {
                 return finalResult;
             }
         })
-                .connectTimeout(1, TimeUnit.SECONDS)
-                .readTimeout(1, TimeUnit.SECONDS)
-                .writeTimeout(1, TimeUnit.SECONDS)
+                .connectTimeout(2, TimeUnit.SECONDS)
+                .readTimeout(2, TimeUnit.SECONDS)
+                .writeTimeout(2, TimeUnit.SECONDS)
                 .build();
 
         private static final List<InetAddress> systemDns(String hostname) throws UnknownHostException {
