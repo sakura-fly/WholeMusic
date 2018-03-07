@@ -44,6 +44,11 @@ public class BaiduMusicApi implements MusicApi {
     }
 
     @Override
+    public List<? extends Song> getSongDetailInfoByIdsSync(String... musicIds) throws IOException {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Album getAlbumInfoByIdSync(String albumId, boolean needLink) throws IOException {
         throw new UnsupportedOperationException();
     }

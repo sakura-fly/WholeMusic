@@ -90,6 +90,11 @@ class QQSong extends BaseBean implements Song {
         return musicLink;
     }
 
+    @Override
+    public String getPicUrl() {
+        return null;
+    }
+
     /**
      * 根据size字段猜测url中的quality音质字段
      *

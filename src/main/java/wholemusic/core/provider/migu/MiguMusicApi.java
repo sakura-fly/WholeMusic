@@ -25,6 +25,11 @@ public class MiguMusicApi implements MusicApi {
     }
 
     @Override
+    public List<? extends Song> getSongDetailInfoByIdsSync(String... musicIds) throws IOException {
+        return null;
+    }
+
+    @Override
     public Album getAlbumInfoByIdSync(String albumId, boolean needLink) throws IOException {
         return null;
     }

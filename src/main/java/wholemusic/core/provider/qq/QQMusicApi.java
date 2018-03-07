@@ -49,6 +49,11 @@ public class QQMusicApi implements MusicApi {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public List<? extends Song> getSongDetailInfoByIdsSync(String... musicIds) throws IOException {
+        return null;
+    }
+
     private static QQSongLink getSongLink(QQUpdateVKeyRequest.VKey vKeyObj, Song song)  {
         String host = vKeyObj.sips.get(0);
         String vKey = vKeyObj.key;

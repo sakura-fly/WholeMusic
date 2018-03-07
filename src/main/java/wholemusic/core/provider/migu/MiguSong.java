@@ -84,6 +84,11 @@ class MiguSong extends BaseBean implements Song {
         return link;
     }
 
+    @Override
+    public String getPicUrl() {
+        return null;
+    }
+
     public void setMusicLink(MusicLink musicLink) {
         throw new UnsupportedOperationException();
     }

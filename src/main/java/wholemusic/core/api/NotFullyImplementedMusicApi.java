@@ -4,6 +4,7 @@ import wholemusic.core.model.Album;
 import wholemusic.core.model.Song;
 import wholemusic.core.model.MusicLink;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -18,6 +19,11 @@ public class NotFullyImplementedMusicApi implements MusicApi {
 
     @Override
     public MusicLink getMusicLinkByIdSync(String musicId) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<? extends Song> getSongDetailInfoByIdsSync(String... musicIds) throws IOException {
         throw new UnsupportedOperationException();
     }
 

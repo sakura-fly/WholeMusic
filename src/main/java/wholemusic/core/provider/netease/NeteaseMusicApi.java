@@ -59,6 +59,10 @@ public class NeteaseMusicApi implements MusicApi {
         return result;
     }
 
+    public List<? extends Song> getSongDetailInfoByIdsSync(String... musicIds) throws IOException {
+        return new NeteaseGetMusicDetailsRequest(musicIds).requestSync();
+    }
+
     static String encrypt(JSONObject json) {
         return encrypt(json.toString());
     }

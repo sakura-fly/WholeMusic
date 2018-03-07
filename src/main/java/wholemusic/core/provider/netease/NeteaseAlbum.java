@@ -27,6 +27,9 @@ class NeteaseAlbum extends BaseBean implements Album {
 
     public List<NeteaseSong> songs;
 
+    @JSONField(name = "picUrl")
+    public String picUrl;
+
     @Override
     public String getName() {
         return name;

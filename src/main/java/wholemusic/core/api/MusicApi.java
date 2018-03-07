@@ -21,13 +21,22 @@ public interface MusicApi {
     List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException;
 
     /**
-     * 获取某音乐id对应的音乐链接
+     * 获取某歌曲id对应的音乐链接
      *
      * @param musicId
      * @return
      * @throws Exception
      */
     MusicLink getMusicLinkByIdSync(String musicId) throws IOException;
+
+    /**
+     * 获取某歌曲ids对应的歌曲详细信息
+     *
+     * @param musicIds
+     * @return
+     * @throws IOException
+     */
+    List<? extends Song> getSongDetailInfoByIdsSync(String... musicIds) throws IOException;
 
     /**
      * 获取专辑id对应的专辑信息

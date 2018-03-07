@@ -79,6 +79,11 @@ class BaiduSong extends BaseBean implements Song {
         return musicLink;
     }
 
+    @Override
+    public String getPicUrl() {
+        return null;
+    }
+
     public void setMusicLink(MusicLink musicLink) {
         this.musicLink = musicLink;
     }

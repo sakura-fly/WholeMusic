@@ -30,7 +30,7 @@ public class GetAlbumTestImpl implements GetAlbumTest {
     public void getAlbumInfoTest() throws IOException {
         List<? extends Song> page0 = api.searchMusicSync(searchQuery, 0, true);
         String albumId = page0.get(0).getAlbum().getAlbumId();
-        Album album = api.getAlbumInfoByIdSync(albumId, true);
+        Album album = api.getAlbumInfoByIdSync(albumId, false);
         assertEquals(albumId, album.getAlbumId());
         assertEquals(provider, album.getMusicProvider());
     }

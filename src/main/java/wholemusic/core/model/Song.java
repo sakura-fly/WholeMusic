@@ -24,4 +24,6 @@ public interface Song extends Serializable {
     void setMusicLink(MusicLink musicLink);
 
     MusicLink getMusicLink();
+
+    String getPicUrl();
 }

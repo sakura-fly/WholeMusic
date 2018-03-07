@@ -72,7 +72,7 @@ function mc_is_error($url) {
     return $curl->errorCode;
 }
 
-// 音频数据接口地址
+// 音频数据接口地址, radio_search_urls, radio_song_urls, radio_lrc_urls
 function mc_song_urls($value, $type = 'query', $site = 'netease', $page = 1)
 {
     if (!$value) {
@@ -504,7 +504,7 @@ function mc_song_urls($value, $type = 'query', $site = 'netease', $page = 1)
     return;
 }
 
-// 获取音频信息 - 关键词搜索
+// 关键词搜索
 function mc_get_song_by_name($query, $site = 'netease', $page = 1)
 {
     if (!$query) {
@@ -646,7 +646,7 @@ function mc_get_song_by_name($query, $site = 'netease', $page = 1)
     return mc_get_song_by_id($radio_songid, $site, true);
 }
 
-// 获取音频信息 - 歌曲ID
+// 通过歌曲ID获取音频信息
 function mc_get_song_by_id($songid, $site = 'netease', $multi = false)
 {
     if (empty($songid) || empty($site)) {
@@ -1039,6 +1039,7 @@ function mc_get_song_by_id($songid, $site = 'netease', $multi = false)
         break;
         case 'netease':
         default:
+            // 网易云音乐特殊处理
             $radio_streams                   = [
               'method'      => 'POST',
               'url'         => 'http://music.163.com/api/linux/forward',
@@ -1093,7 +1094,7 @@ function mc_get_song_by_id($songid, $site = 'netease', $multi = false)
     return !empty($radio_songs) ? $radio_songs : '';
 }
 
-// 获取音频信息 - url
+// 通过url获取音频信息
 function mc_get_song_by_url($url)
 {
     preg_match('/music\.163\.com\/(#(\/m)?|m)\/song(\?id=|\/)(\d+)/i', $url, $match_netease);

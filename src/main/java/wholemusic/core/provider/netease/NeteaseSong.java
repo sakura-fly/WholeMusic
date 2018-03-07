@@ -21,10 +21,10 @@ class NeteaseSong extends BaseBean implements Song {
     @JSONField(name = "id")
     public long songId;
 
-    @JSONField(name = "ar")
+    @JSONField(name = "ar", alternateNames = {"artists",})
     public ArrayList<NeteaseArtist> artists;
 
-    @JSONField(name = "al")
+    @JSONField(name = "al", alternateNames = {"album",})
     public NeteaseAlbum album;
 
     private MusicLink musicLink;
@@ -62,6 +62,14 @@ class NeteaseSong extends BaseBean implements Song {
     @Override
     public MusicLink getMusicLink() {
         return musicLink;
+    }
+
+    @Override
+    public String getPicUrl() {
+        if (album != null) {
+            return album.picUrl;
+        }
+        return null;
     }
 
     public void setMusicLink(MusicLink musicLink) {
