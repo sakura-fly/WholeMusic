@@ -32,3 +32,12 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+
+test {
+    testLogging {
+        // Show that tests are run in the command-line output
+        events 'started', 'passed', "skipped", "failed"
+        exceptionFormat = 'full'
+    }
+}

@@ -23,7 +23,6 @@ class MiguSong extends BaseBean implements Song {
     @JSONField(name = "artist")
     public String artist;
 
-
     @JSONField(name = "cover")
     public String cover;
 
