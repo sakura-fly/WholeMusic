@@ -6,6 +6,6 @@ import wholemusic.core.test.framework.impl.SearchMusicTestImpl;
 @SuppressWarnings("SpellCheckingInspection")
 public class YitingMusicTest extends SearchMusicTestImpl {
     public YitingMusicTest() {
-        super(MusicProvider.Kugou, "Beyond");
+        super(MusicProvider.Yiting, "Beyond");
     }
 }

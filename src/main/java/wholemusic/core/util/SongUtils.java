@@ -37,6 +37,14 @@ public class SongUtils {
         return song.getName() + " - " + getArtistsString(song) + ".mp3";
     }
 
+    public static String[] getSongIdsFromSongList(List<? extends Song> songs) {
+        ArrayList<String> musicIds = new ArrayList<>();
+        for (Song song : songs) {
+            musicIds.add(song.getSongId());
+        }
+        return musicIds.toArray(new String[]{});
+    }
+
     /**
      * 使用api做一次请求，批量填入歌曲列表每一首歌曲的url
      *
@@ -47,12 +55,9 @@ public class SongUtils {
             function) {
         if (songs != null && !songs.isEmpty()) {
             // 1. 先获得所有songId组成的列表
-            ArrayList<String> musicIds = new ArrayList<>();
-            for (Song song : songs) {
-                musicIds.add(song.getSongId());
-            }
+            String[] songIds = getSongIdsFromSongList(songs);
             // 2. 使用api批量获取歌曲url
-            List<? extends MusicLink> links = function.apply(musicIds.toArray(new String[]{}));
+            List<? extends MusicLink> links = function.apply(songIds);
             // 3. 把songId/url分别作为key/value，存入字典
             HashMap<String, MusicLink> map = new HashMap<>();
             for (MusicLink link : links) {

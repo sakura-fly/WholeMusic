@@ -6,6 +6,6 @@ import wholemusic.core.test.framework.impl.SearchMusicTestImpl;
 @SuppressWarnings("SpellCheckingInspection")
 public class KuwoMusicTest extends SearchMusicTestImpl {
     public KuwoMusicTest() {
-        super(MusicProvider.Kugou, "Beyond");
+        super(MusicProvider.Kuwo, "Beyond");
     }
 }

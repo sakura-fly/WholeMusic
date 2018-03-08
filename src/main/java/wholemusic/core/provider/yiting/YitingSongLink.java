@@ -1,6 +1,5 @@
 package wholemusic.core.provider.yiting;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.MusicLink;
 
@@ -10,10 +9,8 @@ import wholemusic.core.model.MusicLink;
 @SuppressWarnings("SpellCheckingInspection")
 class YitingSongLink extends BaseBean implements MusicLink {
 
-    @JSONField(name = "song_filepath")
     public String song_filepath;
 
-    @JSONField(name = "song_id")
     public String songId;
 
     @Override

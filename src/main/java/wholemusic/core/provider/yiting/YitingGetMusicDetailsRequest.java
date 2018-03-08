@@ -17,10 +17,10 @@ import java.util.List;
  * Created by haohua on 2018/2/23.
  */
 @SuppressWarnings("SpellCheckingInspection")
-class YitingGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
+class YitingGetMusicDetailsRequest extends BaseRequest<List<YitingSong>> {
     private final String[] mMusicIds;
 
-    public YitingGetMusicLinksRequest(String... musicIds) {
+    public YitingGetMusicDetailsRequest(String... musicIds) {
         mMusicIds = musicIds;
     }
 
@@ -37,10 +37,10 @@ class YitingGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> 
     }
 
     @Override
-    protected List<YitingSongLink> parseResult(Response response) throws IOException {
+    protected List<YitingSong> parseResult(Response response) throws IOException {
         String body = response.body().string();
         JSONArray jsonData = JSONObject.parseArray(body);
-        List<YitingSongLink> songLinks = jsonData.toJavaList(YitingSongLink.class);
+        List<YitingSong> songLinks = jsonData.toJavaList(YitingSong.class);
         return songLinks;
     }
 }

@@ -20,6 +20,9 @@ class YitingSong extends BaseBean implements Song {
     @JSONField(name = "song_id")
     public String songId;
 
+    @JSONField(name = "song_filepath")
+    public String song_filepath;
+
     @JSONField(name = "singer_name")
     public String artist;
 
@@ -29,7 +32,8 @@ class YitingSong extends BaseBean implements Song {
     @JSONField(name = "album_name")
     public String albumTitle;
 
-    private MusicLink musicLink;
+    @JSONField(name = "album_cover")
+    public String albumCover;
 
     @Override
     public String getName() {
@@ -73,12 +77,15 @@ class YitingSong extends BaseBean implements Song {
 
     @Override
     public MusicLink getMusicLink() {
-        return musicLink;
+        YitingSongLink link = new YitingSongLink();
+        link.song_filepath = this.song_filepath;
+        link.songId = this.songId;
+        return link;
     }
 
     @Override
     public String getPicUrl() {
-        return null;
+        return albumCover;
     }
 
     @Override
@@ -87,7 +94,7 @@ class YitingSong extends BaseBean implements Song {
     }
 
     public void setMusicLink(MusicLink musicLink) {
-        this.musicLink = musicLink;
+        // nop
     }
 
     public String getArtist() {

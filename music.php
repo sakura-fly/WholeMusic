@@ -72,7 +72,7 @@ function mc_is_error($url) {
     return $curl->errorCode;
 }
 
-// 音频数据接口地址, radio_search_urls, radio_song_urls, radio_lrc_urls
+// 音频数据接口地址, radio_search_urls: 搜索, radio_song_urls: 歌曲detail信息, radio_lrc_urls: 歌词信息
 function mc_song_urls($value, $type = 'query', $site = 'netease', $page = 1)
 {
     if (!$value) {
@@ -266,6 +266,7 @@ function mc_song_urls($value, $type = 'query', $site = 'netease', $page = 1)
             ]
         ]
     ];
+    // detail信息
     $radio_song_urls = [
         'netease'           => [
             'method'        => 'POST',
