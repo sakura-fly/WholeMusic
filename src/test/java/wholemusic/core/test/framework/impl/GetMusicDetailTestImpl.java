@@ -1,6 +1,5 @@
 package wholemusic.core.test.framework.impl;
 
-import org.junit.Assert;
 import org.junit.Ignore;
 import wholemusic.core.api.MusicApi;
 import wholemusic.core.api.MusicApiFactory;
@@ -14,15 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @Ignore
 public class GetMusicDetailTestImpl implements GetMusicDetailTest {
     private final MusicApi api;
     private final String searchQuery;
-    private final MusicProvider provider;
 
     public GetMusicDetailTestImpl(MusicProvider provider, String searchQuery) {
-        this.provider = provider;
         this.api = MusicApiFactory.create(provider);
         this.searchQuery = searchQuery;
     }
@@ -34,8 +32,10 @@ public class GetMusicDetailTestImpl implements GetMusicDetailTest {
         for (Song song : songs) {
             musicIds.add(song.getSongId());
         }
-        List<? extends Song> songDetails = api.getSongDetailInfoByIdsSync(musicIds.toArray(new String[]{}));
+        List<? extends Song> songDetails = api.getSongDetailInfoByIdsSync(true, musicIds.toArray(new String[]{}));
         assertEquals(songDetails.size(), songs.size());
-        Assert.assertEquals(200, TestUtils.testDownload(songDetails.get(0).getPicUrl()));
+        Song detailSong0 = songDetails.get(0);
+        assertEquals(200, TestUtils.testDownload(detailSong0.getPicUrl()));
+        assertTrue(detailSong0.getLyric().getLyric().length() > 0);
     }
 }

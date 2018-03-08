@@ -95,6 +95,11 @@ class QQSong extends BaseBean implements Song {
         return null;
     }
 
+    @Override
+    public Lyric getLyric() {
+        return null;
+    }
+
     /**
      * 根据size字段猜测url中的quality音质字段
      *

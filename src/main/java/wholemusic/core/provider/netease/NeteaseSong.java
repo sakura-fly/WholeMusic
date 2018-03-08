@@ -29,6 +29,8 @@ class NeteaseSong extends BaseBean implements Song {
 
     private MusicLink musicLink;
 
+    private NeteaseLyric lyric;
+
     @Override
     public String getName() {
         return name;
@@ -74,5 +76,13 @@ class NeteaseSong extends BaseBean implements Song {
 
     public void setMusicLink(MusicLink musicLink) {
         this.musicLink = musicLink;
+    }
+
+    public void setLyric(NeteaseLyric lyric) {
+        this.lyric = lyric;
+    }
+
+    public NeteaseLyric getLyric() {
+        return lyric;
     }
 }

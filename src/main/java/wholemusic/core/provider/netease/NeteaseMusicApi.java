@@ -59,8 +59,15 @@ public class NeteaseMusicApi implements MusicApi {
         return result;
     }
 
-    public List<? extends Song> getSongDetailInfoByIdsSync(String... musicIds) throws IOException {
-        return new NeteaseGetMusicDetailsRequest(musicIds).requestSync();
+    public List<? extends Song> getSongDetailInfoByIdsSync(boolean needLyric, String... musicIds) throws IOException {
+        List<NeteaseSong> songs = new NeteaseGetMusicDetailsRequest(musicIds).requestSync();
+        if (needLyric) {
+            for (NeteaseSong song : songs) {
+                NeteaseLyric lrc = new NeteaseGetMusicLyricRequest(song.getSongId()).requestSync();
+                song.setLyric(lrc);
+            }
+        }
+        return songs;
     }
 
     static String encrypt(JSONObject json) {

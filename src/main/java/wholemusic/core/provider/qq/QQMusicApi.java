@@ -50,7 +50,7 @@ public class QQMusicApi implements MusicApi {
     }
 
     @Override
-    public List<? extends Song> getSongDetailInfoByIdsSync(String... musicIds) throws IOException {
+    public List<? extends Song> getSongDetailInfoByIdsSync(boolean needLyric, String... musicIds) throws IOException {
         return null;
     }
 

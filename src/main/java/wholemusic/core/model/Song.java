@@ -26,4 +26,6 @@ public interface Song extends Serializable {
     MusicLink getMusicLink();
 
     String getPicUrl();
+
+    Lyric getLyric();
 }

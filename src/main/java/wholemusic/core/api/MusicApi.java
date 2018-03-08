@@ -32,11 +32,12 @@ public interface MusicApi {
     /**
      * 获取某歌曲ids对应的歌曲详细信息
      *
+     * @param needLyric
      * @param musicIds
      * @return
      * @throws IOException
      */
-    List<? extends Song> getSongDetailInfoByIdsSync(String... musicIds) throws IOException;
+    List<? extends Song> getSongDetailInfoByIdsSync(boolean needLyric, String... musicIds) throws IOException;
 
     /**
      * 获取专辑id对应的专辑信息

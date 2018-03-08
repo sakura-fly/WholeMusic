@@ -83,6 +83,11 @@ class KuwoSong extends BaseBean implements Song {
         return null;
     }
 
+    @Override
+    public Lyric getLyric() {
+        return null;
+    }
+
     public void setMusicLink(MusicLink musicLink) {
         this.musicLink = musicLink;
     }
