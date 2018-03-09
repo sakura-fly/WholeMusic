@@ -6,6 +6,6 @@ import wholemusic.core.test.framework.impl.SearchMusicTestImpl;
 @SuppressWarnings("SpellCheckingInspection")
 public class BaiduMusicTest extends SearchMusicTestImpl {
     public BaiduMusicTest() {
-        super(MusicProvider.Baidu, "岳云鹏");
+        super(MusicProvider.Baidu, "陈奕迅");
     }
 }
