@@ -5,25 +5,25 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
-import wholemusic.core.api.HttpEngine;
+import wholemusic.core.config.Constants;
 import wholemusic.core.model.Song;
-import wholemusic.core.provider.xiami.XiamiSong;
 
 import java.io.IOException;
 import java.util.List;
 
 /**
-*Create by huchunyue on 2018/2/24
+ * Create by huchunyue on 2018/2/24
  */
 
+@SuppressWarnings("SpellCheckingInspection")
 public class XiamiSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     private final String mKeyword;
-    private static final int PAGE_SIZE = 20;
-    //private final int mPage;
+    private static final int PAGE_SIZE = Constants.PAGE_SIZE;
+    private final int mPage;
 
-    public XiamiSearchMusicRequest(String keyword) {
+    public XiamiSearchMusicRequest(String keyword, int page) {
         mKeyword = keyword;
-        //mPage = page;
+        mPage = page;
     }
 
     @Override
@@ -33,8 +33,8 @@ public class XiamiSearchMusicRequest extends BaseRequest<List<? extends Song>> {
         urlBuilder.addQueryParameter("v", "2.0");
         urlBuilder.addQueryParameter("app_key", "1");
         urlBuilder.addQueryParameter("r", "search/songs");
-        urlBuilder.addQueryParameter("page","0");
-        urlBuilder.addQueryParameter("limit", "10");
+        urlBuilder.addQueryParameter("page", String.valueOf(mPage));
+        urlBuilder.addQueryParameter("limit", String.valueOf(PAGE_SIZE));
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(urlBuilder.build());
         requestBuilder.addHeader("User-Agent", XiamiMusicApi.USER_AGENT);
@@ -45,17 +45,10 @@ public class XiamiSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     }
 
     protected List<XiamiSong> parseResult(Response response) throws IOException {
-        JSONObject json = JSONObject.parseObject(response.body().string());
+        String data = response.body().string();
+        JSONObject json = JSONObject.parseObject(data);
         List<XiamiSong> list = json.getJSONObject("data").getJSONArray("songs")
                 .toJavaList(XiamiSong.class);
         return list;
     }
-
-/*    public static void main(String args[]){
-        XiamiSearchMusicRequest request = new XiamiSearchMusicRequest("Sia");
-        request.buildRequest();
-        Response response = HttpEngine.requestSync(request);
-        List<? extends Song> parsed = parseResult(response);
-
-    }*/
 }

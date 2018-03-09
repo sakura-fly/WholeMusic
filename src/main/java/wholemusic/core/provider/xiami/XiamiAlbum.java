@@ -4,28 +4,16 @@ import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.Album;
 import wholemusic.core.model.Artist;
-import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.Song;
-import wholemusic.core.provider.xiami.XiamiSinger;
 import wholemusic.core.util.SongUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by haohua on 2018/2/17.
- */
+@SuppressWarnings("SpellCheckingInspection")
 public class XiamiAlbum /*extends BaseBean*/ implements Album {
-/*    @JSONField(name = "name")
-    private String name;
-
-    @JSONField(name = "mid")
-    private String albumId;*/
-
-    //@JSONField(name = "artist_name")
     public String artistName;
 
-    //@JSONField(name = "artist_id")
     public String artistId;
 
     @JSONField(name = "album_id")
@@ -76,26 +64,10 @@ public class XiamiAlbum /*extends BaseBean*/ implements Album {
 
     @Override
     public MusicProvider getMusicProvider() {
-        return MusicProvider.QQ;
+        return MusicProvider.Xiami;
     }
 
     public void setSongs(List<? extends Song> songs) {
         this.songs = songs;
-    }
-
-    public String getSingerMid() {
-        return artistId;
-    }
-
-    public void setSingerMid(String singerMid) {
-        this.artistId = singerMid;
-    }
-
-    public String getSingerName() {
-        return artistName;
-    }
-
-    public void setSingerName(String singerName) {
-        this.artistName = singerName;
     }
 }

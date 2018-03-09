@@ -3,17 +3,11 @@ package wholemusic.core.provider.xiami;
 import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.*;
-import wholemusic.core.provider.xiami.XiamiAlbum;
-import wholemusic.core.provider.xiami.XiamiSinger;
-//import wholemusic.core.provider.xiami.XiamiSongQuality;
 import wholemusic.core.util.SongUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-/**
- * Created by haohua on 2018/2/9.
- */
+@SuppressWarnings("SpellCheckingInspection")
 public class XiamiSong /*extends BaseBean*/ implements Song {
     @JSONField(name = "song_name")
     public String name;
@@ -21,38 +15,36 @@ public class XiamiSong /*extends BaseBean*/ implements Song {
     @JSONField(name = "song_id")
     public String songId;
 
-/*
-    @JSONField(name = "songmid")
-    public String songMid;
-*/
-    //@JSONField(name = "album_id")
-    public String albumId;
+    @JSONField(name = "album_id")
+    public long albumId;
 
-    //@JSONField(name = "album_name")
+    @JSONField(name = "album_name")
     public String albumName;
 
+    @JSONField(name = "album_logo")
+    public String albumPicUrl;
+
     @JSONField(name = "artist_id")
-    public String artistId;
+    public long artistId;
 
     @JSONField(name = "artist_name")
     public String artistName;
 
-/*    @JSONField(name = "sizeogg")
-    public long sizeogg;
+    @JSONField(name = "artist_logo")
+    public String artistPicUrl;
 
-    @JSONField(name = "sizeflac")
-    public long sizeflac;
+    @JSONField(name = "listen_file")
+    public String listenUrl;
 
-    @JSONField(name = "sizeape")
-    public long sizeape;
+    @JSONField(name = "lyric")
+    public String lyricUrl;
 
-    @JSONField(name = "size320")
-    public long size320;
-
-    @JSONField(name = "size128")
-    public long size128;*/
-
-    private MusicLink musicLink;
+    @Override
+    public MusicLink getMusicLink() {
+        XiamiSongLink link = new XiamiSongLink();
+        link.url = this.listenUrl;
+        return link;
+    }
 
     @Override
     public String getName() {
@@ -68,7 +60,7 @@ public class XiamiSong /*extends BaseBean*/ implements Song {
     public ArrayList<? extends Artist> getArtists() {
         ArrayList<XiamiSinger> artist = new ArrayList<>();
         XiamiSinger singer = new XiamiSinger();
-        singer.artistId = artistId;
+        singer.artistId = String.valueOf(artistId);
         singer.artistName = artistName;
         artist.add(singer);
         return artist;
@@ -83,7 +75,7 @@ public class XiamiSong /*extends BaseBean*/ implements Song {
     public Album getAlbum() {
         XiamiAlbum album = new XiamiAlbum();
         album.setName(this.albumName);
-        album.setAlbumId(this.albumId);
+        album.setAlbumId(String.valueOf(this.albumId));
         return album;
     }
 
@@ -94,26 +86,17 @@ public class XiamiSong /*extends BaseBean*/ implements Song {
 
     @Override
     public void setMusicLink(MusicLink musicLink) {
-        this.musicLink = musicLink;
     }
 
     @Override
-    public MusicLink getMusicLink() {
-        return musicLink;
+    public String getPicUrl() {
+        return albumPicUrl;
     }
 
-    /**
-     * 根据size字段猜测url中的quality音质字段
-     *
-     * @return
-     */
-/*    public QQSongQuality guessQuality() {
-        if (size320 != 0) {
-            return QQSongQuality.High;
-        } else if (size128 != 0) {
-            return QQSongQuality.Medium;
-        } else {
-            return QQSongQuality.Low;
-        }
-    }*/
+    @Override
+    public Lyric getLyric() {
+        XiamiLyric lyric = new XiamiLyric();
+        lyric.setLyricUrl(this.lyricUrl);
+        return lyric;
+    }
 }
