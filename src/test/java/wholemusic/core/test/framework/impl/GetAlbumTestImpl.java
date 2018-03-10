@@ -1,33 +1,32 @@
 package wholemusic.core.test.framework.impl;
 
-import org.junit.Ignore;
-import org.junit.Test;
 import wholemusic.core.api.MusicApi;
 import wholemusic.core.api.MusicApiFactory;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.Album;
 import wholemusic.core.model.Song;
-import wholemusic.core.test.framework.GetAlbumTest;
+import wholemusic.core.test.framework.AbsMusicTestCase;
+import wholemusic.core.test.framework.mark.GetAlbumTest;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-@Ignore
-public class GetAlbumTestImpl implements GetAlbumTest {
-    private final MusicApi api;
-    private final String searchQuery;
-    private final MusicProvider provider;
+public class GetAlbumTestImpl extends AbsMusicTestCase implements GetAlbumTest {
+    private MusicApi api;
+    private String searchQuery;
+    private MusicProvider provider;
 
-    public GetAlbumTestImpl(MusicProvider provider, String searchQuery) {
-        this.provider = provider;
-        this.api = MusicApiFactory.create(provider);
-        this.searchQuery = searchQuery;
+    @Override
+    public void init(Object[] args) {
+        provider = (MusicProvider) args[0];
+        searchQuery = (String) args[1];
+        api = MusicApiFactory.create(provider);
     }
 
-    @Test
-    public void getAlbumInfoTest() throws IOException {
+    @Override
+    public void runTest() throws IOException {
         List<? extends Song> page0 = api.searchMusicSync(searchQuery, 0, true);
         String albumId = page0.get(0).getAlbum().getAlbumId();
         Album album = api.getAlbumInfoByIdSync(albumId, false);

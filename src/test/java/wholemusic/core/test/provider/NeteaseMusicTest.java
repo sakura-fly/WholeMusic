@@ -1,35 +1,21 @@
 package wholemusic.core.test.provider;
 
-import org.junit.Test;
 import wholemusic.core.api.MusicProvider;
-import wholemusic.core.test.framework.GetAlbumTest;
-import wholemusic.core.test.framework.GetMusicDetailTest;
-import wholemusic.core.test.framework.SearchMusicTest;
-import wholemusic.core.test.framework.impl.GetAlbumTestImpl;
-import wholemusic.core.test.framework.impl.GetMusicDetailTestImpl;
-import wholemusic.core.test.framework.impl.SearchMusicTestImpl;
-
-import java.io.IOException;
+import wholemusic.core.test.framework.MusicTestClassByProvider;
+import wholemusic.core.test.framework.SupportedTestCaseBuilder;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class NeteaseMusicTest implements SearchMusicTest, GetAlbumTest, GetMusicDetailTest {
-
-    private final static MusicProvider provider = MusicProvider.Netease;
-
-    private final static String query = "Suede";
-
-    @Test
-    public void searchMusicTest() throws IOException {
-        new SearchMusicTestImpl(provider, query).searchMusicTest();
+public class NeteaseMusicTest extends MusicTestClassByProvider {
+    public NeteaseMusicTest() {
+        super(MusicProvider.Netease);
     }
 
-    @Test
-    public void getAlbumInfoTest() throws IOException {
-        new GetAlbumTestImpl(provider, query).getAlbumInfoTest();
-    }
-
-    @Test
-    public void getMusicDetailTest() throws Exception {
-        new GetMusicDetailTestImpl(provider, query).getMusicDetailTest();
+    @Override
+    protected void addSupportedTestCase(SupportedTestCaseBuilder builder) {
+        final String query = "Suede";
+        builder.iCanSearchMusicPleaseTestMeWithQuery(query);
+        builder.iCanGetMusicLinkPleaseTestMeWithQuery(query);
+        builder.iCanGetAlbumInfoPleaseTestMeWithQuery(query);
+        builder.iCanGetMusicDetailPleaseTestMeWithQuery(query);
     }
 }

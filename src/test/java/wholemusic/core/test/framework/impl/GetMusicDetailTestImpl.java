@@ -1,11 +1,11 @@
 package wholemusic.core.test.framework.impl;
 
-import org.junit.Ignore;
 import wholemusic.core.api.MusicApi;
 import wholemusic.core.api.MusicApiFactory;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.Song;
-import wholemusic.core.test.framework.GetMusicDetailTest;
+import wholemusic.core.test.framework.AbsMusicTestCase;
+import wholemusic.core.test.framework.mark.GetMusicDetailTest;
 import wholemusic.core.test.util.TestUtils;
 
 import java.io.IOException;
@@ -15,18 +15,19 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@Ignore
-public class GetMusicDetailTestImpl implements GetMusicDetailTest {
-    private final MusicApi api;
-    private final String searchQuery;
+public class GetMusicDetailTestImpl extends AbsMusicTestCase implements GetMusicDetailTest {
+    private MusicApi api;
+    private String searchQuery;
 
-    public GetMusicDetailTestImpl(MusicProvider provider, String searchQuery) {
-        this.api = MusicApiFactory.create(provider);
-        this.searchQuery = searchQuery;
+    @Override
+    public void init(Object[] args) {
+        MusicProvider provider = (MusicProvider) args[0];
+        api = MusicApiFactory.create(provider);
+        searchQuery = (String) args[1];
     }
 
     @Override
-    public void getMusicDetailTest() throws IOException {
+    public void runTest() throws IOException {
         List<? extends Song> songs = api.searchMusicSync(searchQuery, 0, false);
         ArrayList<String> musicIds = new ArrayList<>();
         for (Song song : songs) {

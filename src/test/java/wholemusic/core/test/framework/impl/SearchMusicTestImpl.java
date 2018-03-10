@@ -1,36 +1,34 @@
 package wholemusic.core.test.framework.impl;
 
 import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
 import wholemusic.core.api.MusicApi;
 import wholemusic.core.api.MusicApiFactory;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.config.Constants;
 import wholemusic.core.model.Song;
+import wholemusic.core.test.framework.AbsMusicTestCase;
+import wholemusic.core.test.framework.mark.SearchMusicTest;
 import wholemusic.core.test.util.TestUtils;
-import wholemusic.core.test.framework.SearchMusicTest;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-@Ignore
-public class SearchMusicTestImpl implements SearchMusicTest {
+public class SearchMusicTestImpl extends AbsMusicTestCase implements SearchMusicTest {
+    private MusicProvider provider;
+    private MusicApi api;
+    private String searchQuery;
 
-    private final MusicProvider provider;
-    private final MusicApi api;
-    private final String searchQuery;
-
-    public SearchMusicTestImpl(MusicProvider provider, String searchQuery) {
-        this.provider = provider;
-        this.searchQuery = searchQuery;
-        this.api = MusicApiFactory.create(provider);
+    @Override
+    public void init(Object[] args) {
+        provider = (MusicProvider) args[0];
+        searchQuery = (String) args[1];
+        api = MusicApiFactory.create(provider);
     }
 
-    @Test
-    public void searchMusicTest() throws IOException {
+    @Override
+    public void runTest() throws IOException {
         List<? extends Song> page0 = api.searchMusicSync(searchQuery, 0, true);
         assertEquals(Constants.PAGE_SIZE, page0.size());
         List<? extends Song> page1 = api.searchMusicSync(searchQuery, 1, true);

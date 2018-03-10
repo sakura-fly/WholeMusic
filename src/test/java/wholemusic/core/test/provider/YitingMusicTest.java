@@ -1,11 +1,17 @@
 package wholemusic.core.test.provider;
 
 import wholemusic.core.api.MusicProvider;
-import wholemusic.core.test.framework.impl.SearchMusicTestImpl;
+import wholemusic.core.test.framework.MusicTestClassByProvider;
+import wholemusic.core.test.framework.SupportedTestCaseBuilder;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class YitingMusicTest extends SearchMusicTestImpl {
+public class YitingMusicTest extends MusicTestClassByProvider {
     public YitingMusicTest() {
-        super(MusicProvider.Yiting, "Beyond");
+        super(MusicProvider.Yiting);
+    }
+
+    @Override
+    protected void addSupportedTestCase(SupportedTestCaseBuilder builder) {
+        builder.iCanSearchMusicPleaseTestMeWithQuery("Beyond");
     }
 }
