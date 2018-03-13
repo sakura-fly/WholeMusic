@@ -1,6 +1,9 @@
 package wholemusic.core.test.framework;
 
 import org.junit.Test;
+import wholemusic.core.test.framework.mark.GetAlbumTest;
+import wholemusic.core.test.framework.mark.GetMusicDetailTest;
+import wholemusic.core.test.framework.mark.GetMusicLinkTest;
 import wholemusic.core.test.framework.mark.SearchMusicTest;
 
 import java.util.Map;
@@ -11,6 +14,21 @@ abstract class AbsMusicTestClass implements SearchMusicTest {
     @Test
     public void searchMusicTest() throws Exception {
         findTestImplAndRun(SearchMusicTest.class);
+    }
+
+    @Test
+    public void getMusicDetailTest() throws Exception {
+        findTestImplAndRun(GetMusicDetailTest.class);
+    }
+
+    @Test
+    public void getGetAlbumInfoTest() throws Exception {
+        findTestImplAndRun(GetAlbumTest.class);
+    }
+
+    @Test
+    public void getGetMusicLinkTest() throws Exception {
+        findTestImplAndRun(GetMusicLinkTest.class);
     }
 
     private void findTestImplAndRun(Class<?> testInterface) throws Exception {
