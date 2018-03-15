@@ -32,6 +32,7 @@ abstract class AbsMusicTestClass implements SearchMusicTest {
     }
 
     private void findTestImplAndRun(Class<?> testInterface) throws Exception {
+        boolean foundTest = false;
         Map<Class<?>, Object[]> map = getSupportedTestImplementAndArgsMap();
         for (Map.Entry<Class<?>, Object[]> item : map.entrySet()) {
             Class<?> testImplClass = item.getKey();
@@ -40,8 +41,12 @@ abstract class AbsMusicTestClass implements SearchMusicTest {
                 AbsMusicTestCase impl = (AbsMusicTestCase) testImplClass.newInstance();
                 impl.init(callArgs);
                 impl.runTest();
+                foundTest = true;
                 break;
             }
+        }
+        if (!foundTest) {
+            throw new UnsupportedOperationException("temporarily not supported test: " + testInterface.getSimpleName());
         }
     }
 }

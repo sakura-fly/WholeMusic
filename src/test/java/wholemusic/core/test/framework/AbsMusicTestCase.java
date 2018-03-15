@@ -7,4 +7,8 @@ public abstract class AbsMusicTestCase {
     public abstract void init(Object[] args);
 
     public abstract void runTest() throws Exception;
+
+    protected void println(String message) {
+        System.out.println("[" + this.getClass().getSimpleName() + "] " + message);
+    }
 }

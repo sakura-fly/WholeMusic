@@ -37,7 +37,7 @@ dependencies {
 test {
     testLogging {
         // Show that tests are run in the command-line output
-        events 'started', 'passed', "skipped", "failed"
+        events 'started', 'passed', "skipped", "failed", "standard_out", "standard_error"
         exceptionFormat = 'full'
     }
 }

@@ -34,6 +34,8 @@ public class GetMusicLinkTestImpl extends AbsMusicTestCase implements GetMusicLi
         String songId = songs.get(0).getSongId();
         MusicLink link = api.getMusicLinkByIdSync(songId);
         assertEquals(link.getSongId(), songId);
-        assertEquals(200, TestUtils.testDownload(link.getUrl()));
+        String url = link.getUrl();
+        println("url: " + url);
+        assertEquals(200, TestUtils.testDownload(url));
     }
 }
