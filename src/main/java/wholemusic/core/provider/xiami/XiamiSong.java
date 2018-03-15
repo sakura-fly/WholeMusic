@@ -39,6 +39,9 @@ public class XiamiSong extends BaseBean implements Song {
     @JSONField(name = "lyric")
     public String lyricUrl;
 
+    @JSONField(name = "singers")
+    public String singers;
+
     @Override
     public MusicLink getMusicLink() {
         XiamiSongLink link = new XiamiSongLink();
@@ -58,12 +61,21 @@ public class XiamiSong extends BaseBean implements Song {
 
     @Override
     public ArrayList<? extends Artist> getArtists() {
-        ArrayList<XiamiSinger> artist = new ArrayList<>();
-        XiamiSinger singer = new XiamiSinger();
-        singer.artistId = String.valueOf(artistId);
-        singer.artistName = artistName;
-        artist.add(singer);
-        return artist;
+        ArrayList<XiamiSinger> artists = new ArrayList<>();
+        if (singers != null) {
+            String[] singerArray = singers.split(";");
+            for (String singerName : singerArray) {
+                XiamiSinger singer = new XiamiSinger();
+                singer.artistName = singerName;
+                artists.add(singer);
+            }
+        } else {
+            XiamiSinger singer = new XiamiSinger();
+            singer.artistId = String.valueOf(artistId);
+            singer.artistName = artistName;
+            artists.add(singer);
+        }
+        return artists;
     }
 
     @Override

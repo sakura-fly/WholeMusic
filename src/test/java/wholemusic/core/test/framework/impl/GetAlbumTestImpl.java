@@ -32,6 +32,6 @@ public class GetAlbumTestImpl extends AbsMusicTestCase implements GetAlbumTest {
         Album album = api.getAlbumInfoByIdSync(albumId, false);
         assertEquals(albumId, album.getAlbumId());
         assertEquals(provider, album.getMusicProvider());
-        println("album songs: " + album.getSongs());
+        println("album: " + album);
     }
 }

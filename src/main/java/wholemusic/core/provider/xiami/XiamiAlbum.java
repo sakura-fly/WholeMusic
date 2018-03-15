@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.model.Album;
 import wholemusic.core.model.Artist;
+import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.Song;
 import wholemusic.core.util.SongUtils;
 
@@ -11,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class XiamiAlbum /*extends BaseBean*/ implements Album {
+public class XiamiAlbum extends BaseBean implements Album {
+    @JSONField(name = "artist_name")
     public String artistName;
 
-    public String artistId;
+    @JSONField(name = "artist_id")
+    public long artistId;
 
     @JSONField(name = "album_id")
     public String albumId;
@@ -22,7 +25,8 @@ public class XiamiAlbum /*extends BaseBean*/ implements Album {
     @JSONField(name = "album_name")
     public String albumName;
 
-    private List<? extends Song> songs;
+    @JSONField(name = "songs")
+    public List<XiamiSong> songs;
 
     @Override
     public String getName() {
@@ -42,7 +46,7 @@ public class XiamiAlbum /*extends BaseBean*/ implements Album {
     public List<? extends Artist> getArtists() {
         XiamiSinger artist = new XiamiSinger();
         artist.artistName = this.artistName;
-        artist.artistId = this.artistId;
+        artist.artistId = String.valueOf(this.artistId);
         ArrayList<XiamiSinger> result = new ArrayList<>();
         result.add(artist);
         return result;
@@ -65,9 +69,5 @@ public class XiamiAlbum /*extends BaseBean*/ implements Album {
     @Override
     public MusicProvider getMusicProvider() {
         return MusicProvider.Xiami;
-    }
-
-    public void setSongs(List<? extends Song> songs) {
-        this.songs = songs;
     }
 }

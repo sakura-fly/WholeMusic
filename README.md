@@ -13,7 +13,7 @@ Checklist
 |   QQ音乐  | :white_check_mark:  |      :clock1:      | :white_check_mark: |         :clock1:      |
 |  酷狗音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      |         :clock1:    |
 |  酷我音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      |         :clock1:      |
-|  虾米音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      | :white_check_mark: |
+|  虾米音乐  | :white_check_mark:  |      :clock1:      |      :white_check_mark:      | :white_check_mark: |
 |  百度音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      |        :clock1:      |
 |  一听音乐  | :white_check_mark:  | :white_check_mark: |      :clock1:      |         :clock1:          |
 |  咪咕音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      |         :clock1:          |

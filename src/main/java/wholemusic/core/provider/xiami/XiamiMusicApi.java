@@ -30,6 +30,7 @@ public class XiamiMusicApi implements MusicApi {
     }
 
     public Album getAlbumInfoByIdSync(String albumId, boolean needLink) throws IOException {
-        throw new UnsupportedOperationException();
+        XiamiAlbum album = new XiamiGetAlbumInfoRequest(albumId).requestSync();
+        return album;
     }
 }
