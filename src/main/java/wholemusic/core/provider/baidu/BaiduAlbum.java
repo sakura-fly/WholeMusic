@@ -8,6 +8,7 @@ import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.Song;
 import wholemusic.core.util.SongUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,12 +17,17 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 class BaiduAlbum extends BaseBean implements Album {
 
+    @JSONField(name = "title")
     public String name;
 
+    @JSONField(name = "album_id")
     public String id;
 
-    @JSONField(name = "artists")
-    public List<BaiduArtist> artists;
+    @JSONField(name = "author")
+    public String author;
+
+    @JSONField(name = "artist_id")
+    public String artistId;
 
     public List<BaiduSong> songs;
 
@@ -46,11 +52,12 @@ class BaiduAlbum extends BaseBean implements Album {
 
     @Override
     public List<? extends Artist> getArtists() {
+        ArrayList<BaiduArtist> artists = new ArrayList<>();
+        BaiduArtist artist = new BaiduArtist();
+        artist.id = this.artistId;
+        artist.name = this.author;
+        artists.add(artist);
         return artists;
-    }
-
-    public void setArtists(List<BaiduArtist> artists) {
-        this.artists = artists;
     }
 
     @Override

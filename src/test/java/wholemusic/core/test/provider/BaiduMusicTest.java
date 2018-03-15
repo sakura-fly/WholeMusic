@@ -12,6 +12,8 @@ public class BaiduMusicTest extends MusicTestClassByProvider {
 
     @Override
     protected void addSupportedTestCase(SupportedTestCaseBuilder builder) {
-        builder.iCanSearchMusicPleaseTestMeWithQuery("陈奕迅");
+        String query = "陈奕迅";
+        builder.iCanSearchMusicPleaseTestMeWithQuery(query);
+        builder.iCanGetAlbumInfoPleaseTestMeWithQuery(query);
     }
 }

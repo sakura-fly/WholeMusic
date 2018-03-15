@@ -64,7 +64,11 @@ class BaiduSong extends BaseBean implements Song {
     @Override
     public Album getAlbum() {
         BaiduAlbum album = new BaiduAlbum();
-        album.id = this.albumId;
+        if ("0".equals(this.albumId)) {
+            album.id = null;
+        } else {
+            album.id = this.albumId;
+        }
         album.name = getAlbumTitle();
         return album;
     }

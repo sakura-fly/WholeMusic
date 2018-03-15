@@ -10,9 +10,6 @@ import wholemusic.core.util.SongUtils;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by haohua on 2018/2/11.
- */
 @SuppressWarnings("SpellCheckingInspection")
 public class BaiduMusicApi implements MusicApi {
 
@@ -50,6 +47,7 @@ public class BaiduMusicApi implements MusicApi {
 
     @Override
     public Album getAlbumInfoByIdSync(String albumId, boolean needLink) throws IOException {
-        throw new UnsupportedOperationException();
+        BaiduAlbum album = new BaiduGetAlbumInfoRequest(albumId).requestSync();
+        return album;
     }
 }
