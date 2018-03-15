@@ -12,6 +12,8 @@ public class QQMusicTest extends MusicTestClassByProvider {
 
     @Override
     protected void addSupportedTestCase(SupportedTestCaseBuilder builder) {
-        builder.iCanSearchMusicPleaseTestMeWithQuery("孙燕姿");
+        String query = "孙燕姿";
+        builder.iCanSearchMusicPleaseTestMeWithQuery(query);
+        builder.iCanGetAlbumInfoPleaseTestMeWithQuery(query);
     }
 }

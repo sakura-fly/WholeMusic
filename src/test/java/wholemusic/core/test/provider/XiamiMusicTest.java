@@ -12,6 +12,7 @@ public class XiamiMusicTest extends MusicTestClassByProvider {
 
     @Override
     protected void addSupportedTestCase(SupportedTestCaseBuilder builder) {
-        builder.iCanSearchMusicPleaseTestMeWithQuery("五环之歌");
+        String query = "五环之歌";
+        builder.iCanSearchMusicPleaseTestMeWithQuery(query);
     }
 }

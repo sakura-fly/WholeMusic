@@ -33,7 +33,8 @@ public class YitingMusicApi implements MusicApi {
 
     @Override
     public List<? extends Song> getSongDetailInfoByIdsSync(boolean needLyric, String... musicIds) throws IOException {
-        return null;
+        List<YitingSong> details = new YitingGetMusicDetailsRequest(musicIds).requestSync();
+        return details;
     }
 
     @Override

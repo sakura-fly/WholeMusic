@@ -12,6 +12,8 @@ public class YitingMusicTest extends MusicTestClassByProvider {
 
     @Override
     protected void addSupportedTestCase(SupportedTestCaseBuilder builder) {
-        builder.iCanSearchMusicPleaseTestMeWithQuery("Beyond");
+        String query = "Beyond";
+        builder.iCanSearchMusicPleaseTestMeWithQuery(query);
+        builder.iCanGetMusicDetailPleaseTestMeWithQuery(query);
     }
 }

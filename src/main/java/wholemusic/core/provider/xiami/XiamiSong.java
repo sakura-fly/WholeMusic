@@ -8,7 +8,7 @@ import wholemusic.core.util.SongUtils;
 import java.util.ArrayList;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class XiamiSong /*extends BaseBean*/ implements Song {
+public class XiamiSong extends BaseBean implements Song {
     @JSONField(name = "song_name")
     public String name;
 
