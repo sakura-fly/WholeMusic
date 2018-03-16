@@ -10,9 +10,6 @@ import wholemusic.core.util.SongUtils;
 
 import java.util.List;
 
-/**
- * Created by haohua on 2018/2/23.
- */
 @SuppressWarnings("SpellCheckingInspection")
 class MiguAlbum extends BaseBean implements Album {
 

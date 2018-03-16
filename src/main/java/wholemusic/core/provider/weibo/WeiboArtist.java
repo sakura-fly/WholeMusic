@@ -1,15 +1,12 @@
-package wholemusic.core.provider.migu;
+package wholemusic.core.provider.weibo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.model.Artist;
 import wholemusic.core.model.BaseBean;
 
 @SuppressWarnings("SpellCheckingInspection")
-class MiguArtist extends BaseBean implements Artist {
-    @JSONField(name = "name")
+class WeiboArtist extends BaseBean implements Artist {
     public String name;
 
-    @JSONField(name = "id")
     public String id;
 
     @Override

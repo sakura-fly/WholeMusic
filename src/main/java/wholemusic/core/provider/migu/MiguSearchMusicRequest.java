@@ -13,9 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by haohua on 2018/2/23.
- */
 @SuppressWarnings("SpellCheckingInspection")
 class MiguSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     private final String mKeyword;

@@ -5,9 +5,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.MusicLink;
 
-/**
- * Created by haohua on 2018/2/9.
- */
 @SuppressWarnings("SpellCheckingInspection")
 class NeteaseSongLink extends BaseBean implements MusicLink {
 

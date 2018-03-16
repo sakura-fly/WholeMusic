@@ -1,12 +1,13 @@
-package wholemusic.core.provider.migu;
+package wholemusic.core.provider.weibo;
 
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.MusicLink;
 
 @SuppressWarnings("SpellCheckingInspection")
-class MiguSongLink extends BaseBean implements MusicLink {
+class WeiboSongLink extends BaseBean implements MusicLink {
+    public String url;
 
-    private String url;
+    public long songId;
 
     @Override
     public String getUrl() {
@@ -25,7 +26,7 @@ class MiguSongLink extends BaseBean implements MusicLink {
 
     @Override
     public String getSongId() {
-        return null;
+        return String.valueOf(songId);
     }
 
     @Override
@@ -36,9 +37,5 @@ class MiguSongLink extends BaseBean implements MusicLink {
     @Override
     public String getMd5() {
         return null;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

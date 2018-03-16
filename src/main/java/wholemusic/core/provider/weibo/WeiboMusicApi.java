@@ -1,4 +1,4 @@
-package wholemusic.core.provider.migu;
+package wholemusic.core.provider.weibo;
 
 import wholemusic.core.api.MusicApi;
 import wholemusic.core.model.Album;
@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.List;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class MiguMusicApi implements MusicApi {
+public class WeiboMusicApi implements MusicApi {
     @Override
     public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException {
-        List<? extends Song> result = new MiguSearchMusicRequest(keyword, page).requestSync();
-        return result;
+        List<? extends Song> songs = new WeiboSearchMusicRequest(keyword, page).requestSync();
+        return songs;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package wholemusic.core.provider.migu;
+package wholemusic.core.provider.weibo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.api.MusicProvider;
@@ -9,31 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("SpellCheckingInspection")
-class MiguSong extends BaseBean implements Song {
+class WeiboSong extends BaseBean implements Song {
 
-    @JSONField(name = "songName")
+    @JSONField(name = "song_name")
     public String name;
 
     @JSONField(name = "song_id")
     public long songId;
 
-    @JSONField(name = "artist")
-    public String artist;
+    @JSONField(name = "artist_name")
+    public String[] artistNames;
 
-    @JSONField(name = "cover")
+    @JSONField(name = "photo")
     public String cover;
 
-    @JSONField(name = "albumId")
-    public String albumId;
-
-    @JSONField(name = "albumName")
-    public String albumName;
-
-    @JSONField(name = "mp3")
+    @JSONField(name = "play_stream")
     public String songUrl;
-
-    @JSONField(name = "lyrics")
-    public String lyricsUrl;
 
     @Override
     public String getName() {
@@ -47,43 +38,41 @@ class MiguSong extends BaseBean implements Song {
 
     @Override
     public List<? extends Artist> getArtists() {
-        ArrayList<MiguArtist> result = new ArrayList<>();
-        String[] artistArray = artist.split(",");
-        for (String name : artistArray) {
-            MiguArtist artist = new MiguArtist();
-            artist.name = name.trim();
-            result.add(artist);
+        ArrayList<WeiboArtist> artists = new ArrayList<>();
+        for (String name : artistNames) {
+            WeiboArtist artist = new WeiboArtist();
+            artist.name = name;
+            artists.add(artist);
         }
-        return result;
+        return artists;
     }
 
     @Override
     public String getFormattedArtistsString() {
-        // TODO
         return SongUtils.getArtistsString(this);
     }
 
     @Override
     public Album getAlbum() {
-        // TODO
         return null;
     }
 
     @Override
     public MusicProvider getMusicProvider() {
-        return MusicProvider.Migu;
+        return MusicProvider.Weibo;
     }
 
     @Override
     public MusicLink getMusicLink() {
-        MiguSongLink link = new MiguSongLink();
-        link.setUrl(songUrl);
+        WeiboSongLink link = new WeiboSongLink();
+        link.songId = this.songId;
+        link.url = this.songUrl;
         return link;
     }
 
     @Override
     public String getPicUrl() {
-        return null;
+        return cover;
     }
 
     @Override

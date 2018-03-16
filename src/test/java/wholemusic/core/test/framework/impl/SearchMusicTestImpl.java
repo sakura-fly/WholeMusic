@@ -9,6 +9,7 @@ import wholemusic.core.model.Song;
 import wholemusic.core.test.framework.AbsMusicTestCase;
 import wholemusic.core.test.framework.mark.SearchMusicTest;
 import wholemusic.core.test.util.TestUtils;
+import wholemusic.core.util.TextUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,6 +39,9 @@ public class SearchMusicTestImpl extends AbsMusicTestCase implements SearchMusic
         println("page1Song0: " + page1Song0);
         String url = page1Song0.getMusicLink().getUrl();
         println("url: " + url);
+        String cover = page1Song0.getPicUrl();
+        println("cover: " + cover);
+        Assert.assertTrue(!TextUtils.isEmpty(page1Song0.getSongId()));
         Assert.assertEquals(200, TestUtils.testDownload(url));
         // test provider
         assertEquals(this.provider, page1Song0.getMusicProvider());
