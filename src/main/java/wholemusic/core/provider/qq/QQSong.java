@@ -92,7 +92,7 @@ class QQSong extends BaseBean implements Song {
 
     @Override
     public String getPicUrl() {
-        return null;
+        return "http://y.gtimg.cn/music/photo_new/T002R300x300M000" + albumMid + ".jpg";
     }
 
     @Override

@@ -5,6 +5,7 @@ import wholemusic.core.api.MusicApi;
 import wholemusic.core.api.MusicApiFactory;
 import wholemusic.core.api.MusicProvider;
 import wholemusic.core.config.Constants;
+import wholemusic.core.model.Album;
 import wholemusic.core.model.Song;
 import wholemusic.core.test.framework.AbsMusicTestCase;
 import wholemusic.core.test.framework.mark.SearchMusicTest;
@@ -40,11 +41,25 @@ public class SearchMusicTestImpl extends AbsMusicTestCase implements SearchMusic
         String url = page1Song0.getMusicLink().getUrl();
         println("url: " + url);
         String cover = page1Song0.getPicUrl();
-        println("cover: " + cover);
+        if (TextUtils.isEmpty(cover)) {
+            errPrintln("cover is empty: " + cover);
+        } else {
+            println("cover: " + cover);
+        }
         String songId = page1Song0.getSongId();
         Assert.assertTrue(!TextUtils.isEmpty(songId));
         Assert.assertTrue(!"0".equals(songId));
         Assert.assertTrue(!"1".equals(songId));
+
+        Album album = page1Song0.getAlbum();
+        if (album == null) {
+            errPrintln("warning: album is null!");
+        } else {
+            String albumName = album.getName();
+            if (TextUtils.isEmpty(albumName)) {
+                errPrintln("warning: album name is empty: " + albumName);
+            }
+        }
         Assert.assertEquals(200, TestUtils.testDownload(url));
         // test provider
         assertEquals(this.provider, page1Song0.getMusicProvider());

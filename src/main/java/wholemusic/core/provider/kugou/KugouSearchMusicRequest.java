@@ -12,9 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by haohua on 2018/2/23.
- */
 @SuppressWarnings("SpellCheckingInspection")
 class KugouSearchMusicRequest extends BaseRequest<List<KugouSong>> {
     private final String mKeyword;
@@ -45,7 +42,8 @@ class KugouSearchMusicRequest extends BaseRequest<List<KugouSong>> {
 
     @Override
     protected List<KugouSong> parseResult(Response response) throws IOException {
-        JSONObject responseJson = JSONObject.parseObject(response.body().string());
+        String data = responseBodyToString(response);
+        JSONObject responseJson = JSONObject.parseObject(data);
         JSONArray songArray = responseJson.getJSONObject("data").getJSONArray("info");
         List<KugouSong> songs = new ArrayList<>();
         if (songArray != null) {

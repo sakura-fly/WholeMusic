@@ -20,10 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by haohua on 2018/2/11.
- */
-
-/**
  * 参考: https://github.com/metowolf/NeteaseCloudMusicApi/blob/master/weapi/NeteaseMusicAPI_mini.php
  */
 class NeteaseGetAlbumInfoRequest extends BaseRequest<Album> {

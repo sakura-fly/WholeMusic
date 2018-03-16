@@ -9,14 +9,11 @@ import wholemusic.core.config.Constants;
 
 import java.io.IOException;
 
-/**
- * Created by haohua on 2018/2/23.
- */
 @SuppressWarnings("SpellCheckingInspection")
-class KugouGetMusicLinkRequest extends BaseRequest<KugouSongLink> {
+class KugouGetSongDetailRequest extends BaseRequest<KugouSong> {
     private final String mMusicHash;
 
-    public KugouGetMusicLinkRequest(String musicHash) {
+    public KugouGetSongDetailRequest(String musicHash) {
         mMusicHash = musicHash;
     }
 
@@ -36,9 +33,10 @@ class KugouGetMusicLinkRequest extends BaseRequest<KugouSongLink> {
     }
 
     @Override
-    protected KugouSongLink parseResult(Response response) throws IOException {
-        JSONObject responseJson = JSONObject.parseObject(response.body().string());
-        KugouSongLink link = responseJson.toJavaObject(KugouSongLink.class);
-        return link;
+    protected KugouSong parseResult(Response response) throws IOException {
+        String data = responseBodyToString(response);
+        JSONObject responseJson = JSONObject.parseObject(data);
+        KugouSong detail = responseJson.toJavaObject(KugouSong.class);
+        return detail;
     }
 }

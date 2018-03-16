@@ -8,22 +8,16 @@ import wholemusic.core.util.SongUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by haohua on 2018/2/23.
- */
 @SuppressWarnings("SpellCheckingInspection")
 class KugouSong extends BaseBean implements Song {
 
-    @JSONField(name = "songname")
+    @JSONField(name = "songname", alternateNames = "songName")
     public String name;
 
-    @JSONField(name = "audio_id")
-    public long songId;
-
-    @JSONField(name = "singername")
+    @JSONField(name = "singername", alternateNames = "singerName")
     public String artist;
 
-    @JSONField(name = "album_id")
+    @JSONField(name = "album_id", alternateNames = "albumid")
     public String albumId;
 
     @JSONField(name = "album_name")
@@ -32,7 +26,20 @@ class KugouSong extends BaseBean implements Song {
     @JSONField(name = "hash")
     public String songHash;
 
-    private MusicLink musicLink;
+    @JSONField(name = "imgUrl")
+    public String picUrlFormat;
+
+    @JSONField(name = "url")
+    public String songUrl;
+
+    @JSONField(name = "bitRate")
+    public long bitRate;
+
+    @JSONField(name = "fileSize")
+    public long fileSize;
+
+    @JSONField(name = "extName")
+    public String extName;
 
     @Override
     public String getName() {
@@ -41,7 +48,7 @@ class KugouSong extends BaseBean implements Song {
 
     @Override
     public String getSongId() {
-        return String.valueOf(songId);
+        return songHash;
     }
 
     @Override
@@ -73,12 +80,17 @@ class KugouSong extends BaseBean implements Song {
 
     @Override
     public MusicLink getMusicLink() {
-        return musicLink;
+        KugouSongLink link = new KugouSongLink();
+        link.url = songUrl;
+        link.bitRate = bitRate * 1000;
+        link.size = fileSize;
+        link.extName = extName;
+        return link;
     }
 
     @Override
     public String getPicUrl() {
-        return null;
+        return picUrlFormat.replace("{size}", "150");
     }
 
     @Override
@@ -87,6 +99,5 @@ class KugouSong extends BaseBean implements Song {
     }
 
     public void setMusicLink(MusicLink musicLink) {
-        this.musicLink = musicLink;
     }
 }

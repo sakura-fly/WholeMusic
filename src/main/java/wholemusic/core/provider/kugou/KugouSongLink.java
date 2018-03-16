@@ -1,26 +1,17 @@
 package wholemusic.core.provider.kugou;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import wholemusic.core.model.BaseBean;
 import wholemusic.core.model.MusicLink;
 
-/**
- * Created by haohua on 2018/2/23.
- */
 @SuppressWarnings("SpellCheckingInspection")
 class KugouSongLink extends BaseBean implements MusicLink {
+    public String url;
 
-    @JSONField(name = "url")
-    private String url;
+    public long bitRate;
 
-    @JSONField(name = "bitRate")
-    private long bitRate;
+    public String extName;
 
-    @JSONField(name = "extName")
-    private String extName;
-
-    @JSONField(name = "fileSize")
-    private long size;
+    public long size;
 
     @Override
     public String getUrl() {
@@ -50,9 +41,5 @@ class KugouSongLink extends BaseBean implements MusicLink {
     @Override
     public String getMd5() {
         return null;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

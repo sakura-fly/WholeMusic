@@ -42,7 +42,8 @@ class QQSearchMusicRequest extends BaseRequest<List<? extends Song>> {
 
     @Override
     protected List<QQSong> parseResult(Response response) throws IOException {
-        JSONObject json = JSONObject.parseObject(response.body().string());
+        String data = responseBodyToString(response);
+        JSONObject json = JSONObject.parseObject(data);
         List<QQSong> list = json.getJSONObject("data").getJSONObject("song").getJSONArray("list")
                 .toJavaList(QQSong.class);
         return list;

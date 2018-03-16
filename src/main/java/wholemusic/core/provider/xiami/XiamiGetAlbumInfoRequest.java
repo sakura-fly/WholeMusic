@@ -5,11 +5,8 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
-import wholemusic.core.config.Constants;
-import wholemusic.core.model.Song;
 
 import java.io.IOException;
-import java.util.List;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class XiamiGetAlbumInfoRequest extends BaseRequest<XiamiAlbum> {
