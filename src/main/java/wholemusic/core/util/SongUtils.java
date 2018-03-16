@@ -69,4 +69,14 @@ public class SongUtils {
             }
         }
     }
+
+    @SuppressWarnings("unused")
+    public static String getReadableBitRate(long bitRate) {
+        //noinspection SpellCheckingInspection
+        if (bitRate <= 0) {
+            return "";
+        } else {
+            return (bitRate / 1000) + "kbps";
+        }
+    }
 }

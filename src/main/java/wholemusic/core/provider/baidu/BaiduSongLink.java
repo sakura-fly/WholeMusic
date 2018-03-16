@@ -47,7 +47,7 @@ class BaiduSongLink extends BaseBean implements MusicLink {
 
     @Override
     public long getBitRate() {
-        return bitrate;
+        return bitrate * 1000;
     }
 
     @Override
