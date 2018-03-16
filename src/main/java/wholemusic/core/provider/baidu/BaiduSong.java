@@ -14,25 +14,42 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 class BaiduSong extends BaseBean implements Song {
 
-    @JSONField(name = "title")
+    @JSONField(name = "title", alternateNames = "songName")
     public String name;
 
-    @JSONField(name = "song_id")
+    @JSONField(name = "song_id", alternateNames = "songId")
     public long songId;
 
-    @JSONField(name = "author")
+    @JSONField(name = "author", alternateNames = "artistName")
     public String artist;
 
     @JSONField(name = "all_artist_id")
     public String artistIds;
 
-    @JSONField(name = "album_id")
+    @JSONField(name = "album_id", alternateNames = "albumId")
     public String albumId;
 
-    @JSONField(name = "album_title")
+    @JSONField(name = "album_title", alternateNames = "albumName")
     public String albumTitle;
 
-    private MusicLink musicLink;
+    @JSONField(name = "lrclink", alternateNames = "lrcLink")
+    public String lrcLink;
+
+    @JSONField(name = "songPicBig")
+    public String songPicBig;
+
+    @JSONField(name = "songLink")
+    public String songUrl;
+
+    @JSONField(name = "size")
+    public long size;
+
+    @JSONField(name = "rate")
+    public long bitrate;
+
+    @JSONField(name = "format")
+    public String format;
+
 
     @Override
     public String getName() {
@@ -80,21 +97,28 @@ class BaiduSong extends BaseBean implements Song {
 
     @Override
     public MusicLink getMusicLink() {
-        return musicLink;
+        BaiduSongLink link = new BaiduSongLink();
+        link.url = songUrl;
+        link.format = this.format;
+        link.size = this.size;
+        link.songId = String.valueOf(this.songId);
+        link.bitRate = this.bitrate * 1000;
+        return link;
     }
 
     @Override
     public String getPicUrl() {
-        return null;
+        return songPicBig;
     }
 
     @Override
     public Lyric getLyric() {
-        return null;
+        BaiduLyric lyric = new BaiduLyric();
+        lyric.lyricUrl = this.lrcLink;
+        return lyric;
     }
 
     public void setMusicLink(MusicLink musicLink) {
-        this.musicLink = musicLink;
     }
 
     public String getArtist() {

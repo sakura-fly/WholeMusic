@@ -14,9 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by haohua on 2018/2/23.
- */
 @SuppressWarnings("SpellCheckingInspection")
 class BaiduSearchMusicRequest extends BaseRequest<List<? extends Song>> {
     private final String mKeyword;
@@ -46,7 +43,7 @@ class BaiduSearchMusicRequest extends BaseRequest<List<? extends Song>> {
 
     @Override
     protected List<BaiduSong> parseResult(Response response) throws IOException {
-        String body = response.body().string();
+        String body = responseBodyToString(response);
         JSONObject responseJson = JSONObject.parseObject(body);
         JSONObject result = responseJson.getJSONObject("result");
         JSONObject songInfo = result.getJSONObject("song_info");

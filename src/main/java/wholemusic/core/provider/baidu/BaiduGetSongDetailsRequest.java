@@ -6,21 +6,17 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 import wholemusic.core.api.BaseRequest;
-import wholemusic.core.model.MusicLink;
 import wholemusic.core.util.TextUtils;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by haohua on 2018/2/23.
- */
 @SuppressWarnings("SpellCheckingInspection")
-class BaiduGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
+class BaiduGetSongDetailsRequest extends BaseRequest<List<BaiduSong>> {
     private final String[] mMusicIds;
 
-    public BaiduGetMusicLinksRequest(String... musicIds) {
+    public BaiduGetSongDetailsRequest(String... musicIds) {
         mMusicIds = musicIds;
     }
 
@@ -37,10 +33,11 @@ class BaiduGetMusicLinksRequest extends BaseRequest<List<? extends MusicLink>> {
     }
 
     @Override
-    protected List<BaiduSongLink> parseResult(Response response) throws IOException {
-        JSONObject responseJson = JSONObject.parseObject(response.body().string());
+    protected List<BaiduSong> parseResult(Response response) throws IOException {
+        String data = responseBodyToString(response);
+        JSONObject responseJson = JSONObject.parseObject(data);
         JSONArray jsonData = responseJson.getJSONObject("data").getJSONArray("songList");
-        List<BaiduSongLink> songLinks = jsonData.toJavaList(BaiduSongLink.class);
-        return songLinks;
+        List<BaiduSong> details = jsonData.toJavaList(BaiduSong.class);
+        return details;
     }
 }

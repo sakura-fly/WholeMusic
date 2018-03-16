@@ -4,7 +4,6 @@ import wholemusic.core.api.MusicApi;
 import wholemusic.core.model.Album;
 import wholemusic.core.model.MusicLink;
 import wholemusic.core.model.Song;
-import wholemusic.core.util.Function;
 import wholemusic.core.util.SongUtils;
 
 import java.io.IOException;
@@ -12,25 +11,13 @@ import java.util.List;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class BaiduMusicApi implements MusicApi {
-
-    private Function<String[], List<? extends MusicLink>> mGetSongLinksRequestFunction = new Function<String[],
-            List<? extends MusicLink>>() {
-        @Override
-        public List<? extends MusicLink> apply(String[] musicIds) {
-            try {
-                return new BaiduGetMusicLinksRequest(musicIds).requestSync();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    };
-
     @Override
     public List<? extends Song> searchMusicSync(String keyword, int page, boolean needLink) throws IOException {
         List<? extends Song> result = new BaiduSearchMusicRequest(keyword, page).requestSync();
         if (needLink) {
-            SongUtils.fillSongLinks(result, mGetSongLinksRequestFunction);
+            String[] songIds = SongUtils.getSongIdsFromSongList(result);
+            List<BaiduSong> details = new BaiduGetSongDetailsRequest(songIds).requestSync();
+            result = details;
         }
         return result;
     }
