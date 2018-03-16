@@ -21,9 +21,9 @@ public enum MusicProvider {
     Xiami("虾米音乐", XiamiMusicApi.class),
     Baidu("百度音乐", BaiduMusicApi.class),
     Migu("咪咕音乐", MiguMusicApi.class),
-    Weibo("微博音乐", WeiboMusicApi.class),
     Yiting("一听音乐", YitingMusicApi.class),
-    Kuwo("酷我音乐", KuwoMusicApi.class),;
+    Kuwo("酷我音乐", KuwoMusicApi.class),
+    Weibo("微博音乐", WeiboMusicApi.class),;
 
     private final Class<? extends MusicApi> musicApiClass;
     private final String providerName;

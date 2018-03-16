@@ -41,7 +41,10 @@ public class SearchMusicTestImpl extends AbsMusicTestCase implements SearchMusic
         println("url: " + url);
         String cover = page1Song0.getPicUrl();
         println("cover: " + cover);
-        Assert.assertTrue(!TextUtils.isEmpty(page1Song0.getSongId()));
+        String songId = page1Song0.getSongId();
+        Assert.assertTrue(!TextUtils.isEmpty(songId));
+        Assert.assertTrue(!"0".equals(songId));
+        Assert.assertTrue(!"1".equals(songId));
         Assert.assertEquals(200, TestUtils.testDownload(url));
         // test provider
         assertEquals(this.provider, page1Song0.getMusicProvider());

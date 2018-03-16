@@ -43,7 +43,8 @@ class MiguSearchMusicRequest extends BaseRequest<List<? extends Song>> {
 
     @Override
     protected List<MiguSong> parseResult(Response response) throws IOException {
-        JSONObject responseJson = JSONObject.parseObject(response.body().string());
+        String data = responseBodyToString(response);
+        JSONObject responseJson = JSONObject.parseObject(data);
         JSONArray songArray = responseJson.getJSONArray("musics");
         List<MiguSong> songs = new ArrayList<>();
         if (songArray != null) {

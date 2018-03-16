@@ -14,8 +14,8 @@ class MiguSong extends BaseBean implements Song {
     @JSONField(name = "songName")
     public String name;
 
-    @JSONField(name = "song_id")
-    public long songId;
+    @JSONField(name = "id")
+    public String songId;
 
     @JSONField(name = "artist")
     public String artist;
@@ -42,7 +42,7 @@ class MiguSong extends BaseBean implements Song {
 
     @Override
     public String getSongId() {
-        return String.valueOf(songId);
+        return songId;
     }
 
     @Override
@@ -59,14 +59,15 @@ class MiguSong extends BaseBean implements Song {
 
     @Override
     public String getFormattedArtistsString() {
-        // TODO
         return SongUtils.getArtistsString(this);
     }
 
     @Override
     public Album getAlbum() {
-        // TODO
-        return null;
+        MiguAlbum album = new MiguAlbum();
+        album.id = albumId;
+        album.name = albumName;
+        return album;
     }
 
     @Override
@@ -83,12 +84,14 @@ class MiguSong extends BaseBean implements Song {
 
     @Override
     public String getPicUrl() {
-        return null;
+        return cover;
     }
 
     @Override
     public Lyric getLyric() {
-        return null;
+        MiguLyric lyric = new MiguLyric();
+        lyric.lyricUrl = lyricsUrl;
+        return lyric;
     }
 
     public void setMusicLink(MusicLink musicLink) {
