@@ -7,16 +7,17 @@
 
 Checklist
 
-|            |   搜索&音乐链接    |    获取音乐详情    |    获取专辑信息    |      获取歌词      |
-| :--------: | :---------------: | :----------------: | :----------------: | :----------------: |
-| 网易云音乐 | :white_check_mark:  | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-|   QQ音乐  | :white_check_mark:  |      :clock1:      | :white_check_mark: |         :clock1:      |
-|  酷狗音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      |         :clock1:    |
-|  酷我音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      |         :clock1:      |
-|  虾米音乐  | :white_check_mark:  |      :clock1:      |      :white_check_mark:      | :white_check_mark: |
-|  百度音乐  | :white_check_mark:  |      :clock1:      |      :white_check_mark:      |        :clock1:      |
-|  一听音乐  | :white_check_mark:  | :white_check_mark: |      :clock1:      |         :clock1:          |
-|  咪咕音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      |         :clock1:          |
+|            |   搜索&音乐链接    |    获取音乐详情    |    获取专辑信息    |      封面图      | 比特率 | 歌词 |
+| :--------: | :---------------: | :----------------: | :----------------: | :----------------: | :--------: | :--------: |
+| 网易云音乐 | :white_check_mark:  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|   QQ音乐  | :white_check_mark:  |      :clock1:      | :white_check_mark: | :white_check_mark: | :clock1: | :clock1: |
+|  酷狗音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      | :white_check_mark: | :white_check_mark: | :clock1: |
+|  酷我音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      |      :clock1:      | :clock1: | :clock1: |
+|  虾米音乐  | :white_check_mark:  |      :clock1:      | :white_check_mark: | :white_check_mark: | ? | :white_check_mark: |
+|  百度音乐  | :white_check_mark:  |      :clock1:      | :white_check_mark: |     ?              | ? | :clock1: |
+|  一听音乐  | :white_check_mark:  | :white_check_mark: |      :clock1:      |       ?            | ? | :clock1: |
+|  咪咕音乐  | :white_check_mark:  |      :clock1:      |      :clock1:      | :white_check_mark: | :clock1: | :clock1: |
+| 微博音乐 | :white_check_mark:   |      :clock1:       |      :x:不支持      | :white_check_mark: |   ? | :clock1: |
 
 TODO
 
